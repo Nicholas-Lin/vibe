@@ -5,7 +5,7 @@ class SubmitButton extends React.Component {
     render() {
         return (
             <div>
-                <Button>Discover</Button>
+                <Button className="submit-button">Discover</Button>
             </div>
         );
     }
