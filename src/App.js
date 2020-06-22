@@ -7,18 +7,30 @@ import SubmitButton from './Components/SubmitButton'
 import SongDisplay from './Components/SongDisplay'
 
 
-function App() {
-  return (
-    <div className="App">
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      isLoggedIn: false
+    };
+  }
 
-      <Container>
-        <Title />
-        <SongDisplay />
-        <SubmitButton />
-      </Container>
-
-    </div>
-  );
+  render(){
+    return (
+      <div className="App">
+  
+        <Container>
+          <Title />
+          {
+            this.state.isLoggedIn?
+            <SongDisplay />:
+            <SubmitButton />
+          }          
+        </Container>
+  
+      </div>
+    );
+  }
 }
 
 export default App;
