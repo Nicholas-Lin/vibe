@@ -11,7 +11,7 @@ class ResultTable extends React.Component {
     render() {
         return (
             this.props.topTracks.map(track => 
-                <ResultItem track={track}/>
+                <ResultItem key={track.id} track={track}/>
             )
         );
     }
