@@ -1,4 +1,5 @@
 import React from "react";
+import ResultItem from "./ResultItem"
 import Button from 'react-bootstrap/Button';
 import SongInfoItem from './ResultItem';
 
@@ -8,14 +9,10 @@ class ResultTable extends React.Component {
     }
 
     render() {
-        if (!this.props.isLoggedIn) {
-            return null;
-        }
-
         return (
-            <div>
-
-            </div>
+            this.props.topTracks.map(track => 
+                <ResultItem track={track}/>
+            )
         );
     }
 }

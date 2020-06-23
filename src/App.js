@@ -57,8 +57,6 @@ class App extends React.Component {
         'Authorization': `Bearer ${this.state.token}`
       }
     }
-    console.log(customParams);
-
     axios
       .get('https://api.spotify.com/v1/me',
         customParams
@@ -69,10 +67,6 @@ class App extends React.Component {
       .catch((err) => {
         console.error(err)
       })
-
-
-
-
   };
 
   render() {
@@ -99,7 +93,7 @@ class App extends React.Component {
                       getTopTracks={this.getTopTracks}
                       token={this.token}
                     />
-                    <ResultTable />
+                    <ResultTable topTracks={this.state.topTracks}/>
                   </React.Fragment>
                 )}
               />
