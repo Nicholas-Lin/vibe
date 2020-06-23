@@ -2,11 +2,13 @@ import React from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
 
 
 import SubmitButton from './Components/SubmitButton'
 import ResultTable from './Components/ResultTable'
 import SearchBar from './Components/SearchBar'
+
 
 
 class App extends React.Component {
@@ -15,8 +17,10 @@ class App extends React.Component {
     const params = this.getHashParams();
     const token = params.access_token;
     this.state = {
-      isLoggedIn: token ? true : false
-
+      isLoggedIn: token ? true : false,
+      topTracks: [],
+      timeRange: "SHORT_TERM",
+      token: token
     };
   }
 
@@ -29,7 +33,9 @@ class App extends React.Component {
     const state = "123";
     const authorizationURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`;
     window.location.replace(authorizationURL);
-    this.setState({ isLoggedIn: true })
+    this.setState({
+      isLoggedIn: true
+    })
   }
 
 
@@ -44,6 +50,30 @@ class App extends React.Component {
     }
     return hashParams;
   }
+
+  getTopTracks = () => {
+    let customParams = {
+      headers: {
+        'Authorization': `Bearer ${this.state.token}`
+      }
+    }
+    console.log(customParams);
+
+    axios
+      .get('https://api.spotify.com/v1/me',
+        customParams
+      )
+      .then(res => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+
+
+
+
+  };
 
   render() {
     return (
@@ -65,7 +95,10 @@ class App extends React.Component {
                 path="/results"
                 render={props => (
                   <React.Fragment>
-                    <SearchBar />
+                    <SearchBar
+                      getTopTracks={this.getTopTracks}
+                      token={this.token}
+                    />
                     <ResultTable />
                   </React.Fragment>
                 )}
