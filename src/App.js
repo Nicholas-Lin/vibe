@@ -19,13 +19,12 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: token ? true : false,
       topTracks: [],
-      timeRange: "SHORT_TERM",
+      timeRange: "short_term",
       token: token
     };
   }
 
   handleLogin() {
-    console.log("HELLO");
     const clientID = "03448805c58d4c5ba555ea203c8ce771";
     const responseType = "token";
     const redirectURI = "http://localhost:3000/results";
@@ -55,24 +54,23 @@ class App extends React.Component {
     let customParams = {
       headers: {
         'Authorization': `Bearer ${this.state.token}`
+      },
+      params: {
+        'time_range': this.state.timeRange,
+        'limit': 50
       }
     }
-    console.log(customParams);
 
     axios
-      .get('https://api.spotify.com/v1/me',
+      .get('https://api.spotify.com/v1/me/top/tracks',
         customParams
       )
       .then(res => {
         console.log(res)
       })
       .catch((err) => {
-        console.error(err)
+        console.log(err)
       })
-
-
-
-
   };
 
   render() {
