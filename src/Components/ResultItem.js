@@ -1,13 +1,13 @@
 import React from "react";
 
-class Title extends React.Component {
+class ResultItem extends React.Component {
     render() {
         return (
             <div>
-                <h1>Hello World</h1>
+                <h3>This is some song info</h3>
             </div>
         );
     }
 }
 
-export default Title
+export default ResultItem

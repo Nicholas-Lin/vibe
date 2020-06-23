@@ -10,10 +10,12 @@ class SubmitButton extends React.Component {
         }
     }
     render() {
-        console.log(this.props)
+        if(this.props.isLoggedIn){
+            return null;
+        }
         return (
             <div>
-                <Button className="submit-button" onClick={() => this.handleClick()}>Discover</Button>
+                <Button className="submit-button" onClick={() => this.handleClick()}>Login with Spotify</Button>
             </div>
         );
     }

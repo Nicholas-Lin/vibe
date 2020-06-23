@@ -3,9 +3,9 @@ import './App.css';
 import Container from 'react-bootstrap/Container'
 
 
-import Title from './Components/Title'
 import SubmitButton from './Components/SubmitButton'
-import SongDisplay from './Components/SongDisplay'
+import ResultTable from './Components/ResultTable'
+import SearchBar from './Components/SearchBar'
 
 
 class App extends React.Component {
@@ -15,6 +15,7 @@ class App extends React.Component {
     const token = params.access_token;
     this.state = {
       isLoggedIn: token ? true : false
+      
     };
   }
 
@@ -23,7 +24,7 @@ class App extends React.Component {
     const clientID = "03448805c58d4c5ba555ea203c8ce771";
     const responseType = "token";
     const redirectURI = "http://localhost:3000/";
-    const scope = "user-read-private%20user-read-email"
+    const scope = "user-top-read"
     const state = "123";
     const authorizationURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`;
     window.location.replace(authorizationURL);
@@ -46,10 +47,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-
         <Container>
-          <Title />
-          <SongDisplay isLoggedIn={this.state.isLoggedIn} />
+          <header> Replay </header>
+          <SearchBar/>
+          <ResultTable isLoggedIn={this.state.isLoggedIn} />
           <SubmitButton isLoggedIn={this.state.isLoggedIn} handleLogin={() => this.handleLogin()} />
         </Container>
       </div>
