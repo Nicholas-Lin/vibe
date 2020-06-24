@@ -10,8 +10,8 @@ class ResultTable extends React.Component {
 
     render() {
         return (
-            this.props.topTracks.map(track => 
-                <ResultItem key={track.id} track={track}/>
+            this.props.topTracks.map((track, index) =>
+                <ResultItem position={index + 1} key={track.id} track={track} searchTerm={this.props.searchTerm} />
             )
         );
     }

@@ -20,7 +20,8 @@ class App extends React.Component {
       isLoggedIn: token ? true : false,
       topTracks: [],
       timeRange: "short_term",
-      token: token
+      token: token,
+      searchTerm: ""
     };
   }
 
@@ -37,10 +38,12 @@ class App extends React.Component {
     })
   }
 
-  handleClick = async (event) => {
-    const {name, value, type, checked} = event.target
+  handleChange = async (event) => {
+    const { name, value, type, checked } = event.target
     await type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
-    this.getTopTracks();
+    if (name === "timeRange") {
+      this.getTopTracks();
+    }
   }
 
   getHashParams() {
@@ -71,7 +74,7 @@ class App extends React.Component {
       )
       .then(res => {
         console.log(res.data.items);
-        this.setState({topTracks: res.data.items});
+        this.setState({ topTracks: res.data.items });
       })
       .catch((err) => {
         console.log(err)
@@ -101,9 +104,12 @@ class App extends React.Component {
                     <SearchBar
                       getTopTracks={this.getTopTracks}
                       token={this.token}
-                      handleClick={this.handleClick}
+                      handleChange={this.handleChange}
                     />
-                    <ResultTable topTracks={this.state.topTracks}/>
+                    <ResultTable
+                      topTracks={this.state.topTracks}
+                      searchTerm={this.state.searchTerm}
+                    />
                   </React.Fragment>
                 )}
               />
