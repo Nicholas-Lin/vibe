@@ -23,12 +23,9 @@ class ResultItem extends React.Component {
             return null;
         }
         return (
-            <div>
+            <div onClick={() => this.props.playTrack()}>
                 <h3>{position}. {track.name}</h3>
                 <p>{track.artists[0].name}</p>
-                <video controls name="media">
-                    <source src={previewURL} type="audio/mpeg"></source>
-                </video>
             </div>
         );
     }

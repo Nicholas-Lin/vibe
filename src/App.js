@@ -19,6 +19,7 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: token ? true : false,
       topTracks: [],
+      audioAnalysis: [],
       timeRange: "short_term",
       token: token,
       searchTerm: ""
@@ -58,7 +59,7 @@ class App extends React.Component {
     return hashParams;
   }
 
-  getTopTracks = () => {
+  getTopTracks = async () => {
     let customParams = {
       headers: {
         'Authorization': `Bearer ${this.state.token}`
@@ -68,13 +69,56 @@ class App extends React.Component {
         'limit': 50
       }
     }
-    axios
+    await axios
       .get('https://api.spotify.com/v1/me/top/tracks',
         customParams
       )
       .then(res => {
         console.log(res.data.items);
         this.setState({ topTracks: res.data.items });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    await this.analyzeTopTracks();
+  };
+
+  analyzeTopTracks = async () => {
+    let ids = [];
+    this.state.topTracks.forEach((track) => {
+      ids.push(track.id);
+    })
+
+    let customParams = {
+      headers: {
+        'Authorization': `Bearer ${this.state.token}`
+      },
+      params: {
+        'ids': ids.join()
+      }
+    }
+    await axios
+      .get('https://api.spotify.com/v1/audio-features',
+        customParams
+      )
+      .then(res => {
+        res.data.audio_features.forEach((track) => {
+          const { id, acousticness, danceability, energy, valence } = track;
+          this.setState({
+            audioAnalysis: [
+              ...this.state.audioAnalysis,
+              {
+                id: id,
+                acousticness: acousticness,
+                danceability: danceability,
+                energy: energy,
+                valence: valence
+              }
+            ]
+          })
+        })
+
+        console.log(this.state.audioAnalysis);
       })
       .catch((err) => {
         console.log(err)
