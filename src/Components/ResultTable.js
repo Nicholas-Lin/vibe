@@ -7,35 +7,38 @@ class ResultTable extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentTrackURL: "",
+
         }
     }
 
-    // playTrack(previewURL) {
-    //     if (this.state.currentTrackURL === "") {
-    //         this.setState({
-    //             currentTrackObj: new Audio(previewURL)
-    //         });
-    //         console.log(this.state.currentTrackObj);
-    //         this.state.currentTrackObj.play()
-    //     } else if (this.state.currentTrack === previewURL) {
-    //         if (!this.state.currentTrackObj.paused())
-    //             this.state.currentTrackObj.pause();
-    //         else
-    //             this.state.currentTrackObj.play();
-    //     } else {
-    //         this.state.currentTrackObj.stop();
-    //         let audio = new Audio(previewURL);
-    //         this.setState({ currentTrackObj: audio });
-    //         this.state.currentTrackObj.play()
-    //     }
-    // }
+    playTrack(previewURL) {
+        let activeTrack = document.querySelector("audio");
+        if (!activeTrack) {
+            activeTrack = new Audio(previewURL);
+            activeTrack.volume = 0.18;
+            document.getElementById("result-table").append(activeTrack)
+            activeTrack.play();
+        } else {
+            activeTrack.paused ? activeTrack.play() : activeTrack.pause();
+            if (activeTrack.src !== previewURL) {
+                activeTrack.currentTime = 0;
+                activeTrack.src = previewURL;
+                activeTrack.play();
+            }
+        }
+
+    }
 
     render() {
         return (
-            this.props.topTracks.map((track, index) =>
-                <ResultItem position={index + 1} key={track.id} track={track} searchTerm={this.props.searchTerm} playTrack={() => this.playTrack()} />
-            )
+            <div id="result-table">
+                {
+                    this.props.topTracks.map((track, index) =>
+                        <ResultItem position={index + 1} key={track.id} track={track} searchTerm={this.props.searchTerm} playTrack={this.playTrack} />
+                    )
+                }
+            </div>
+
         );
     }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import "../track.css"
 
 class ResultItem extends React.Component {
     constructor(props) {
@@ -7,10 +8,15 @@ class ResultItem extends React.Component {
 
 
 
+    handleClick(previewURL) {
+        console.log(previewURL)
+        this.props.playTrack(previewURL)
+    }
+
     render() {
 
         const { position, track, searchTerm } = this.props;
-        const albumImgURL = track.album.images[0];
+        const albumImgURL = track.album.images[0].url;
         const previewURL = track.preview_url;
 
         // Track name does not contain the search term
@@ -22,10 +28,20 @@ class ResultItem extends React.Component {
         if (termNotInArtist && termNotInName) {
             return null;
         }
+
+
         return (
-            <div onClick={() => this.props.playTrack()}>
-                <h3>{position}. {track.name}</h3>
-                <p>{track.artists[0].name}</p>
+            <div onClick={() => this.handleClick(previewURL)}>
+                <a className="track-history-item">
+                    <span className="order-number">{position}</span>
+                    <span className="track-info">
+                        <span className="track-cover" style={{ backgroundImage: `url(${albumImgURL})` }}></span>
+                        <span className="track-summary">
+                            <span className="track-artist">{track.artists[0].name}</span>
+                            <span className="track-name">{track.name}</span>
+                        </span>
+                    </span>
+                </a>
             </div>
         );
     }
