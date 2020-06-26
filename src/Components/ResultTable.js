@@ -6,16 +6,13 @@ import SongInfoItem from './ResultItem';
 class ResultTable extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-
-        }
     }
 
     playTrack(previewURL) {
         let activeTrack = document.querySelector("audio");
         if (!activeTrack) {
             activeTrack = new Audio(previewURL);
-            activeTrack.volume = 0.18;
+            activeTrack.volume = 0.25;
             document.getElementById("result-table").append(activeTrack)
             activeTrack.play();
         } else {

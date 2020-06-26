@@ -8,6 +8,7 @@ import axios from 'axios';
 import SubmitButton from './Components/SubmitButton'
 import ResultTable from './Components/ResultTable'
 import SearchBar from './Components/SearchBar'
+import Dashboard from './Components/Dashboard'
 
 
 
@@ -145,9 +146,11 @@ class App extends React.Component {
                 path="/results"
                 render={props => (
                   <React.Fragment>
-                    <SearchBar
+                    <Dashboard
                       getTopTracks={this.getTopTracks}
-                      token={this.token}
+                      handleChange={this.handleChange}
+                    />
+                    <SearchBar
                       handleChange={this.handleChange}
                     />
                     <ResultTable
