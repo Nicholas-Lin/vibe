@@ -1,0 +1,39 @@
+import React from "react";
+import Chart from "chart.js";
+
+class LineGraph extends React.Component {
+
+    componentDidMount() {
+        var ctx = document.getElementById(this.props.chartID).getContext('2d');
+        Chart.defaults.global.defaultFontColor = 'white';
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: this.props.data,
+            options: {
+                title: {
+                    display: true,
+                    text: this.props.title
+                },
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: false, // Add to prevent default behaviour of full-
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <canvas id={this.props.chartID} width="400" height="400"></canvas>
+            </div>
+        )
+    }
+}
+
+export default LineGraph

@@ -31,7 +31,7 @@ class App extends React.Component {
     const clientID = "03448805c58d4c5ba555ea203c8ce771";
     const responseType = "token";
     const redirectURI = "http://localhost:3000/results";
-    const scope = "user-top-read"
+    const scope = "playlist-read-private%20user-top-read"
     const state = "123";
     const authorizationURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`;
     window.location.replace(authorizationURL);
