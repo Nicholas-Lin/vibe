@@ -21,6 +21,7 @@ class App extends React.Component {
       isLoggedIn: token ? true : false,
       topTracks: [],
       topArtists: [],
+      data: [],
       audioAnalysis: [],
       timeRange: "short_term",
       token: token,
@@ -62,6 +63,43 @@ class App extends React.Component {
     return hashParams;
   }
 
+  getTopPlaylists = () => {
+    axios
+      .get('	https://api.spotify.com/v1/search',
+        {
+          headers: {
+            'Authorization': `Bearer ${this.state.token}`
+          },
+          params: {
+            'q': "Your%20Top%20Songs",
+            'type': 'playlist',
+            'limit': '10'
+          }
+        }
+      )
+      .then(res => {
+        res.data.playlists.items.forEach((item) => {
+          // If search result is a top track playlist
+          if (item.name.length === 19 && Date.parse(item.name) && item.owner.display_name === "Spotify") {
+            axios
+              .get(`https://api.spotify.com/v1/playlists/${item.id}`,
+                {
+                  headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                  },
+                  params: {
+                  }
+                }
+              )
+          }
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  };
+
+
   getTopArtists = async () => {
     let customParams = {
       headers: {
@@ -77,7 +115,6 @@ class App extends React.Component {
         customParams
       )
       .then(res => {
-        console.log(res.data.items);
         this.setState({ topArtists: res.data.items });
       })
       .catch((err) => {
@@ -100,7 +137,6 @@ class App extends React.Component {
         customParams
       )
       .then(res => {
-        console.log(res.data.items);
         this.setState({ topTracks: res.data.items });
       })
       .catch((err) => {
@@ -143,8 +179,6 @@ class App extends React.Component {
             ]
           })
         })
-
-        console.log(this.state.audioAnalysis);
       })
       .catch((err) => {
         console.log(err)
@@ -152,8 +186,9 @@ class App extends React.Component {
   };
 
   getData = () => {
-    this.getTopArtists()
-    this.getTopTracks()
+    this.getTopPlaylists();
+    this.getTopArtists();
+    this.getTopTracks();
   };
 
   render() {
@@ -184,7 +219,7 @@ class App extends React.Component {
                       handleChange={this.handleChange}
                     />
                     <ResultTable
-                      topType = {this.state.topType}
+                      topType={this.state.topType}
                       topTracks={this.state.topTracks}
                       topArtists={this.state.topArtists}
                       searchTerm={this.state.searchTerm}
