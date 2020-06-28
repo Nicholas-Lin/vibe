@@ -15,6 +15,10 @@ class SearchBar extends React.Component {
                     <Button name="timeRange" value="medium_term" className="btn btn-secondary" onClick={(e) => this.props.handleChange(e)}>Last 6 Months</Button>
                     <Button name="timeRange" value="short_term" className="btn btn-secondary" onClick={(e) => this.props.handleChange(e)}>Last Month</Button>
                 </div>
+                <div className="btn-group" role="group" aria-label="Basic example">
+                    <Button name="topType" value="tracks" className="btn btn-secondary" onClick={(e) => this.props.handleChange(e)}>Tracks</Button>
+                    <Button name="topType" value="artists" className="btn btn-secondary" onClick={(e) => this.props.handleChange(e)}>Artists</Button>
+                </div>
             </div>
         );
     }

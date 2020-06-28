@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 class Dashboard extends React.Component {
 
     componentDidMount() {
-        this.props.getTopTracks();
+        this.props.getData();
     }
     render() {
         const valenceData = {

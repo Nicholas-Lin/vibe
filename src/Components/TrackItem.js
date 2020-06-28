@@ -1,20 +1,13 @@
 import React from "react";
 import "../track.css"
 
-class ResultItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-
+class TrackItem extends React.Component {
 
     handleClick(previewURL) {
-        console.log(previewURL)
         this.props.playTrack(previewURL)
     }
 
     render() {
-
         const { position, track, searchTerm } = this.props;
         const albumImgURL = track.album.images[0].url;
         const previewURL = track.preview_url;
@@ -28,7 +21,6 @@ class ResultItem extends React.Component {
         if (termNotInArtist && termNotInName) {
             return null;
         }
-
 
         return (
             <div onClick={() => this.handleClick(previewURL)}>
@@ -47,4 +39,4 @@ class ResultItem extends React.Component {
     }
 }
 
-export default ResultItem
+export default TrackItem

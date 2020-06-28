@@ -1,11 +1,8 @@
 import React from "react";
-import ResultItem from "./ResultItem"
+import TrackItem from "./TrackItem"
+import ArtistItem from "./ArtistItem"
 
 class ResultTable extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     playTrack(previewURL) {
         let activeTrack = document.querySelector("audio");
         if (!activeTrack) {
@@ -28,8 +25,17 @@ class ResultTable extends React.Component {
         return (
             <div id="result-table">
                 {
-                    this.props.topTracks.map((track, index) =>
-                        <ResultItem position={index + 1} key={track.id} track={track} searchTerm={this.props.searchTerm} playTrack={this.playTrack} />
+                    this.props.topType === "tracks" ? 
+                    (
+                        this.props.topTracks.map((track, index) =>
+                        <TrackItem position={index + 1} key={track.id} track={track} searchTerm={this.props.searchTerm} playTrack={this.playTrack} />
+                    )
+                    )
+                    :
+                    (
+                        this.props.topArtists.map((artist, index) =>
+                        <ArtistItem position={index + 1} key={artist.id} artist={artist} searchTerm={this.props.searchTerm}/>
+                    )
                     )
                 }
             </div>

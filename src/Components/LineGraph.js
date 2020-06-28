@@ -4,9 +4,9 @@ import Chart from "chart.js";
 class LineGraph extends React.Component {
 
     componentDidMount() {
-        var ctx = document.getElementById(this.props.chartID).getContext('2d');
+        const ctx = document.getElementById(this.props.chartID).getContext('2d');
         Chart.defaults.global.defaultFontColor = 'white';
-        var myChart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'line',
             data: this.props.data,
             options: {

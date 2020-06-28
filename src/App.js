@@ -20,10 +20,12 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: token ? true : false,
       topTracks: [],
+      topArtists: [],
       audioAnalysis: [],
       timeRange: "short_term",
       token: token,
-      searchTerm: ""
+      searchTerm: "",
+      topType: "tracks"
     };
   }
 
@@ -44,7 +46,7 @@ class App extends React.Component {
     const { name, value, type, checked } = event.target
     await type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
     if (name === "timeRange") {
-      this.getTopTracks();
+      this.getData();
     }
   }
 
@@ -59,6 +61,29 @@ class App extends React.Component {
     }
     return hashParams;
   }
+
+  getTopArtists = async () => {
+    let customParams = {
+      headers: {
+        'Authorization': `Bearer ${this.state.token}`
+      },
+      params: {
+        'time_range': this.state.timeRange,
+        'limit': 50
+      }
+    }
+    await axios
+      .get('https://api.spotify.com/v1/me/top/artists',
+        customParams
+      )
+      .then(res => {
+        console.log(res.data.items);
+        this.setState({ topArtists: res.data.items });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  };
 
   getTopTracks = async () => {
     let customParams = {
@@ -126,6 +151,11 @@ class App extends React.Component {
       })
   };
 
+  getData = () => {
+    this.getTopArtists()
+    this.getTopTracks()
+  };
+
   render() {
     return (
       <Router>
@@ -147,14 +177,16 @@ class App extends React.Component {
                 render={props => (
                   <React.Fragment>
                     <Dashboard
-                      getTopTracks={this.getTopTracks}
+                      getData={this.getData}
                       handleChange={this.handleChange}
                     />
                     <SearchBar
                       handleChange={this.handleChange}
                     />
                     <ResultTable
+                      topType = {this.state.topType}
                       topTracks={this.state.topTracks}
+                      topArtists={this.state.topArtists}
                       searchTerm={this.state.searchTerm}
                     />
                   </React.Fragment>
