@@ -21,7 +21,6 @@ class App extends React.Component {
       isLoggedIn: token ? true : false,
       topTracks: [],
       topArtists: [],
-      data: [],
       audioAnalysis: [],
       timeRange: "short_term",
       token: token,
@@ -47,7 +46,7 @@ class App extends React.Component {
     const { name, value, type, checked } = event.target
     await type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
     if (name === "timeRange") {
-      this.getData();
+      this.refreshData();
     }
   }
 
@@ -62,42 +61,6 @@ class App extends React.Component {
     }
     return hashParams;
   }
-
-  getTopPlaylists = () => {
-    axios
-      .get('	https://api.spotify.com/v1/search',
-        {
-          headers: {
-            'Authorization': `Bearer ${this.state.token}`
-          },
-          params: {
-            'q': "Your%20Top%20Songs",
-            'type': 'playlist',
-            'limit': '10'
-          }
-        }
-      )
-      .then(res => {
-        res.data.playlists.items.forEach((item) => {
-          // If search result is a top track playlist
-          if (item.name.length === 19 && Date.parse(item.name) && item.owner.display_name === "Spotify") {
-            axios
-              .get(`https://api.spotify.com/v1/playlists/${item.id}`,
-                {
-                  headers: {
-                    'Authorization': `Bearer ${this.state.token}`
-                  },
-                  params: {
-                  }
-                }
-              )
-          }
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  };
 
 
   getTopArtists = async () => {
@@ -185,13 +148,18 @@ class App extends React.Component {
       })
   };
 
-  getData = () => {
-    this.getTopPlaylists();
+  refreshData = () => {
+    this.getTopArtists();
+    this.getTopTracks();
+  }
+
+  initializeData = () => {
     this.getTopArtists();
     this.getTopTracks();
   };
 
   render() {
+    
     return (
       <Router>
         <div className="App">
@@ -212,11 +180,13 @@ class App extends React.Component {
                 render={props => (
                   <React.Fragment>
                     <Dashboard
-                      getData={this.getData}
                       handleChange={this.handleChange}
+                      initializeData = {this.initializeData}
+                      token = {this.state.token}
                     />
                     <SearchBar
                       handleChange={this.handleChange}
+                      initializeData = {this.initializeData}
                     />
                     <ResultTable
                       topType={this.state.topType}

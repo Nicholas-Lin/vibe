@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 
 
 class SearchBar extends React.Component {
+    componentDidMount(){
+        this.props.initializeData();
+    }
     render() {
         if (this.props.isLoggedIn) {
             return null;
