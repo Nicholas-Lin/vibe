@@ -1,5 +1,5 @@
 import React from "react";
-import LineGraph from "./LineGraph"
+import LineChart from "./LineChart"
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
         this.state = {
             token: this.props.token,
             data: [],
-            features: []
+            features: [],
         }
     }
 
@@ -21,8 +21,8 @@ class Dashboard extends React.Component {
         this.getTopPlaylists();
     }
 
-    getTopPlaylists() {
-        axios
+    getTopPlaylists = async () => {
+        let res = await axios
             .get('	https://api.spotify.com/v1/search',
                 {
                     headers: {
@@ -35,56 +35,40 @@ class Dashboard extends React.Component {
                     }
                 }
             )
-            .then((res) => {
-                let playlistRequests = [];
-                res.data.playlists.items.forEach((item) => {
-                    // If search result is a top track playlist     
-                    if (item.name.length === 19 && Date.parse(item.name) && item.owner.display_name === "Spotify") {
-                        const request = axios
-                            .get(`https://api.spotify.com/v1/playlists/${item.id}`,
-                                {
-                                    headers: {
-                                        'Authorization': `Bearer ${this.state.token}`
-                                    },
-                                    params: {
-                                        'fields': 'name,tracks.items(track)'
-                                    }
-                                }
-                            )
-                        playlistRequests.push(request);
-                    }
-                })
-                axios
-                    .all(playlistRequests)
-                    .then(
-                        axios.spread((...responses) => {
-                            responses.forEach((response) => {
-                                const year = response.data.name.split(" ").pop();
-                                const playlist = {
-                                    year: year,
-                                    tracks: response.data.tracks.items,
-                                    features: {
-                                        acousticness: "",
-                                        danceability: "",
-                                        energy: "",
-                                        valence: ""
-                                    }
-                                };
-                                this.setState({
-                                    data: [
-                                        ...this.state.data,
-                                        playlist
-                                    ]
-                                })
-                                this.getTrackFeatures(year, playlist.tracks)
-                            })
 
-                        })
+        let playlistRequests = [];
+        await Promise.all(res.data.playlists.items.map(async (item) => {
+            // If search result is a top track playlist     
+            if (item.name.length === 19 && Date.parse(item.name) && item.owner.display_name === "Spotify") {
+                let response = await axios
+                    .get(`https://api.spotify.com/v1/playlists/${item.id}`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${this.state.token}`
+                            },
+                            params: {
+                                'fields': 'name,tracks.items(track)'
+                            }
+                        }
                     )
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                const year = response.data.name.split(" ").pop();
+                const playlist = {
+                    year: year,
+                    tracks: response.data.tracks.items,
+                };
+                this.setState({
+                    data: [
+                        ...this.state.data,
+                        playlist
+                    ]
+                })
+                const playlistFeatures = await this.getTrackFeatures(playlist.tracks);
+                this.computeFeatures(year, playlistFeatures);
+            }
+        }));
+        this.createGraphData();
+        console.log(this.state.features);
+        console.log(this.state.data)
     }
 
     computeFeatures(year, playlistFeatures) {
@@ -104,7 +88,6 @@ class Dashboard extends React.Component {
         for (let key in averageFeatures) {
             averageFeatures[key] /= playlistFeatures.length;
         }
-        console.log(averageFeatures);
         this.setState({
             features: [
                 ...this.state.features,
@@ -116,16 +99,30 @@ class Dashboard extends React.Component {
         })
     }
 
-    createGraphs() {
+    createGraphData() {
+        let graphData = {
+            acousticness: [],
+            danceability: [],
+            energy: [],
+            valence: []
+        }
+        let sortedByYearFeatures = [].concat(this.state.features)
+            .sort((a, b) => a.year.localeCompare(b.year));
 
+        sortedByYearFeatures.forEach((year) => {
+            for (let key in year.averages) {
+                graphData[key].push(year.averages[key]);
+            }
+        })
+        this.setState({ graphData: graphData });
     }
 
-    getTrackFeatures(year, tracks) {
+    async getTrackFeatures(tracks) {
         let ids = [];
         tracks.forEach((item) => {
             ids.push(item.track.id);
         })
-        axios
+        let res = await axios
             .get('https://api.spotify.com/v1/audio-features',
                 {
                     headers: {
@@ -136,39 +133,33 @@ class Dashboard extends React.Component {
                     }
                 }
             )
-            .then(res => {
-                let results = []
-                res.data.audio_features.forEach((track) => {
-                    const { id, acousticness, danceability, energy, valence } = track;
-                    results.push(
-                        {
-                            id: id,
-                            acousticness: acousticness,
-                            danceability: danceability,
-                            energy: energy,
-                            valence: valence
-                        }
-                    )
-                })
-                this.computeFeatures(year, results);
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        let results = []
+        res.data.audio_features.forEach((track) => {
+            const { id, acousticness, danceability, energy, valence } = track;
+            results.push(
+                {
+                    id: id,
+                    acousticness: acousticness,
+                    danceability: danceability,
+                    energy: energy,
+                    valence: valence
+                }
+            )
+        })
+        return results;
     }
 
 
     render() {
         const valenceData = {
-            labels: ['2017', '2018', '2019', '2020'],
+            labels: ['2021', '2018', '2019', '2020'],
             datasets: [{
                 label: 'Your Valence',
-                data: [0.3, 0.5, 0.6, 0.7],
+                data: [0.2, 0.7, 0.5, 0.8],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 fill: false,
                 borderWidth: 2
-
             },
             {
                 label: 'Average Valence',
@@ -184,12 +175,11 @@ class Dashboard extends React.Component {
             labels: ['2017', '2018', '2019', '2020'],
             datasets: [{
                 label: 'Your Danceability',
-                data: [0.3, 0.5, 0.6, 0.7],
+                data: [0.2, 0.7, 0.5, 0.8],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 fill: false,
                 borderWidth: 2
-
             },
             {
                 label: 'Average Danceability',
@@ -206,18 +196,18 @@ class Dashboard extends React.Component {
                 <Container fluid>
                     <Row>
                         <Col>
-                            <LineGraph chartID="valence-chart" title="Valence" data={valenceData} />
+                            <LineChart chartID="valence-chart" title="Valence" data={valenceData} />
                         </Col>
                         <Col>
-                            <LineGraph chartID="danceability-chart" title="Danceability" data={danceabilityData} />
+                            <LineChart chartID="danceability-chart" title="Danceability" data={danceabilityData} />
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <LineGraph chartID="valence-chart2" title="Valence" data={valenceData} />
+                            <LineChart chartID="valence-chart2" title="Valence" data={valenceData} />
                         </Col>
                         <Col>
-                            <LineGraph chartID="danceability-chart2" title="Danceability" data={danceabilityData} />
+                            <LineChart chartID="danceability-chart2" title="Danceability" data={danceabilityData} />
                         </Col>
                     </Row>
                 </Container>

@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "chart.js";
 
-class LineGraph extends React.Component {
+class LineChart extends React.Component {
 
     componentDidMount() {
         const ctx = document.getElementById(this.props.chartID).getContext('2d');
@@ -17,6 +17,12 @@ class LineGraph extends React.Component {
                 responsive: true, // Instruct chart js to respond nicely.
                 maintainAspectRatio: false, // Add to prevent default behaviour of full-
                 scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'year'
+                        }
+                    }],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
@@ -36,4 +42,4 @@ class LineGraph extends React.Component {
     }
 }
 
-export default LineGraph
+export default LineChart
