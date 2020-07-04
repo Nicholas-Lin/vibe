@@ -14,6 +14,7 @@ class Dashboard extends React.Component {
             token: this.props.token,
             data: [],
             features: [],
+            isLoading: true
         }
     }
 
@@ -70,6 +71,37 @@ class Dashboard extends React.Component {
         console.log(this.state.features);
         console.log(this.state.data)
     }
+    async getTrackFeatures(tracks) {
+        let ids = [];
+        tracks.forEach((item) => {
+            ids.push(item.track.id);
+        })
+        let res = await axios
+            .get('https://api.spotify.com/v1/audio-features',
+                {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.token}`
+                    },
+                    params: {
+                        'ids': ids.join()
+                    }
+                }
+            )
+        let results = []
+        res.data.audio_features.forEach((track) => {
+            const { id, acousticness, danceability, energy, valence } = track;
+            results.push(
+                {
+                    id: id,
+                    acousticness: acousticness,
+                    danceability: danceability,
+                    energy: energy,
+                    valence: valence
+                }
+            )
+        })
+        return results;
+    }
 
     computeFeatures(year, playlistFeatures) {
         let averageFeatures = {
@@ -114,63 +146,27 @@ class Dashboard extends React.Component {
                 graphData[key].push(year.averages[key]);
             }
         })
-        this.setState({ graphData: graphData });
-    }
-
-    async getTrackFeatures(tracks) {
-        let ids = [];
-        tracks.forEach((item) => {
-            ids.push(item.track.id);
-        })
-        let res = await axios
-            .get('https://api.spotify.com/v1/audio-features',
+        let formattedData = []
+        for (const feature in graphData) {
+            const averageDataset = [0.1, 0.3, 0.4, 0.5]
+            formattedData.push({
+                labels: sortedByYearFeatures.map((playlist) => playlist.year),
+                datasets: [{
+                    data: graphData[feature],
+                    label: "You",
+                    borderColor: "red"
+                },
                 {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.token}`
-                    },
-                    params: {
-                        'ids': ids.join()
-                    }
-                }
-            )
-        let results = []
-        res.data.audio_features.forEach((track) => {
-            const { id, acousticness, danceability, energy, valence } = track;
-            results.push(
-                {
-                    id: id,
-                    acousticness: acousticness,
-                    danceability: danceability,
-                    energy: energy,
-                    valence: valence
-                }
-            )
-        })
-        return results;
-    }
+                    data: averageDataset,
+                    label: "Average",
+                    borderColor: "green"
+                }]
+            })
 
-
-    render() {
-        const valenceData = {
-            labels: ['2021', '2018', '2019', '2020'],
-            datasets: [{
-                label: 'Your Valence',
-                data: [0.2, 0.7, 0.5, 0.8],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                fill: false,
-                borderWidth: 2
-            },
-            {
-                label: 'Average Valence',
-                data: [0.2, 0.7, 0.5, 0.8],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                borderWidth: 2
-            }
-            ]
         }
+        this.setState({ formattedData: formattedData, isLoading: false });
+    }
+    render() {
         const danceabilityData = {
             labels: ['2017', '2018', '2019', '2020'],
             datasets: [{
@@ -192,28 +188,31 @@ class Dashboard extends React.Component {
             ]
         }
         return (
-            <div>
-                <Container fluid>
-                    <Row>
-                        <Col>
-                            <LineChart chartID="valence-chart" title="Valence" data={valenceData} />
-                        </Col>
-                        <Col>
-                            <LineChart chartID="danceability-chart" title="Danceability" data={danceabilityData} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <LineChart chartID="valence-chart2" title="Valence" data={valenceData} />
-                        </Col>
-                        <Col>
-                            <LineChart chartID="danceability-chart2" title="Danceability" data={danceabilityData} />
-                        </Col>
-                    </Row>
-                </Container>
+            this.state.isLoading ?
+                null :
+                <div>
+                    <Container fluid>
+                        <Row>
+                            <Col>
+                                <LineChart title="Acousticness" data={this.state.formattedData[0]} />
+                            </Col>
+                            <Col>
+                                <LineChart title="Danceability" data={this.state.formattedData[1]} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <LineChart title="Energy" data={this.state.formattedData[2]} />
+                            </Col>
+                            <Col>
+                                <LineChart title="Valence" data={this.state.formattedData[3]} />
+                            </Col>
+                        </Row>
+
+                    </Container>
 
 
-            </div>
+                </div>
         )
     }
 }

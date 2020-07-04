@@ -1,33 +1,37 @@
 import React from "react";
 import Chart from "chart.js";
 
+Chart.defaults.global.defaultFontColor = 'white';
+Chart.defaults.global.defaultColor = 'white';
+Chart.defaults.scale.gridLines.color = 'grey';
+
 class LineChart extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.chartRef = React.createRef();
+
+    }
     componentDidMount() {
-        const ctx = document.getElementById(this.props.chartID).getContext('2d');
-        Chart.defaults.global.defaultFontColor = 'white';
-        new Chart(ctx, {
+        new Chart(this.chartRef.current, {
             type: 'line',
-            data: this.props.data,
+            data: {
+                labels: this.props.data.labels,
+                datasets:
+                    this.props.data.datasets.map((dataset) => {
+                        return {
+                            data: dataset.data,
+                            label: dataset.label,
+                            borderColor: dataset.borderColor,
+                            fill: false,
+                            borderWidth: 2
+                        }
+                    })
+            },
             options: {
                 title: {
                     display: true,
                     text: this.props.title
-                },
-                responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: false, // Add to prevent default behaviour of full-
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            unit: 'year'
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
                 }
             }
         });
@@ -36,7 +40,7 @@ class LineChart extends React.Component {
     render() {
         return (
             <div>
-                <canvas id={this.props.chartID} width="400" height="400"></canvas>
+                <canvas ref={this.chartRef} width="400" height="400" />
             </div>
         )
     }
