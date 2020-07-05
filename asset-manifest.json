@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/vibe/static/css/main.42a91b0e.chunk.css",
-    "main.js": "/vibe/static/js/main.03ae36f9.chunk.js",
-    "main.js.map": "/vibe/static/js/main.03ae36f9.chunk.js.map",
+    "main.js": "/vibe/static/js/main.8a83e515.chunk.js",
+    "main.js.map": "/vibe/static/js/main.8a83e515.chunk.js.map",
     "runtime-main.js": "/vibe/static/js/runtime-main.90880e69.js",
     "runtime-main.js.map": "/vibe/static/js/runtime-main.90880e69.js.map",
     "static/css/2.af3c1da9.chunk.css": "/vibe/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.47e00e0c.chunk.js": "/vibe/static/js/2.47e00e0c.chunk.js",
-    "static/js/2.47e00e0c.chunk.js.map": "/vibe/static/js/2.47e00e0c.chunk.js.map",
+    "static/js/2.df6fa608.chunk.js": "/vibe/static/js/2.df6fa608.chunk.js",
+    "static/js/2.df6fa608.chunk.js.map": "/vibe/static/js/2.df6fa608.chunk.js.map",
     "index.html": "/vibe/index.html",
-    "precache-manifest.bce33bdbcac69615199f85cf878f6bba.js": "/vibe/precache-manifest.bce33bdbcac69615199f85cf878f6bba.js",
+    "precache-manifest.b9ba2c4ae44d83390ea782525bfd92ad.js": "/vibe/precache-manifest.b9ba2c4ae44d83390ea782525bfd92ad.js",
     "service-worker.js": "/vibe/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/vibe/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.42a91b0e.chunk.css.map": "/vibe/static/css/main.42a91b0e.chunk.css.map",
-    "static/js/2.47e00e0c.chunk.js.LICENSE.txt": "/vibe/static/js/2.47e00e0c.chunk.js.LICENSE.txt"
+    "static/js/2.df6fa608.chunk.js.LICENSE.txt": "/vibe/static/js/2.df6fa608.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.90880e69.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.47e00e0c.chunk.js",
+    "static/js/2.df6fa608.chunk.js",
     "static/css/main.42a91b0e.chunk.css",
-    "static/js/main.03ae36f9.chunk.js"
+    "static/js/main.8a83e515.chunk.js"
   ]
 }
