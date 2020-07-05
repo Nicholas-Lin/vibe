@@ -11,9 +11,27 @@ header {
   font-size: 80px;
 }
 .submit-button {
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   border-radius: 50px;
   font-size: 30px;
+  padding: 15px 20px;
+}
+
+a {
+  color: rgb(24, 167, 74);
+}
+
+.login {
+  height: 100vh;
+}
+
+.login h6 {
+  color: grey;
+  font-weight: lighter;
+}
+
+.login header {
+  font-size: 120px;
 }
 
 .song-display {

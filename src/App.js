@@ -1,10 +1,13 @@
 import React from "react";
 import "./App.css";
+import hash from "./hash";
+import { loginURL } from "./config";
 import Container from "react-bootstrap/Container";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import axios from "axios";
 
-import SubmitButton from "./Components/SubmitButton";
+import Login from "./Views/Login";
 import ResultTable from "./Components/ResultTable";
 import SearchBar from "./Components/SearchBar";
 import Dashboard from "./Components/Dashboard";
@@ -12,28 +15,33 @@ import Dashboard from "./Components/Dashboard";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const params = this.getHashParams();
-    const token = params.access_token;
+
     this.state = {
-      isLoggedIn: token ? true : false,
+      isLoggedIn: false,
+      token: null,
       topTracks: [],
       topArtists: [],
       audioAnalysis: [],
       timeRange: "short_term",
-      token: token,
       searchTerm: "",
       topType: "tracks",
     };
   }
 
+  componentDidMount() {
+    let _token = hash.access_token;
+
+    if (_token) {
+      // Set token
+      this.setState({
+        token: _token,
+      });
+    }
+  }
+
   handleLogin() {
-    const clientID = "03448805c58d4c5ba555ea203c8ce771";
-    const responseType = "token";
-    const redirectURI = "http://localhost:3000/results";
-    const scope = "playlist-read-private%20user-top-read";
-    const state = "123";
-    const authorizationURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=${state}`;
-    window.location.replace(authorizationURL);
+    console.log(loginURL);
+    window.location.replace(loginURL);
     this.setState({
       isLoggedIn: true,
     });
@@ -48,19 +56,6 @@ class App extends React.Component {
       this.refreshData();
     }
   };
-
-  getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
-  }
 
   getTopArtists = async () => {
     let customParams = {
@@ -152,50 +147,38 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Container>
-            <header> Replay </header>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <SubmitButton
-                    isLoggedIn={this.state.isLoggedIn}
-                    handleLogin={() => this.handleLogin()}
-                  />
-                )}
+      <div className="App">
+        {!this.state.token && (
+          <Login
+            isLoggedIn={this.state.isLoggedIn}
+            handleLogin={() => this.handleLogin()}
+          />
+        )}
+        {this.state.token && (
+          <React.Fragment>
+            <Container>
+              <header> Your Vibe </header>
+              <Dashboard
+                handleChange={this.handleChange}
+                initializeData={this.initializeData}
+                token={this.state.token}
               />
-
-              <Route
-                path="/results"
-                render={(props) => (
-                  <React.Fragment>
-                    <Dashboard
-                      handleChange={this.handleChange}
-                      initializeData={this.initializeData}
-                      token={this.state.token}
-                    />
-                    <SearchBar
-                      handleChange={this.handleChange}
-                      timeRange={this.state.timeRange}
-                      topType={this.state.topType}
-                      initializeData={this.initializeData}
-                    />
-                    <ResultTable
-                      topType={this.state.topType}
-                      topTracks={this.state.topTracks}
-                      topArtists={this.state.topArtists}
-                      searchTerm={this.state.searchTerm}
-                    />
-                  </React.Fragment>
-                )}
+              <SearchBar
+                handleChange={this.handleChange}
+                timeRange={this.state.timeRange}
+                topType={this.state.topType}
+                initializeData={this.initializeData}
               />
-            </Switch>
-          </Container>
-        </div>
-      </Router>
+              <ResultTable
+                topType={this.state.topType}
+                topTracks={this.state.topTracks}
+                topArtists={this.state.topArtists}
+                searchTerm={this.state.searchTerm}
+              />
+            </Container>
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 }

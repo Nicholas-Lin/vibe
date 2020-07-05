@@ -1,24 +1,23 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 
 class SubmitButton extends React.Component {
-    handleClick() {
-        if (this.props.isLoggedIn) {
-
-        } else {
-            this.props.handleLogin();
-        }
+  render() {
+    if (this.props.isLoggedIn) {
+      return null;
     }
-    render() {
-        if(this.props.isLoggedIn){
-            return null;
-        }
-        return (
-            <div>
-                <Button className="submit-button" onClick={() => this.handleClick()}>Login with Spotify</Button>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <Button
+          className="submit-button"
+          variant="success"
+          onClick={() => this.props.handleLogin()}
+        >
+          Login with Spotify
+        </Button>
+      </div>
+    );
+  }
 }
 
-export default SubmitButton
+export default SubmitButton;

@@ -195,26 +195,26 @@ class Dashboard extends React.Component {
   render() {
     const chartDescriptions = {
       valence:
-        "A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive, while tracks with low valence sound more negative.",
+        "Describes the musical positiveness conveyed by a track. Tracks with high valence sound more positive, while tracks with low valence sound more negative.",
       danceability:
-        "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.",
+        "Describes how suitable a track is for dancing based on a combination of musical elements.",
       energy:
-        "Represents a perceptual measure of intensity and activity. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.",
+        "Represents a perceptual measure of intensity and activity based on dynamic range, general entropy, etc.",
       acousticness:
         "A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.",
     };
     return this.state.isLoading ? null : (
       <div>
-        <Container fluid>
+        <Container>
           <Row className="mb-4">
-            <Col>
+            <Col md={6} className="mb-4">
               <LineChart
                 title="Valence"
                 description={chartDescriptions.valence}
                 data={this.state.formattedData.valence}
               />
             </Col>
-            <Col>
+            <Col md={6} className="mb-4">
               <LineChart
                 title="Danceability"
                 description={chartDescriptions.danceability}
@@ -223,14 +223,14 @@ class Dashboard extends React.Component {
             </Col>
           </Row>
           <Row className="mb-4">
-            <Col>
+            <Col md={6} className="mb-4">
               <LineChart
                 title="Energy"
                 description={chartDescriptions.energy}
                 data={this.state.formattedData.energy}
               />
             </Col>
-            <Col>
+            <Col md={6} className="mb-4">
               <LineChart
                 title="Acousticness"
                 description={chartDescriptions.acousticness}

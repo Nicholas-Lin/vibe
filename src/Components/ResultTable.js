@@ -1,6 +1,7 @@
 import React from "react";
 import TrackItem from "./TrackItem";
 import ArtistItem from "./ArtistItem";
+import Container from "react-bootstrap/Container";
 import "../index.css";
 
 class ResultTable extends React.Component {

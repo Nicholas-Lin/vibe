@@ -33,7 +33,7 @@ class LineChart extends React.Component {
 
   render() {
     return (
-      <Col className=" h-100 d-flex flex-column justify-content-between">
+      <Col className=" h-100 d-flex flex-column justify-content-between align-items-center p-0">
         <h3>{this.props.title}</h3>
         <p>{this.props.description}</p>
         <canvas ref={this.chartRef} width="400" height="300" />
