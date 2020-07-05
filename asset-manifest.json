@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/vibe/static/css/main.42a91b0e.chunk.css",
-    "main.js": "/vibe/static/js/main.6cc0c271.chunk.js",
-    "main.js.map": "/vibe/static/js/main.6cc0c271.chunk.js.map",
+    "main.css": "/vibe/static/css/main.adb550e5.chunk.css",
+    "main.js": "/vibe/static/js/main.e3547cfa.chunk.js",
+    "main.js.map": "/vibe/static/js/main.e3547cfa.chunk.js.map",
     "runtime-main.js": "/vibe/static/js/runtime-main.90880e69.js",
     "runtime-main.js.map": "/vibe/static/js/runtime-main.90880e69.js.map",
     "static/css/2.af3c1da9.chunk.css": "/vibe/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ddec1581.chunk.js": "/vibe/static/js/2.ddec1581.chunk.js",
-    "static/js/2.ddec1581.chunk.js.map": "/vibe/static/js/2.ddec1581.chunk.js.map",
+    "static/js/2.1a80022c.chunk.js": "/vibe/static/js/2.1a80022c.chunk.js",
+    "static/js/2.1a80022c.chunk.js.map": "/vibe/static/js/2.1a80022c.chunk.js.map",
     "index.html": "/vibe/index.html",
-    "precache-manifest.1e8da31b0d3d344f371540b41a921e14.js": "/vibe/precache-manifest.1e8da31b0d3d344f371540b41a921e14.js",
+    "precache-manifest.00ceb2e1fc42a8874476fb91e9c1876f.js": "/vibe/precache-manifest.00ceb2e1fc42a8874476fb91e9c1876f.js",
     "service-worker.js": "/vibe/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/vibe/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.42a91b0e.chunk.css.map": "/vibe/static/css/main.42a91b0e.chunk.css.map",
-    "static/js/2.ddec1581.chunk.js.LICENSE.txt": "/vibe/static/js/2.ddec1581.chunk.js.LICENSE.txt"
+    "static/css/main.adb550e5.chunk.css.map": "/vibe/static/css/main.adb550e5.chunk.css.map",
+    "static/js/2.1a80022c.chunk.js.LICENSE.txt": "/vibe/static/js/2.1a80022c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.90880e69.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ddec1581.chunk.js",
-    "static/css/main.42a91b0e.chunk.css",
-    "static/js/main.6cc0c271.chunk.js"
+    "static/js/2.1a80022c.chunk.js",
+    "static/css/main.adb550e5.chunk.css",
+    "static/js/main.e3547cfa.chunk.js"
   ]
 }
