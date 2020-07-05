@@ -13,28 +13,28 @@ class Login extends React.Component {
       <Container>
         <Col className="d-flex align-items-center flex-column login justify-content-center">
           <header> Vibe </header>
-          <div class="sound-icon disabled">
-            <div class="sound-wave">
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
-              <i class="bar"></i>
+          <div className="sound-icon disabled">
+            <div className="sound-wave">
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
+              <i className="bar"></i>
             </div>
           </div>
           <SubmitButton

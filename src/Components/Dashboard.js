@@ -37,11 +37,7 @@ class Dashboard extends React.Component {
     await Promise.all(
       res.data.playlists.items.map(async (item) => {
         // If search result is a top track playlist
-        if (
-          item.name.length === 19 &&
-          Date.parse(item.name) &&
-          item.owner.display_name === "Spotify"
-        ) {
+        if (item.name.length === 19 && item.owner.display_name === "Spotify") {
           let response = await axios.get(
             `https://api.spotify.com/v1/playlists/${item.id}`,
             {

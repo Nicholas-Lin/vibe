@@ -8,6 +8,6 @@ const hash = window.location.hash
     }
     return initial;
   }, {});
-window.location.hash = "";
+//window.location.hash = "";
 
 export default hash;
