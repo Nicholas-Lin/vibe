@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2368951d60e388ae245ec392e717e5da",
+    "revision": "7ada604456d16b4e8763cbfe46a1878a",
     "url": "/vibe/index.html"
   },
   {
-    "revision": "280fd4255ccaf9e6edb4",
+    "revision": "b2cea7c8d5d97903eb69",
     "url": "/vibe/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "2bfcd9f5c3cdd67aa99b",
+    "revision": "3f51293762f4cd537735",
     "url": "/vibe/static/css/main.42a91b0e.chunk.css"
   },
   {
-    "revision": "280fd4255ccaf9e6edb4",
-    "url": "/vibe/static/js/2.df6fa608.chunk.js"
+    "revision": "b2cea7c8d5d97903eb69",
+    "url": "/vibe/static/js/2.b76eff9e.chunk.js"
   },
   {
     "revision": "eaaf63558baae456918a991a401208d7",
-    "url": "/vibe/static/js/2.df6fa608.chunk.js.LICENSE.txt"
+    "url": "/vibe/static/js/2.b76eff9e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2bfcd9f5c3cdd67aa99b",
-    "url": "/vibe/static/js/main.283a31b5.chunk.js"
+    "revision": "3f51293762f4cd537735",
+    "url": "/vibe/static/js/main.e095d224.chunk.js"
   },
   {
     "revision": "394688070c99aed5597d",
