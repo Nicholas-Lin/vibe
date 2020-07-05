@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vibe/precache-manifest.c059c09ed39a6c03698accab26695ce7.js"
+  "/vibe/precache-manifest.2eab622c25fcb195ab96cc16bf6f159a.js"
 );
 
 self.addEventListener('message', (event) => {
