@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vibe/static/css/main.42a91b0e.chunk.css",
-    "main.js": "/vibe/static/js/main.bd9db1cc.chunk.js",
-    "main.js.map": "/vibe/static/js/main.bd9db1cc.chunk.js.map",
+    "main.js": "/vibe/static/js/main.a6a3a14d.chunk.js",
+    "main.js.map": "/vibe/static/js/main.a6a3a14d.chunk.js.map",
     "runtime-main.js": "/vibe/static/js/runtime-main.90880e69.js",
     "runtime-main.js.map": "/vibe/static/js/runtime-main.90880e69.js.map",
     "static/css/2.af3c1da9.chunk.css": "/vibe/static/css/2.af3c1da9.chunk.css",
     "static/js/2.df6fa608.chunk.js": "/vibe/static/js/2.df6fa608.chunk.js",
     "static/js/2.df6fa608.chunk.js.map": "/vibe/static/js/2.df6fa608.chunk.js.map",
     "index.html": "/vibe/index.html",
-    "precache-manifest.2eab622c25fcb195ab96cc16bf6f159a.js": "/vibe/precache-manifest.2eab622c25fcb195ab96cc16bf6f159a.js",
+    "precache-manifest.af023ae84c4bf52d7ca3a5c12d248c2c.js": "/vibe/precache-manifest.af023ae84c4bf52d7ca3a5c12d248c2c.js",
     "service-worker.js": "/vibe/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/vibe/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.42a91b0e.chunk.css.map": "/vibe/static/css/main.42a91b0e.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.af3c1da9.chunk.css",
     "static/js/2.df6fa608.chunk.js",
     "static/css/main.42a91b0e.chunk.css",
-    "static/js/main.bd9db1cc.chunk.js"
+    "static/js/main.a6a3a14d.chunk.js"
   ]
 }
