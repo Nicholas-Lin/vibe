@@ -5,10 +5,9 @@ body {
   color: white;
   font-size: 16px;
   font-weight: 400;
-
 }
 
-header{
+header {
   font-size: 80px;
 }
 .submit-button {
@@ -17,7 +16,21 @@ header{
   font-size: 30px;
 }
 
-.song-display{
+.song-display {
   margin: 30px 0px 30px 0px;
 }
 
+.search-field {
+  font-size: 16px;
+  min-height: 20px;
+  border-radius: 25px;
+  line-height: 20px;
+  padding: 10px;
+  border: 1px solid #b9b9af;
+  background-color: #fff;
+  opacity: 0.9;
+}
+
+#result-table {
+  min-height: 90vh;
+}
