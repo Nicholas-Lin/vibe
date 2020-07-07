@@ -2,7 +2,7 @@ import React from "react";
 import SubmitButton from "../Components/SubmitButton";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import "../sound-wave.css";
+import SoundWave from "../Components/SoundWave";
 
 class Login extends React.Component {
   render() {
@@ -13,30 +13,7 @@ class Login extends React.Component {
       <Container>
         <Col className="d-flex align-items-center flex-column login justify-content-center">
           <header> Vibe </header>
-          <div className="sound-icon disabled">
-            <div className="sound-wave">
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-              <i className="bar"></i>
-            </div>
-          </div>
+          <SoundWave />
           <SubmitButton
             isLoggedIn={this.props.isLoggedIn}
             handleLogin={() => this.props.handleLogin()}

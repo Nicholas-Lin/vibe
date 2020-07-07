@@ -163,6 +163,7 @@ class App extends React.Component {
                 initializeData={this.initializeData}
                 token={this.state.token}
               />
+              <hr />
               <SearchBar
                 handleChange={this.handleChange}
                 timeRange={this.state.timeRange}

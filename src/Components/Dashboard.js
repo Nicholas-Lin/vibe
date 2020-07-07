@@ -1,6 +1,7 @@
 import React from "react";
 import LineChart from "./LineChart";
 import axios from "axios";
+import SoundWave from "./SoundWave";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -127,7 +128,8 @@ class Dashboard extends React.Component {
     for (let key in averageFeatures) {
       averageFeatures[key] =
         Math.round(
-          (averageFeatures[key] / playlistFeatures.length + Number.EPSILON) *
+          ((averageFeatures[key] * 100) / playlistFeatures.length +
+            Number.EPSILON) *
             100
         ) / 100;
     }
@@ -159,11 +161,26 @@ class Dashboard extends React.Component {
       }
     });
     let formattedData = {};
-    const averageDatasets = {
-      acousticness: [0.3, 0.3, 0.3, 0.3, 0.3],
-      danceability: [0.65, 0.65, 0.65, 0.65, 0.65],
-      energy: [0.6, 0.6, 0.6, 0.6, 0.6],
-      valence: [0.5, 0.5, 0.5, 0.5, 0.5],
+
+    const topSpotifyDatasets = {
+      acousticness: [15.88, 16.63, 19.57, 22.16, 21.39],
+      danceability: [63.25, 69.68, 71.65, 71.38, 71.99],
+      energy: [67.24, 66.07, 65.91, 64.06, 65.05],
+      valence: [45.15, 51.7, 48.44, 54.6, 53.1],
+    };
+
+    // const averageSpotifyDatasets = {
+    //   acousticness: [25.49, 25.49, 25.49, 25.49, 25.49],
+    //   danceability: [59.14, 59.14, 59.14, 59.14, 59.14],
+    //   energy: [64.57, 64.57, 64.57, 64.57, 64.57],
+    //   valence: [49.21, 49.21, 49.21, 49.21, 49.21],
+    // };
+
+    const averageSpotifyDatasets = {
+      acousticness: [28.03, 28.99, 27.19, 28.93, 24.74],
+      danceability: [60, 61.23, 66.5, 64.42, 67.31],
+      energy: [59.29, 58.67, 59.06, 57.88, 61.19],
+      valence: [43.08, 41.45, 44.71, 46.59, 48.28],
     };
 
     for (const feature in graphData) {
@@ -172,14 +189,20 @@ class Dashboard extends React.Component {
         datasets: [
           {
             data: graphData[feature],
-            label: "You",
+            label: "Your Top Songs",
             fill: true,
             borderColor: "rgba(29,185,84,1)",
             backgroundColor: "rgba(29,185,84,0.4)",
           },
           {
-            data: averageDatasets[feature],
-            label: "Average",
+            data: averageSpotifyDatasets[feature],
+            label: "Average Song",
+            fill: false,
+            borderColor: "rgba(255, 255, 255, 0.9)",
+          },
+          {
+            data: topSpotifyDatasets[feature],
+            label: "Top Spotify Songs",
             fill: false,
             borderColor: "rgba(255,99,132,1)",
           },
@@ -197,9 +220,20 @@ class Dashboard extends React.Component {
       energy:
         "Represents a perceptual measure of intensity and activity based on dynamic range, general entropy, etc.",
       acousticness:
-        "A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.",
+        "A confidence measure from 0 to 100 of whether the track is acoustic. 100 represents high confidence the track is acoustic.",
     };
-    return this.state.isLoading ? null : (
+    return this.state.isLoading ? (
+      <div
+        style={{
+          height: "90vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <SoundWave />
+      </div>
+    ) : (
       <div>
         <Container>
           <Row className="mb-4">
