@@ -155,13 +155,14 @@ class App extends React.Component {
         {this.state.token && (
           <React.Fragment>
             <Container>
-              <header> Your Vibe </header>
               <Dashboard
                 handleChange={this.handleChange}
                 initializeData={this.initializeData}
                 token={this.state.token}
               />
               <hr />
+              <header>Your Favorites</header>
+
               <SearchBar
                 handleChange={this.handleChange}
                 timeRange={this.state.timeRange}

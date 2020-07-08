@@ -238,10 +238,11 @@ class Dashboard extends React.Component {
       <div>
         <MoodDashboard token={this.props.token} />
         <Container>
+          <header>Your Vibe</header>
           <Row className="mb-4">
             <Col md={6} className="mb-4">
               <LineChart
-                title="Valence"
+                title="Valence (Happiness)"
                 description={chartDescriptions.valence}
                 data={this.state.formattedData.valence}
               />

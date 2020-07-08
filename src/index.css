@@ -18,6 +18,20 @@ body {
 header {
   font-size: 80px;
 }
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 50vh;
+  width: 40vw;
+}
+
+.carousel {
+  width: 40vw;
+  max-width: 400px;
+  margin: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 
 .emoji {
   font-size: 50px;

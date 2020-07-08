@@ -41,7 +41,6 @@ class MoodDashboard extends Component {
 
     const rangeSize = 200 / emojis.length;
     const index = Math.floor((percent + 100) / rangeSize);
-    console.log(index);
     emoji = emojis[index];
 
     percent = Math.abs(percent);
