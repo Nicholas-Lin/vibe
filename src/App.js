@@ -3,8 +3,6 @@ import "./App.css";
 import hash from "./hash";
 import { loginURL } from "./config";
 import Container from "react-bootstrap/Container";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { HashRouter } from "react-router-dom";
 import axios from "axios";
 
 import Login from "./Views/Login";

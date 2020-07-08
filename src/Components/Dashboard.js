@@ -6,6 +6,7 @@ import SoundWave from "./SoundWave";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import MoodDashboard from "./MoodDashboard";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -235,6 +236,7 @@ class Dashboard extends React.Component {
       </div>
     ) : (
       <div>
+        <MoodDashboard token={this.props.token} />
         <Container>
           <Row className="mb-4">
             <Col md={6} className="mb-4">

@@ -19,6 +19,9 @@ header {
   font-size: 80px;
 }
 
+.emoji {
+  font-size: 50px;
+}
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
