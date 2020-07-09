@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "270f853f592ac3e41fb064caf59cdba6",
+    "revision": "4d68cf74b53ca864ebf8a7e1c67e2ae5",
     "url": "/vibe/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vibe/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "65a211cf3b9bdcc89de1",
-    "url": "/vibe/static/css/main.acea3567.chunk.css"
+    "revision": "2616a4907877cc98f8b1",
+    "url": "/vibe/static/css/main.b545740e.chunk.css"
   },
   {
     "revision": "bd8a9bb04e3dc8deabf2",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vibe/static/js/2.e2b6ab11.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "65a211cf3b9bdcc89de1",
-    "url": "/vibe/static/js/main.778a7886.chunk.js"
+    "revision": "2616a4907877cc98f8b1",
+    "url": "/vibe/static/js/main.168349a2.chunk.js"
   },
   {
     "revision": "394688070c99aed5597d",
