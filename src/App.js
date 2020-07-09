@@ -9,6 +9,7 @@ import Login from "./Views/Login";
 import ResultTable from "./Components/ResultTable";
 import SearchBar from "./Components/SearchBar";
 import Dashboard from "./Components/Dashboard";
+import MoodDashboard from "./Components/MoodDashboard";
 
 class App extends React.Component {
   constructor(props) {
@@ -155,6 +156,7 @@ class App extends React.Component {
         {this.state.token && (
           <React.Fragment>
             <Container>
+              <MoodDashboard token={this.state.token} />
               <Dashboard
                 handleChange={this.handleChange}
                 initializeData={this.initializeData}

@@ -21,8 +21,9 @@ header {
 .chart-container {
   position: relative;
   margin: auto;
-  height: 50vh;
-  width: 40vw;
+  height: 80vh;
+  width: 100%;
+  margin-top: 2rem;
 }
 
 .carousel {

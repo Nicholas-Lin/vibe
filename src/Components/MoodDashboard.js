@@ -261,8 +261,19 @@ class MoodDashboard extends Component {
       <div>
         <header>Your Mood</header>
         <Container>
-          <ImageCarousel images={this.state.trackImages} />
           <h3>How do your recent songs compare to today's top hits?</h3>
+          <Row className="justify-content-center">
+            <Col
+              md={{ span: 6, order: 2 }}
+              className="d-flex flex-column justify-content-center h-100"
+            >
+              <ImageCarousel images={this.state.trackImages} />
+            </Col>
+            <Col md={{ span: 6, order: 1 }}>
+              <PopularityDisplay score={this.state.popularity} />
+            </Col>
+          </Row>
+          <hr />
           <Row>
             <Col md={3}>
               <PercentDisplay
@@ -306,16 +317,13 @@ class MoodDashboard extends Component {
             </Col>
           </Row>
           <hr />
-          <Row className="justify-content-center">
-            <Col>
-              <PopularityDisplay score={this.state.popularity} />
-            </Col>
-            <Col>
+          <Row>
+            <Col className="justify-content-center">
+              <h2>{"Your Top Genres"}</h2>
               <DoughnutChart data={this.state.genres} />
             </Col>
           </Row>
           <hr />
-          <Row></Row>
         </Container>
       </div>
     );

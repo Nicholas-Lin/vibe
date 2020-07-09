@@ -29,7 +29,6 @@ class PopularityDisplay extends Component {
 
     return (
       <Col className="d-flex flex-column justify-content-center h-100">
-        <h2>{"Popularity Score"}</h2>
         <svg viewBox="0 0 36 36" className="circular-chart green">
           <path
             className="circle-bg"
@@ -54,6 +53,7 @@ class PopularityDisplay extends Component {
             {Math.round(score)}
           </text>
         </svg>
+        <h2>{"Popularity Score:"}</h2>
         <h2>{`${description} ${emoji}`}</h2>
       </Col>
     );

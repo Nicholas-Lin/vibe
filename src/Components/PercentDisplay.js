@@ -10,7 +10,7 @@ import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-class MoodDashboard extends Component {
+class PercentDisplay extends Component {
   render() {
     let { percent, descriptions, emojis } = this.props;
     let description = "";
@@ -58,4 +58,4 @@ class MoodDashboard extends Component {
   }
 }
 
-export default MoodDashboard;
+export default PercentDisplay;

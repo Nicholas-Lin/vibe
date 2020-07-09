@@ -236,7 +236,6 @@ class Dashboard extends React.Component {
       </div>
     ) : (
       <div>
-        <MoodDashboard token={this.props.token} />
         <Container>
           <header>Your Vibe</header>
           <Row className="mb-4">

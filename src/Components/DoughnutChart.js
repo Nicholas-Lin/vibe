@@ -70,7 +70,6 @@ class DoughnutChart extends React.Component {
       },
       options: {
         legend: {
-          display: false,
           position: "bottom",
         },
         responsive: true,
