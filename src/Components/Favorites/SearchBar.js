@@ -5,9 +5,6 @@ import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 class SearchBar extends React.Component {
-  componentDidMount() {
-    this.props.initializeData();
-  }
   render() {
     if (this.props.isLoggedIn) {
       return null;

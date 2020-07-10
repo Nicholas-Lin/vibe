@@ -1,5 +1,5 @@
 import React from "react";
-import "../track.css";
+import "../../track.css";
 
 class TrackItem extends React.Component {
   handleClick(previewURL) {

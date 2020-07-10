@@ -1,7 +1,6 @@
 import React from "react";
 import TrackItem from "./TrackItem";
 import ArtistItem from "./ArtistItem";
-import "../index.css";
 
 class ResultTable extends React.Component {
   playTrack(previewURL) {

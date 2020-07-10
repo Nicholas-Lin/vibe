@@ -14,7 +14,7 @@ export default function Loading() {
     >
       <img
         src={cassette}
-        style={{ height: "50vh" }}
+        style={{ maxHeight: "50vh", maxWidth: "90vw" }}
         alt="Cassette spinning loading animation"
       />
       <h1>Loading your vibe...</h1>

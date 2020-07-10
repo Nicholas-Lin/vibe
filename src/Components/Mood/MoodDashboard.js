@@ -34,7 +34,6 @@ class MoodDashboard extends Component {
         limit: 50,
       },
     });
-    console.log(res.data.items);
     return res.data.items;
   }
 
@@ -61,10 +60,6 @@ class MoodDashboard extends Component {
     res.data.audio_features.forEach((trackFeatures) => {
       const { id, acousticness, danceability, energy, valence } = trackFeatures;
       const correspondingTrack = tracks.find((item) => item.track.id === id);
-      console.log(
-        correspondingTrack.track.name,
-        correspondingTrack.track.popularity
-      );
       results.push({
         id: id,
         acousticness: acousticness,

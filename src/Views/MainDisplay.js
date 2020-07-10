@@ -1,10 +1,9 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import ResultTable from "../Components/ResultTable";
-import SearchBar from "../Components/SearchBar";
-import VibeDashboard from "../Components/VibeDashboard";
-import MoodDashboard from "../Components/MoodDashboard";
+import VibeDashboard from "../Components/Vibe/VibeDashboard";
+import MoodDashboard from "../Components/Mood/MoodDashboard";
 import Loading from "../Components/Loading";
+import FavoritesDisplay from "../Components/Favorites/FavoritesDisplay";
 class MainDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -12,21 +11,42 @@ class MainDisplay extends React.Component {
       isLoading: true,
       moodDashboardIsLoading: true,
       vibeDashboardIsLoading: true,
+      favoritesDisplayIsLoading: true,
     };
   }
 
+  updateLoadingStatus() {
+    if (
+      !(
+        this.state.moodDashboardIsLoading &&
+        this.state.vibeDashboardIsLoading &&
+        this.state.favoritesDisplayIsLoading
+      )
+    ) {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  }
   loadMoodDashboard() {
     this.setState({
       moodDashboardIsLoading: false,
-      isLoading: this.state.vibeDashboardIsLoading || false,
     });
+    this.updateLoadingStatus();
   }
 
   loadVibeDashboard() {
     this.setState({
       vibeDashboardIsLoading: false,
-      isLoading: this.state.moodDashboardIsLoading || false,
     });
+    this.updateLoadingStatus();
+  }
+
+  loadFavorites() {
+    this.setState({
+      favoritesDisplayIsLoading: false,
+    });
+    this.updateLoadingStatus();
   }
 
   render() {
@@ -43,18 +63,9 @@ class MainDisplay extends React.Component {
             token={this.props.token}
             load={() => this.loadVibeDashboard()}
           />
-          <header>Your Favorites</header>
-          <SearchBar
-            handleChange={this.props.handleChange}
-            timeRange={this.props.timeRange}
-            topType={this.props.topType}
-            initializeData={this.props.initializeData}
-          />
-          <ResultTable
-            topType={this.props.topType}
-            topTracks={this.props.topTracks}
-            topArtists={this.props.topArtists}
-            searchTerm={this.props.searchTerm}
+          <FavoritesDisplay
+            token={this.props.token}
+            load={() => this.loadFavorites()}
           />
         </Container>
       </React.Fragment>

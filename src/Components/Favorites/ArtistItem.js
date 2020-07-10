@@ -1,5 +1,5 @@
 import React from "react";
-import "../track.css";
+import "../../track.css";
 
 class ArtistItem extends React.Component {
   render() {
