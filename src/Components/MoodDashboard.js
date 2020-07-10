@@ -187,13 +187,13 @@ class MoodDashboard extends Component {
     });
     let map = new Map();
     res.data.artists.forEach((artist) => {
-      //   artist.genres.forEach((genre) => {
-      //     if (map.get(genre)) {
-      //       map.set(genre, map.get(genre) + 1);
-      //     } else {
-      //       map.set(genre, 1);
-      //     }
-      //   });
+      // artist.genres.forEach((genre) => {
+      //   if (map.get(genre)) {
+      //     map.set(genre, map.get(genre) + 1);
+      //   } else {
+      //     map.set(genre, 1);
+      //   }
+      // });
       const genre = artist.genres[0];
       if (genre && map.get(genre)) {
         map.set(genre, map.get(genre) + 1);
@@ -254,6 +254,7 @@ class MoodDashboard extends Component {
       genres: genres,
       isLoading: false,
     });
+    this.props.load();
   }
 
   render() {
@@ -323,8 +324,8 @@ class MoodDashboard extends Component {
               <DoughnutChart data={this.state.genres} />
             </Col>
           </Row>
-          <hr />
         </Container>
+        <hr />
       </div>
     );
   }

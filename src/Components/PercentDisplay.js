@@ -39,18 +39,22 @@ class PercentDisplay extends Component {
       description = descriptions[2];
     }
 
-    const rangeSize = 200 / emojis.length;
-    const index = Math.floor((percent + 100) / rangeSize);
-    emoji = emojis[index];
-
-    percent = Math.abs(percent);
+    if (percent > 100) {
+      emoji = emojis[emoji.length - 1];
+    } else if (percent < -100) {
+      emoji = emojis[0];
+    } else {
+      const rangeSize = 200 / emojis.length;
+      const index = Math.floor((percent + 100) / rangeSize);
+      emoji = emojis[index];
+    }
 
     return (
       <div>
         <span className="emoji"> {emoji} </span>
         <Row className="d-flex flex-direction-column justify-content-center align-items-center">
           {arrow}
-          <h1>{percent}%</h1>
+          <h1>{Math.abs(percent)}%</h1>
         </Row>
         <h5>{description}</h5>
       </div>

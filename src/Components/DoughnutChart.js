@@ -1,7 +1,5 @@
 import React from "react";
 import Chart from "chart.js";
-import Col from "react-bootstrap/Col";
-
 Chart.defaults.global.defaultFontColor = "white";
 //Chart.defaults.global.defaultColor = "white";
 
@@ -30,6 +28,11 @@ class DoughnutChart extends React.Component {
       formattedData.labels.push("Other");
       formattedData.data.push(sum);
     }
+
+    const sum = formattedData.data.reduce((a, b) => a + b, 0);
+    formattedData.data = formattedData.data.map((item) =>
+      Math.round((item / sum) * 100)
+    );
 
     new Chart(this.chartRef.current, {
       type: "doughnut",

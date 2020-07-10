@@ -17,6 +17,8 @@ body {
 
 header {
   font-size: 80px;
+  line-height: normal;
+  margin-bottom: 0.5em;
 }
 .chart-container {
   position: relative;
@@ -25,13 +27,15 @@ header {
   width: 100%;
   margin-top: 2rem;
 }
-
-.carousel {
-  width: 40vw;
-  max-width: 400px;
-  margin: auto;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.carousel-inner {
+}
+.carousel-item {
+}
+.carousel-item img {
+  max-height: 50vh;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
 
 .emoji {

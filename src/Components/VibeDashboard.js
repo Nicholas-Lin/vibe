@@ -1,6 +1,7 @@
 import React from "react";
 import LineChart from "./LineChart";
 import axios from "axios";
+import Loading from "./Loading";
 import SoundWave from "./SoundWave";
 
 import Container from "react-bootstrap/Container";
@@ -8,7 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MoodDashboard from "./MoodDashboard";
 
-class Dashboard extends React.Component {
+class VibeDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -156,11 +157,36 @@ class Dashboard extends React.Component {
       .concat(this.state.features)
       .sort((a, b) => a.year.localeCompare(b.year));
 
+    // TESTING
+    // sortedByYearFeatures = [
+    //   {
+    //     averages: {
+    //       acousticness: 1,
+    //       danceability: 1,
+    //       energy: 2,
+    //       valence: 3,
+    //     },
+    //     year: "2017",
+    //   },
+    //   {
+    //     averages: {
+    //       acousticness: 1,
+    //       danceability: 1,
+    //       energy: 2,
+    //       valence: 3,
+    //     },
+    //     year: "2018",
+    //   },
+    // ];
+
+    console.log(sortedByYearFeatures);
+
     sortedByYearFeatures.forEach((year) => {
       for (let key in year.averages) {
         graphData[key].push(year.averages[key]);
       }
     });
+
     let formattedData = {};
 
     const topSpotifyDatasets = {
@@ -170,20 +196,13 @@ class Dashboard extends React.Component {
       valence: [45.15, 51.7, 48.44, 54.6, 53.1],
     };
 
-    // const averageSpotifyDatasets = {
-    //   acousticness: [25.49, 25.49, 25.49, 25.49, 25.49],
-    //   danceability: [59.14, 59.14, 59.14, 59.14, 59.14],
-    //   energy: [64.57, 64.57, 64.57, 64.57, 64.57],
-    //   valence: [49.21, 49.21, 49.21, 49.21, 49.21],
-    // };
-
     const averageSpotifyDatasets = {
       acousticness: [28.03, 28.99, 27.19, 28.93, 24.74],
       danceability: [60, 61.23, 66.5, 64.42, 67.31],
       energy: [59.29, 58.67, 59.06, 57.88, 61.19],
       valence: [43.08, 41.45, 44.71, 46.59, 48.28],
     };
-
+    console.log(graphData);
     for (const feature in graphData) {
       formattedData[feature] = {
         labels: sortedByYearFeatures.map((playlist) => playlist.year),
@@ -211,6 +230,7 @@ class Dashboard extends React.Component {
       };
     }
     this.setState({ formattedData: formattedData, isLoading: false });
+    this.props.load();
   }
   render() {
     const chartDescriptions = {
@@ -223,57 +243,49 @@ class Dashboard extends React.Component {
       acousticness:
         "A confidence measure from 0 to 100 of whether the track is acoustic. 100 represents high confidence the track is acoustic.",
     };
-    return this.state.isLoading ? (
-      <div
-        style={{
-          height: "90vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <SoundWave />
-      </div>
-    ) : (
-      <div>
-        <Container>
-          <header>Your Vibe</header>
-          <Row className="mb-4">
-            <Col md={6} className="mb-4">
-              <LineChart
-                title="Valence (Happiness)"
-                description={chartDescriptions.valence}
-                data={this.state.formattedData.valence}
-              />
-            </Col>
-            <Col md={6} className="mb-4">
-              <LineChart
-                title="Danceability"
-                description={chartDescriptions.danceability}
-                data={this.state.formattedData.danceability}
-              />
-            </Col>
-          </Row>
-          <Row className="mb-4">
-            <Col md={6} className="mb-4">
-              <LineChart
-                title="Energy"
-                description={chartDescriptions.energy}
-                data={this.state.formattedData.energy}
-              />
-            </Col>
-            <Col md={6} className="mb-4">
-              <LineChart
-                title="Acousticness"
-                description={chartDescriptions.acousticness}
-                data={this.state.formattedData.acousticness}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
+    return (
+      !this.state.isLoading && (
+        <div>
+          <Container>
+            <header>Your Vibe</header>
+            <Row className="mb-4">
+              <Col md={6} className="mb-4">
+                <LineChart
+                  title="Valence (Happiness)"
+                  description={chartDescriptions.valence}
+                  data={this.state.formattedData.valence}
+                />
+              </Col>
+              <Col md={6} className="mb-4">
+                <LineChart
+                  title="Danceability"
+                  description={chartDescriptions.danceability}
+                  data={this.state.formattedData.danceability}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col md={6} className="mb-4">
+                <LineChart
+                  title="Energy"
+                  description={chartDescriptions.energy}
+                  data={this.state.formattedData.energy}
+                />
+              </Col>
+              <Col md={6} className="mb-4">
+                <LineChart
+                  title="Acousticness"
+                  description={chartDescriptions.acousticness}
+                  data={this.state.formattedData.acousticness}
+                />
+              </Col>
+            </Row>
+          </Container>
+          <hr />
+        </div>
+      )
     );
   }
 }
 
-export default Dashboard;
+export default VibeDashboard;

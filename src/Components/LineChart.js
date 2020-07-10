@@ -14,7 +14,6 @@ Chart.controllers.LineWithLine = Chart.controllers.line.extend({
       let activePoint = this.chart.tooltip._active[0];
       let ctx = this.chart.ctx;
       let x = activePoint.tooltipPosition().x;
-      let y = activePoint.tooltipPosition().y;
       let topY = this.chart.legend.bottom;
       let bottomY = this.chart.chartArea.bottom;
 

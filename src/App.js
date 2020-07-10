@@ -6,10 +6,7 @@ import Container from "react-bootstrap/Container";
 import axios from "axios";
 
 import Login from "./Views/Login";
-import ResultTable from "./Components/ResultTable";
-import SearchBar from "./Components/SearchBar";
-import Dashboard from "./Components/Dashboard";
-import MoodDashboard from "./Components/MoodDashboard";
+import MainDisplay from "./Views/MainDisplay";
 
 class App extends React.Component {
   constructor(props) {
@@ -154,31 +151,17 @@ class App extends React.Component {
           />
         )}
         {this.state.token && (
-          <React.Fragment>
-            <Container>
-              <MoodDashboard token={this.state.token} />
-              <Dashboard
-                handleChange={this.handleChange}
-                initializeData={this.initializeData}
-                token={this.state.token}
-              />
-              <hr />
-              <header>Your Favorites</header>
-
-              <SearchBar
-                handleChange={this.handleChange}
-                timeRange={this.state.timeRange}
-                topType={this.state.topType}
-                initializeData={this.initializeData}
-              />
-              <ResultTable
-                topType={this.state.topType}
-                topTracks={this.state.topTracks}
-                topArtists={this.state.topArtists}
-                searchTerm={this.state.searchTerm}
-              />
-            </Container>
-          </React.Fragment>
+          <MainDisplay
+            token={this.state.token}
+            topType={this.state.topType}
+            topTracks={this.state.topTracks}
+            topArtists={this.state.topArtists}
+            timeRange={this.state.timeRange}
+            searchTerm={this.state.searchTerm}
+            handleChange={this.handleChange}
+            initializeData={this.initializeData}
+            token={this.state.token}
+          />
         )}
       </div>
     );
