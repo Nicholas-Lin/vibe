@@ -5,10 +5,7 @@ import {
   faLongArrowAltDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-import Container from "react-bootstrap/Container";
-import axios from "axios";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 class PercentDisplay extends Component {
   render() {
@@ -25,7 +22,7 @@ class PercentDisplay extends Component {
         />
       );
       description = descriptions[0];
-    } else if (percent == 0) {
+    } else if (percent === 0) {
       description = descriptions[1];
     } else {
       arrow = (

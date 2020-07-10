@@ -33,7 +33,7 @@ class MainDisplay extends React.Component {
     return (
       <React.Fragment>
         {this.state.isLoading && <Loading />}
-        <Container>
+        <Container fluid="lg">
           <MoodDashboard
             token={this.props.token}
             load={() => this.loadMoodDashboard()}

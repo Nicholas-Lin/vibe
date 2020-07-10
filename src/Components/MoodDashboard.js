@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Carousel from "react-bootstrap/Carousel";
 
 import PercentDisplay from "./PercentDisplay";
 import PopularityDisplay from "./PopularityDisplay";
@@ -62,6 +61,10 @@ class MoodDashboard extends Component {
     res.data.audio_features.forEach((trackFeatures) => {
       const { id, acousticness, danceability, energy, valence } = trackFeatures;
       const correspondingTrack = tracks.find((item) => item.track.id === id);
+      console.log(
+        correspondingTrack.track.name,
+        correspondingTrack.track.popularity
+      );
       results.push({
         id: id,
         acousticness: acousticness,
@@ -320,7 +323,7 @@ class MoodDashboard extends Component {
           <hr />
           <Row>
             <Col className="justify-content-center">
-              <h2>{"Your Top Genres"}</h2>
+              <h2>{"Your Recent Genres"}</h2>
               <DoughnutChart data={this.state.genres} />
             </Col>
           </Row>

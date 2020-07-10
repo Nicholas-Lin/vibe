@@ -1,5 +1,5 @@
 import React from "react";
-import SoundWave from "./SoundWave";
+import cassette from "../Assets/cassette.gif";
 
 export default function Loading() {
   return (
@@ -12,7 +12,11 @@ export default function Loading() {
         justifyContent: "center",
       }}
     >
-      <SoundWave />
+      <img
+        src={cassette}
+        style={{ height: "50vh" }}
+        alt="Cassette spinning loading animation"
+      />
       <h1>Loading your vibe...</h1>
     </div>
   );

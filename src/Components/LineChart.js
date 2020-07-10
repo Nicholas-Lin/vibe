@@ -67,6 +67,7 @@ class LineChart extends React.Component {
         }),
       },
       options: {
+        maintainAspectRatio: false,
         tooltips: {
           mode: "index",
           intersect: false,
@@ -94,7 +95,9 @@ class LineChart extends React.Component {
       <Col className=" h-100 d-flex flex-column justify-content-between align-items-center p-0">
         <h3>{this.props.title}</h3>
         <p>{this.props.description}</p>
-        <canvas ref={this.chartRef} width="400" height="300" />
+        <div className="line-chart-container">
+          <canvas ref={this.chartRef} />
+        </div>
       </Col>
     );
   }

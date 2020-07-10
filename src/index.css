@@ -20,7 +20,7 @@ header {
   line-height: normal;
   margin-bottom: 0.5em;
 }
-.chart-container {
+.doughnut-chart-container {
   position: relative;
   margin: auto;
   height: 80vh;
@@ -38,6 +38,11 @@ header {
   height: auto;
 }
 
+.line-chart-container {
+  position: relative;
+  height: 50vh;
+  width: 100%;
+}
 .emoji {
   font-size: 50px;
 }

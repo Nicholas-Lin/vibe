@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../progress-circle.css";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 class PopularityDisplay extends Component {

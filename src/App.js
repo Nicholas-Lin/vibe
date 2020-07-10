@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import hash from "./hash";
 import { loginURL } from "./config";
-import Container from "react-bootstrap/Container";
 import axios from "axios";
 
 import Login from "./Views/Login";
@@ -160,7 +159,6 @@ class App extends React.Component {
             searchTerm={this.state.searchTerm}
             handleChange={this.handleChange}
             initializeData={this.initializeData}
-            token={this.state.token}
           />
         )}
       </div>

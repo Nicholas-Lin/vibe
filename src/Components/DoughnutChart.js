@@ -95,7 +95,7 @@ class DoughnutChart extends React.Component {
 
   render() {
     return (
-      <div className="chart-container">
+      <div className="doughnut-chart-container">
         <canvas ref={this.chartRef} />
       </div>
     );
