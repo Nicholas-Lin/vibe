@@ -225,7 +225,6 @@ class MoodDashboard extends Component {
       ).map((id) => {
         return recentTracks.find((item) => item.track.id === id);
       });
-      console.log(uniqueTracks);
       const trackImages = uniqueTracks.map((item) => {
         return {
           id: item.track.id,

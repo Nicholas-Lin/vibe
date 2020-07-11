@@ -1,3 +1,5 @@
-1. Loading screen for all dashboards
-2. Fix graph for no data years (span gaps)
-3. Fix track & artist item redundancy
+1. Fix graph for no data years (span gaps)
+2. Fix track & artist item redundancy
+3. Fix redundant API calls
+4. Document code
+5. Customize result items CSS
