@@ -37,7 +37,7 @@ class PercentDisplay extends Component {
     }
 
     if (percent > 100) {
-      emoji = emojis[emoji.length - 1];
+      emoji = emojis[emojis.length - 1];
     } else if (percent < -100) {
       emoji = emojis[0];
     } else {

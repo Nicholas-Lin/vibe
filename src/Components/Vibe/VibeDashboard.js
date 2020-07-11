@@ -27,7 +27,7 @@ class VibeDashboard extends React.Component {
         Authorization: `Bearer ${this.state.token}`,
       },
       params: {
-        q: "Your%20Top%20Songs",
+        q: "Your Top Songs",
         type: "playlist",
         limit: "10",
       },
@@ -78,8 +78,6 @@ class VibeDashboard extends React.Component {
     );
     this.computeFeatures("2020", playlistFeatures);
     this.createGraphData();
-    console.log(this.state.features);
-    console.log(this.state.data);
   };
   async getTrackFeatures(tracks) {
     let ids = [];
@@ -162,7 +160,7 @@ class VibeDashboard extends React.Component {
     //       energy: 2,
     //       valence: 3,
     //     },
-    //     year: "2017",
+    //     year: "2019",
     //   },
     //   {
     //     averages: {
@@ -171,18 +169,24 @@ class VibeDashboard extends React.Component {
     //       energy: 2,
     //       valence: 3,
     //     },
-    //     year: "2018",
+    //     year: "2020",
     //   },
     // ];
 
     console.log(sortedByYearFeatures);
-
     sortedByYearFeatures.forEach((year) => {
       for (let key in year.averages) {
         graphData[key].push(year.averages[key]);
       }
     });
 
+    for (let key in graphData) {
+      while (graphData[key].length < 5) {
+        graphData[key].unshift(null);
+      }
+    }
+
+    console.log(graphData);
     let formattedData = {};
 
     const topSpotifyDatasets = {
@@ -201,7 +205,7 @@ class VibeDashboard extends React.Component {
     console.log(graphData);
     for (const feature in graphData) {
       formattedData[feature] = {
-        labels: sortedByYearFeatures.map((playlist) => playlist.year),
+        labels: ["2016", "2017", "2018", "2019", "2020"],
         datasets: [
           {
             data: graphData[feature],
@@ -209,6 +213,7 @@ class VibeDashboard extends React.Component {
             fill: true,
             borderColor: "rgba(29,185,84,1)",
             backgroundColor: "rgba(29,185,84,0.4)",
+            spanGaps: false,
           },
           {
             data: averageSpotifyDatasets[feature],
@@ -225,6 +230,7 @@ class VibeDashboard extends React.Component {
         ],
       };
     }
+    console.log(formattedData);
     this.setState({ formattedData: formattedData, isLoading: false });
     this.props.load();
   }
