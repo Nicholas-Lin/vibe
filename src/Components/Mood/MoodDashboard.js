@@ -4,10 +4,10 @@ import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import PercentDisplay from "./PercentDisplay";
 import PopularityDisplay from "./PopularityDisplay";
 import { ImageCarousel } from "./ImageCarousel";
 import DoughnutChart from "./DoughnutChart";
+import FeaturesDisplay from "./FeaturesDisplay";
 
 class MoodDashboard extends Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class MoodDashboard extends Component {
    */
   async getRecentTracks() {
     const endpoint = "https://api.spotify.com/v1/me/player/recently-played";
+
     let res = await axios.get(endpoint, {
       headers: {
         Authorization: `Bearer ${this.props.token}`,
@@ -35,6 +36,7 @@ class MoodDashboard extends Component {
       },
     });
     return res.data.items;
+
   }
 
   /**
@@ -213,55 +215,60 @@ class MoodDashboard extends Component {
   }
 
   async componentDidMount() {
-    const recentTracks = await this.getRecentTracks();
-    const recentTracksFeatures = await this.getTrackFeatures(recentTracks);
-    const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
+    try {
+      const recentTracks = await this.getRecentTracks();
+      const recentTracksFeatures = await this.getTrackFeatures(recentTracks);
+      const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
 
-    const uniqueTracks = Array.from(
-      new Set(recentTracks.map((item) => item.track.id))
-    ).map((id) => {
-      return recentTracks.find((item) => item.track.id === id);
-    });
-    console.log(uniqueTracks);
-    const trackImages = uniqueTracks.map((item) => {
-      return {
-        id: item.track.id,
-        url: item.track.album.images[0].url,
-      };
-    });
+      const uniqueTracks = Array.from(
+        new Set(recentTracks.map((item) => item.track.id))
+      ).map((id) => {
+        return recentTracks.find((item) => item.track.id === id);
+      });
+      console.log(uniqueTracks);
+      const trackImages = uniqueTracks.map((item) => {
+        return {
+          id: item.track.id,
+          url: item.track.album.images[0].url,
+        };
+      });
 
-    const genres = await this.getGeneres(recentTracks);
+      const genres = await this.getGeneres(recentTracks);
 
-    const searchResults = await this.searchForPlaylist(
-      ["Today's top hits"],
-      "Spotify"
-    );
-    const playlistID = searchResults[0].id;
-    const playlist = await this.getPlaylist(playlistID);
-    const playlistFeatures = await this.getTrackFeatures(playlist.tracks);
-    const averagePlaylistFeatures = this.averageFeatures(playlistFeatures);
-    const differences = this.calculatePercentDifferences(
-      averagePlaylistFeatures,
-      averageRecentFeatures
-    );
-    const popularityScore = averageRecentFeatures.popularity;
-    this.setState({
-      percentages: differences,
-      popularity: popularityScore,
-      trackImages: trackImages,
-      genres: genres,
-      isLoading: false,
-    });
-    this.props.load();
+      const searchResults = await this.searchForPlaylist(
+        ["Today's top hits"],
+        "Spotify"
+      );
+      const playlistID = searchResults[0].id;
+      const playlist = await this.getPlaylist(playlistID);
+      const playlistFeatures = await this.getTrackFeatures(playlist.tracks);
+      const averagePlaylistFeatures = this.averageFeatures(playlistFeatures);
+      const differences = this.calculatePercentDifferences(
+        averagePlaylistFeatures,
+        averageRecentFeatures
+      );
+      const popularityScore = averageRecentFeatures.popularity;
+      this.setState({
+        percentages: differences,
+        popularity: popularityScore,
+        trackImages: trackImages,
+        genres: genres,
+        isLoading: false,
+      });
+      this.props.load();
+    } catch (error) {
+      console.log(error)
+      this.props.handleTimeout();
+    }
   }
 
   render() {
     return this.state.isLoading ? null : (
       <div>
-        <header>Your Mood</header>
-        <Container>
+        <Container fluid className=" d-flex flex-column" style={{ minHeight: "100vh" }}>
+          <header>Your Mood</header>
           <h3>How do your recent songs compare to today's top hits?</h3>
-          <Row className="justify-content-center">
+          <Row className="d-flex justify-content-center">
             <Col
               md={{ span: 6, order: 2 }}
               className="d-flex flex-column justify-content-center h-100"
@@ -272,50 +279,9 @@ class MoodDashboard extends Component {
               <PopularityDisplay score={this.state.popularity} />
             </Col>
           </Row>
-          <hr />
-          <Row>
-            <Col md={3}>
-              <PercentDisplay
-                percent={this.state.percentages.valence}
-                descriptions={["Less happy", "Same hapiness", "Happier"]}
-                emojis={["😭", "😢", "😕", "😃", "😁", "😊"]}
-              />
-            </Col>
-            <Col md={3}>
-              <PercentDisplay
-                percent={this.state.percentages.danceability}
-                descriptions={[
-                  "Less danceable",
-                  "Same danceability",
-                  "More danceable",
-                ]}
-                emojis={["💃"]}
-              />
-            </Col>
-            <Col md={3}>
-              <PercentDisplay
-                percent={this.state.percentages.energy}
-                descriptions={[
-                  "Less energetic",
-                  "Same energy",
-                  "More energetic",
-                ]}
-                emojis={["😴", "⚡️", "🔥"]}
-              />
-            </Col>
-            <Col md={3}>
-              <PercentDisplay
-                percent={this.state.percentages.acousticness}
-                descriptions={[
-                  "Less acoustic",
-                  "Same acousticness",
-                  "More acoustic",
-                ]}
-                emojis={["🎸", "🎻"]}
-              />
-            </Col>
-          </Row>
-          <hr />
+          <FeaturesDisplay percentages={this.state.percentages} />
+        </Container>
+        <Container fluid className=" d-flex flex-column" style={{ minHeight: "100vh" }}>
           <Row>
             <Col className="justify-content-center">
               <h2>{"Your Recent Genres"}</h2>
@@ -323,6 +289,7 @@ class MoodDashboard extends Component {
             </Col>
           </Row>
         </Container>
+
         <hr />
       </div>
     );

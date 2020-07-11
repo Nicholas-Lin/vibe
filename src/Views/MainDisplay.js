@@ -17,11 +17,11 @@ class MainDisplay extends React.Component {
 
   updateLoadingStatus() {
     if (
-      !(
-        this.state.moodDashboardIsLoading &&
-        this.state.vibeDashboardIsLoading &&
-        this.state.favoritesDisplayIsLoading
-      )
+
+      !this.state.moodDashboardIsLoading &&
+      !this.state.vibeDashboardIsLoading &&
+      !this.state.favoritesDisplayIsLoading
+
     ) {
       this.setState({
         isLoading: false,
@@ -57,6 +57,7 @@ class MainDisplay extends React.Component {
           <MoodDashboard
             token={this.props.token}
             load={() => this.loadMoodDashboard()}
+            handleTimeout={() => this.props.handleTimeout()}
           />
 
           <VibeDashboard

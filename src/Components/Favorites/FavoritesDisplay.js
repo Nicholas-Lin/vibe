@@ -28,28 +28,9 @@ class FavoritesDisplay extends React.Component {
   };
 
   getTopArtists = async () => {
-    let customParams = {
-      headers: {
-        Authorization: `Bearer ${this.props.token}`,
-      },
-      params: {
-        time_range: this.state.timeRange,
-        limit: 50,
-      },
-    };
-    await axios
-      .get("https://api.spotify.com/v1/me/top/artists", customParams)
-      .then((res) => {
-        this.setState({ topArtists: res.data.items });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  getTopTracks = async () => {
-    await axios
-      .get("https://api.spotify.com/v1/me/top/tracks", {
+    const endpoint = "https://api.spotify.com/v1/me/top/artists"
+    const response = await axios
+      .get(endpoint, {
         headers: {
           Authorization: `Bearer ${this.props.token}`,
         },
@@ -58,51 +39,25 @@ class FavoritesDisplay extends React.Component {
           limit: 50,
         },
       })
-      .then((res) => {
-        this.setState({ topTracks: res.data.items });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    await this.analyzeTopTracks();
+    this.setState({ topArtists: response.data.items });
   };
 
-  analyzeTopTracks = async () => {
-    let ids = [];
-    this.state.topTracks.forEach((track) => {
-      ids.push(track.id);
-    });
-
-    let customParams = {
-      headers: {
-        Authorization: `Bearer ${this.props.token}`,
-      },
-      params: {
-        ids: ids.join(),
-      },
-    };
-    await axios
-      .get("https://api.spotify.com/v1/audio-features", customParams)
-      .then((res) => {
-        res.data.audio_features.forEach((track) => {
-          const { id, acousticness, danceability, energy, valence } = track;
-          this.setState({
-            audioAnalysis: [
-              ...this.state.audioAnalysis,
-              {
-                id: id,
-                acousticness: acousticness,
-                danceability: danceability,
-                energy: energy,
-                valence: valence,
-              },
-            ],
-          });
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  getTopTracks = async () => {
+    try {
+      const response = await axios
+        .get("https://api.spotify.com/v1/me/top/tracks", {
+          headers: {
+            Authorization: `Bearer ${this.props.token}`,
+          },
+          params: {
+            time_range: this.state.timeRange,
+            limit: 50,
+          },
+        })
+      this.setState({ topTracks: response.data.items });
+    } catch (error) {
+      console.log("getTopTracksError: ", error)
+    }
   };
 
   refreshData = () => {
