@@ -28,7 +28,6 @@ class App extends React.Component {
   }
 
   handleLogin() {
-    console.log("REDDIRECTING")
     window.location.replace(loginURL);
     this.setState({
       isLoggedIn: true,

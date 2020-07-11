@@ -52,8 +52,8 @@ class PopularityDisplay extends Component {
             {Math.round(score)}
           </text>
         </svg>
-        <h2>{"Popularity Score:"}</h2>
-        <h2>{`${description} ${emoji}`}</h2>
+        <h3>{"Popularity Score:"}</h3>
+        <h3>{`${description} ${emoji}`}</h3>
       </Col>
     );
   }

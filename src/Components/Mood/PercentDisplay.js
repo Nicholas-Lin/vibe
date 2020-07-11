@@ -51,7 +51,7 @@ class PercentDisplay extends Component {
         <span className="emoji"> {emoji} </span>
         <Row className="d-flex flex-direction-column justify-content-center align-items-center">
           {arrow}
-          <h1>{Math.abs(percent)}%</h1>
+          <h2>{Math.abs(percent)}%</h2>
         </Row>
         <h5>{description}</h5>
       </div>

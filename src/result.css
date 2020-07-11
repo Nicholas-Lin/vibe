@@ -1,4 +1,4 @@
-.track-history-item {
+.result-item {
   padding: 1em 1.5em;
   margin: 0 -1.8em;
   text-align: left;
@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.track-history-item:hover {
+.result-item:hover {
   background-color: rgb(31, 31, 31);
 }
 .order-number {
@@ -21,17 +21,17 @@
   padding-right: 23px;
 }
 
-.track-info {
+.result-info {
   display: flex;
   align-items: center;
 }
 
-.track-summary {
+.result-summary {
   display: flex;
   flex-direction: column-reverse;
 }
 
-.track-cover {
+.result-cover {
   width: 50px;
   min-width: 50px;
   height: 64px;
@@ -46,7 +46,7 @@
   background-position: 50% 50%;
 }
 
-.track-name {
+.result-name {
   font-weight: 500;
   margin-bottom: 0.2em;
 }

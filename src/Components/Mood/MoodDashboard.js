@@ -36,7 +36,6 @@ class MoodDashboard extends Component {
       },
     });
     return res.data.items;
-
   }
 
   /**
@@ -256,7 +255,7 @@ class MoodDashboard extends Component {
       });
       this.props.load();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       this.props.handleTimeout();
     }
   }
@@ -264,10 +263,10 @@ class MoodDashboard extends Component {
   render() {
     return this.state.isLoading ? null : (
       <div>
-        <Container fluid className=" d-flex flex-column" style={{ minHeight: "100vh" }}>
+        <Container fluid className=" d-flex flex-column mood-top-section">
           <header>Your Mood</header>
           <h3>How do your recent songs compare to today's top hits?</h3>
-          <Row className="d-flex justify-content-center">
+          <Row className="d-flex justify-content-center mt-2">
             <Col
               md={{ span: 6, order: 2 }}
               className="d-flex flex-column justify-content-center h-100"
@@ -280,7 +279,11 @@ class MoodDashboard extends Component {
           </Row>
           <FeaturesDisplay percentages={this.state.percentages} />
         </Container>
-        <Container fluid className=" d-flex flex-column" style={{ minHeight: "100vh" }}>
+        <Container
+          fluid
+          className=" d-flex flex-column"
+          style={{ minHeight: "100vh" }}
+        >
           <Row>
             <Col className="justify-content-center">
               <h2>{"Your Recent Genres"}</h2>

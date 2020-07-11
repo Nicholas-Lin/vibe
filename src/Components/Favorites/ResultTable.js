@@ -1,6 +1,5 @@
 import React from "react";
-import TrackItem from "./TrackItem";
-import ArtistItem from "./ArtistItem";
+import ResultItem from "./ResultItem";
 
 class ResultTable extends React.Component {
   playTrack(previewURL) {
@@ -24,24 +23,32 @@ class ResultTable extends React.Component {
     let results;
     if (this.props.topType === "tracks") {
       results = this.props.topTracks.map((track, index) => (
-        <TrackItem
+        <ResultItem
+          type="track"
           position={index + 1}
           key={track.id}
-          track={track}
+          title={track.name}
+          subtitle={track.artists[0].name}
+          image={track.album.images[0].url}
+          previewURL={track.preview_url}
           searchTerm={this.props.searchTerm}
           playTrack={this.playTrack}
         />
       ));
     } else {
       results = this.props.topArtists.map((artist, index) => (
-        <ArtistItem
+        <ResultItem
+          type="artist"
           position={index + 1}
           key={artist.id}
-          artist={artist}
+          title={artist.name}
+          subtitle={artist.genres.join(", ")}
+          image={artist.images[0].url}
           searchTerm={this.props.searchTerm}
         />
       ));
     }
+
     return (
       <div id="result-table">
         {results ? (

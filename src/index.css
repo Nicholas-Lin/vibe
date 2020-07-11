@@ -15,6 +15,9 @@ body {
   font-weight: 400;
 }
 
+.mood-top-section {
+  min-height: 100vh;
+}
 header {
   font-size: 80px;
   line-height: normal;
@@ -28,7 +31,7 @@ header {
   margin-top: 2rem;
 }
 
-section{
+section {
   min-height: 100vh;
 }
 .carousel-inner {
@@ -55,10 +58,10 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   border: 0;
-  clear:both;
-  display:block;
-  width: 96%;               
-  background-color:#ffffff;
+  clear: both;
+  display: block;
+  width: 96%;
+  background-color: #ffffff;
   height: 1px;
 }
 
