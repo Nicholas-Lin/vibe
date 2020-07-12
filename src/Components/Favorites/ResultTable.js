@@ -22,7 +22,7 @@ class ResultTable extends React.Component {
   render() {
     let results;
     if (this.props.topType === "tracks") {
-      results = this.props.topTracks.map((track, index) => (
+      results = this.props.data.map((track, index) => (
         <ResultItem
           type="track"
           position={index + 1}
@@ -36,7 +36,7 @@ class ResultTable extends React.Component {
         />
       ));
     } else {
-      results = this.props.topArtists.map((artist, index) => (
+      results = this.props.data.map((artist, index) => (
         <ResultItem
           type="artist"
           position={index + 1}

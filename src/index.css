@@ -34,10 +34,7 @@ header {
 section {
   min-height: 100vh;
 }
-.carousel-inner {
-}
-.carousel-item {
-}
+
 .carousel-item img {
   max-height: 50vh;
   max-width: 100%;
@@ -47,7 +44,7 @@ section {
 
 .line-chart-container {
   position: relative;
-  height: 40vh;
+  height: 45vh;
   width: 100%;
 }
 .emoji {

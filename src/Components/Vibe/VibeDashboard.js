@@ -1,6 +1,5 @@
 import React from "react";
 import LineChart from "./LineChart";
-import axios from "axios";
 import Api from "../../Api";
 
 import Container from "react-bootstrap/Container";
@@ -48,7 +47,7 @@ class VibeDashboard extends React.Component {
       50
     );
     // Workaround for get track features
-    recentPlaylist = recentPlaylist.data.items.map((item) => {
+    recentPlaylist = recentPlaylist.map((item) => {
       return { track: item };
     });
     const playlistFeatures = await API.getTrackFeatures(recentPlaylist);

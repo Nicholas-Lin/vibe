@@ -4,7 +4,15 @@ class Api {
     this.token = api_token;
   }
 
-  async getUserFavorites(type, time_range, limit) {
+  /**
+   * Gets users top tracks/artists in a given time range:
+   * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
+   * @param  {string} type - The type of entity to return. Valid values: artists or tracks.
+   * @param {string} time_range - Over what time frame the affinities are computed. Valid values: long_term, medium_term, short_term
+   * @param {number} limit - The number of entities to return. Default: 20. Minimum: 1. Maximum: 50.
+   * @return An array of track or artists objects
+   */
+  async getUserFavorites(type, time_range, limit = 20) {
     const endpoint = `https://api.spotify.com/v1/me/top/${type}`;
     const response = await axios.get(endpoint, {
       headers: {
@@ -15,7 +23,7 @@ class Api {
         limit: limit,
       },
     });
-    return response;
+    return response.data.items;
   }
 
   /**
