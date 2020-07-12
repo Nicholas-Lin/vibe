@@ -1,10 +1,17 @@
+/**
+ * File Name: Login.js
+ * Author: Nicholas Lin
+ * Date: 7/11/20
+ * Description: Login page and landing page of the website
+ */
+
 import React from "react";
 import SubmitButton from "../Components/SubmitButton";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import SoundWave from "../Components/SoundWave";
 
-export default function Login(props) {
+function Login(props) {
   if (props.isLoggedIn) {
     return null;
   }
@@ -21,12 +28,12 @@ export default function Login(props) {
         <h6 className="mt-5">Your information will not be stored.</h6>
         <h6>
           {" "}
-            Created by{" "}
-          <a href="https://nicholas-lin.github.io/"> Nicholas Lin. </a>{" "}
-            Powered by{" "}
+          Created by{" "}
+          <a href="https://nicholas-lin.github.io/"> Nicholas Lin. </a> Powered
+          by{" "}
           <a href="https://developer.spotify.com/documentation/web-api/">
             {" "}
-              Spotify's API.{" "}
+            Spotify's API.{" "}
           </a>{" "}
         </h6>
       </Col>
@@ -34,3 +41,4 @@ export default function Login(props) {
   );
 }
 
+export default Login;

@@ -19,7 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
-  "homepage": "https://spotivibe.netlify.app/",
+  "homepage": "https://nicholas-lin.github.io/vibe",
   "scripts": {
     "start": "react-scripts start --no-cache",
     "build": "react-scripts build",

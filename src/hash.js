@@ -1,3 +1,10 @@
+/**
+ * File Name: hash.js
+ * Author: Nicholas Lin
+ * Date: 7/11/20
+ * Description: Gets hash parameters from url
+ */
+
 const hash = window.location.hash
   .substring(1)
   .split("&")
@@ -8,6 +15,6 @@ const hash = window.location.hash
     }
     return initial;
   }, {});
-window.location.hash = "";
+//window.location.hash = "";
 
 export default hash;

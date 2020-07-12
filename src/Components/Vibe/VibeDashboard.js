@@ -1,6 +1,7 @@
 import React from "react";
 import LineChart from "./LineChart";
 import axios from "axios";
+import Api from "../../Api";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -17,94 +18,42 @@ class VibeDashboard extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.getTopPlaylists();
-  }
-
-  getTopPlaylists = async () => {
-    let res = await axios.get("	https://api.spotify.com/v1/search", {
-      headers: {
-        Authorization: `Bearer ${this.state.token}`,
-      },
-      params: {
-        q: "Your Top Songs",
-        type: "playlist",
-        limit: "10",
-      },
-    });
-
+  async componentDidMount() {
+    const API = new Api(this.props.token);
+    const searchResults = await API.searchForPlaylist(
+      ["Your Top Songs"],
+      "Spotify"
+    );
     await Promise.all(
-      res.data.playlists.items.map(async (item) => {
+      searchResults.map(async (item) => {
         // If search result is a top track playlist
-        if (item.name.length === 19 && item.owner.display_name === "Spotify") {
-          let response = await axios.get(
-            `https://api.spotify.com/v1/playlists/${item.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${this.state.token}`,
-              },
-              params: {
-                fields: "name,tracks.items(track)",
-              },
-            }
-          );
-          const year = response.data.name.split(" ").pop();
+        if (item.name.length === 19) {
+          let response = await API.getPlaylist(item.id);
+          const year = response.name.split(" ").pop();
           const playlist = {
             year: year,
-            tracks: response.data.tracks.items,
+            tracks: response.tracks,
           };
           this.setState({
             data: [...this.state.data, playlist],
           });
-          const playlistFeatures = await this.getTrackFeatures(playlist.tracks);
+          const playlistFeatures = await API.getTrackFeatures(playlist.tracks);
           this.computeFeatures(year, playlistFeatures);
         }
       })
     );
-    let recentPlaylist = await axios.get(
-      "https://api.spotify.com/v1/me/top/tracks",
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-        params: {
-          time_range: "medium_term",
-          limit: 50,
-        },
-      }
+    let recentPlaylist = await API.getUserFavorites(
+      "tracks",
+      "medium_term",
+      50
     );
-    const playlistFeatures = await this.getTrackFeatures(
-      recentPlaylist.data.items
-    );
+    // Workaround for get track features
+    recentPlaylist = recentPlaylist.data.items.map((item) => {
+      return { track: item };
+    });
+    const playlistFeatures = await API.getTrackFeatures(recentPlaylist);
     this.computeFeatures("2020", playlistFeatures);
     this.createGraphData();
-  };
-  async getTrackFeatures(tracks) {
-    let ids = [];
-    tracks.forEach((item) => {
-      if (item.track) ids.push(item.track.id);
-      else ids.push(item.id);
-    });
-    let res = await axios.get("https://api.spotify.com/v1/audio-features", {
-      headers: {
-        Authorization: `Bearer ${this.state.token}`,
-      },
-      params: {
-        ids: ids.join(),
-      },
-    });
-    let results = [];
-    res.data.audio_features.forEach((track) => {
-      const { id, acousticness, danceability, energy, valence } = track;
-      results.push({
-        id: id,
-        acousticness: acousticness,
-        danceability: danceability,
-        energy: energy,
-        valence: valence,
-      });
-    });
-    return results;
   }
 
   computeFeatures(year, playlistFeatures) {
@@ -116,7 +65,8 @@ class VibeDashboard extends React.Component {
     };
     playlistFeatures.forEach((track) => {
       for (let key in track) {
-        if (key !== "id") {
+        // Workaround for popularity
+        if (key !== "id" && key !== "popularity") {
           averageFeatures[key] += track[key];
         }
       }

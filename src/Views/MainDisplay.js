@@ -1,3 +1,10 @@
+/**
+ * File Name: MainDisplay.js
+ * Author: Nicholas Lin
+ * Date: 7/11/20
+ * Description: Main display after login
+ */
+
 import React from "react";
 import Container from "react-bootstrap/Container";
 import VibeDashboard from "../Components/Vibe/VibeDashboard";
@@ -15,19 +22,24 @@ class MainDisplay extends React.Component {
     };
   }
 
+  /**
+   * Updates the loading status of the component based on loading status of child components
+   */
   updateLoadingStatus() {
     if (
-
       !this.state.moodDashboardIsLoading &&
       !this.state.vibeDashboardIsLoading &&
       !this.state.favoritesDisplayIsLoading
-
     ) {
       this.setState({
         isLoading: false,
       });
     }
   }
+
+  /**
+   * Updates the loading status of the mood dashboard in the state
+   */
   loadMoodDashboard() {
     this.setState({
       moodDashboardIsLoading: false,
@@ -35,6 +47,9 @@ class MainDisplay extends React.Component {
     this.updateLoadingStatus();
   }
 
+  /**
+   * Updates the loading status of the vibe dashboard in the state
+   */
   loadVibeDashboard() {
     this.setState({
       vibeDashboardIsLoading: false,
@@ -42,6 +57,9 @@ class MainDisplay extends React.Component {
     this.updateLoadingStatus();
   }
 
+  /**
+   * Updates the loading status of the favorites display in the state
+   */
   loadFavorites() {
     this.setState({
       favoritesDisplayIsLoading: false,
@@ -59,7 +77,6 @@ class MainDisplay extends React.Component {
             load={() => this.loadMoodDashboard()}
             handleTimeout={() => this.props.handleTimeout()}
           />
-
           <VibeDashboard
             token={this.props.token}
             load={() => this.loadVibeDashboard()}
