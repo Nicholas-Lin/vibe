@@ -103,7 +103,7 @@ class Api {
    * @param  {Array<SimpleTrackObject>} tracks - An array of Spotify tracks to analyze
    * @return {Array<Objects>} - An array of objects that contain trackID, acousticness, danceability, energy, valence, and popularity properties
    */
-  async getTrackFeatures(tracks) {
+  async getTrackFeatures(tracks, features) {
     let ids = [];
     tracks.forEach((item) => {
       ids.push(item.track.id);
@@ -119,16 +119,18 @@ class Api {
     });
     let results = [];
     res.data.audio_features.forEach((trackFeatures) => {
-      const { id, acousticness, danceability, energy, valence } = trackFeatures;
-      const correspondingTrack = tracks.find((item) => item.track.id === id);
-      results.push({
-        id: id,
-        acousticness: acousticness,
-        danceability: danceability,
-        energy: energy,
-        valence: valence,
-        popularity: correspondingTrack.track.popularity,
-      });
+      let result = {};
+      features.forEach((feature) => {
+        if (feature === "popularity") {
+          const correspondingTrack = tracks.find((item) => item.track.id === trackFeatures.id);
+          result[feature] = correspondingTrack.track.popularity;
+          results.push(result);
+        } else if (Object.keys(trackFeatures).includes(feature)) {
+          result[feature] = trackFeatures[feature];
+          results.push(result);
+        }
+      })
+
     });
     return results;
   }

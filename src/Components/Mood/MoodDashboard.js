@@ -14,7 +14,7 @@ import Col from "react-bootstrap/Col";
 import PopularityDisplay from "./PopularityDisplay";
 import { ImageCarousel } from "./ImageCarousel";
 import DoughnutChart from "./DoughnutChart";
-import FeaturesDisplay from "./FeaturesDisplay";
+import ComparisonsDisplay from "./ComparisonsDisplay";
 import Api from "../../Api";
 
 class MoodDashboard extends Component {
@@ -122,9 +122,9 @@ class MoodDashboard extends Component {
   async componentDidMount() {
     try {
       const API = new Api(this.props.token);
-
+      const requestFeatures = ["id", "acousticness", "danceability", "energy", "valence", "popularity"];
       const recentTracks = await API.getRecentTracks();
-      const recentTracksFeatures = await API.getTrackFeatures(recentTracks);
+      const recentTracksFeatures = await API.getTrackFeatures(recentTracks, requestFeatures);
       const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
       const uniqueTracks = Array.from(
         new Set(recentTracks.map((item) => item.track.id))
@@ -146,7 +146,7 @@ class MoodDashboard extends Component {
       );
       const playlistID = searchResults[0].id;
       const playlist = await API.getPlaylist(playlistID);
-      const playlistFeatures = await API.getTrackFeatures(playlist.tracks);
+      const playlistFeatures = await API.getTrackFeatures(playlist.tracks, requestFeatures);
       const averagePlaylistFeatures = this.averageFeatures(playlistFeatures);
       const differences = this.calculatePercentDifferences(
         averagePlaylistFeatures,
@@ -163,9 +163,7 @@ class MoodDashboard extends Component {
       this.props.load();
     } catch (error) {
       console.log(error);
-
-      //If the access token expired
-      if (error.response.status === 401) this.props.handleTimeout();
+      if (error.response && error.response.status === 401) this.props.handleTimeout();
     }
   }
 
@@ -186,7 +184,7 @@ class MoodDashboard extends Component {
               <PopularityDisplay score={this.state.popularity} />
             </Col>
           </Row>
-          <FeaturesDisplay percentages={this.state.percentages} />
+          <ComparisonsDisplay percentages={this.state.percentages} />
         </Container>
         <Container
           fluid

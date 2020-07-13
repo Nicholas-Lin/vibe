@@ -1,5 +1,4 @@
 1. Add slider view to mood dashboard
-    - Add array input to features api requestor
 2. Fix redundant API calls
 2. Document code
 3. Customize result items CSS

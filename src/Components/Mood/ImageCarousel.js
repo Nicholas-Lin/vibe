@@ -8,7 +8,7 @@ export function ImageCarousel(props) {
     </Carousel.Item>
   ));
   return (
-    <Carousel indicators={false} controls={false} fade={false}>
+    <Carousel indicators={false} controls={true} fade={false} interval={5000}>
       {carouselItems}
     </Carousel>
   );

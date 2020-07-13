@@ -19,6 +19,7 @@ class VibeDashboard extends React.Component {
 
   async componentDidMount() {
     const API = new Api(this.props.token);
+    const requestFeatures = ["id", "acousticness", "danceability", "energy", "valence"];
     const searchResults = await API.searchForPlaylist(
       ["Your Top Songs"],
       "Spotify"
@@ -36,7 +37,7 @@ class VibeDashboard extends React.Component {
           this.setState({
             data: [...this.state.data, playlist],
           });
-          const playlistFeatures = await API.getTrackFeatures(playlist.tracks);
+          const playlistFeatures = await API.getTrackFeatures(playlist.tracks, requestFeatures);
           this.computeFeatures(year, playlistFeatures);
         }
       })
@@ -50,7 +51,7 @@ class VibeDashboard extends React.Component {
     recentPlaylist = recentPlaylist.map((item) => {
       return { track: item };
     });
-    const playlistFeatures = await API.getTrackFeatures(recentPlaylist);
+    const playlistFeatures = await API.getTrackFeatures(recentPlaylist, requestFeatures);
     this.computeFeatures("2020", playlistFeatures);
     this.createGraphData();
   }
@@ -64,8 +65,7 @@ class VibeDashboard extends React.Component {
     };
     playlistFeatures.forEach((track) => {
       for (let key in track) {
-        // Workaround for popularity
-        if (key !== "id" && key !== "popularity") {
+        if (key !== "id") {
           averageFeatures[key] += track[key];
         }
       }
@@ -75,7 +75,7 @@ class VibeDashboard extends React.Component {
         Math.round(
           ((averageFeatures[key] * 100) / playlistFeatures.length +
             Number.EPSILON) *
-            100
+          100
         ) / 100;
     }
     this.setState({
