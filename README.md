@@ -1,68 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Vibe
 
-In the project directory, you can run:
+> Get insights into your vibe
 
-### `npm start`
+This application uses Spotify Web API to give users insights into their listening habits. Users can view trends in their song preferences and compare their recent songs to the top tracks of the day.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Try out Vibe](https://nicholas-lin.github.io/vibe)  
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Features
+- View the average popularity of your last 50 songs
+- Compare your last 50 songs with the top tracks on Spotify for that day based on a variety of features
+- Visualize trends in your top songs for each year based on valence (happiness), acousticness, etc. and how they compare with the top songs and average song of each year
+- Examine your top tracks and artists from the last month, 6 months, and all time
 
-### `npm test`
+## Built With
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+- [React](https://reactjs.org/)
+- [Bootstrap](https://getbootstrap.com/)
 
-### `npm run build`
+## Spotify API
+This application uses following endpoints of the [**Spotify Web API**](https://developer.spotify.com/documentation/web-api/)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-  [**Authorization**](https://developer.spotify.com/documentation/general/guides/authorization-guide/#implicit-grant-flow)
+- [**Personalization API**](https://developer.spotify.com/documentation/web-api/reference-beta/#category-personalization) - [Get users Top Tracks and Artists](https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/)
+- [**Player API**](https://developer.spotify.com/documentation/web-api/reference-beta/#category-player)	 -  [Get Recently played tracks for user](https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/)
+- [**Search API**](https://developer.spotify.com/documentation/web-api/reference-beta/#category-search)	-   [Search for an Item](https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-search)
+- [**Playlists API**](https://developer.spotify.com/documentation/web-api/reference-beta/#category-playlists)	- [Get a Playlist](https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-playlist)
+- [**Tracks API**](https://developer.spotify.com/documentation/web-api/reference-beta/#category-tracks) - [Get Audio Features for a Track](https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-audio-features)
+  
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Creating a Spotify App
+1. Go to https://developer.spotify.com/dashboard/, log in and create a new App.
+2. Add `http://localhost:3000/` as _Redirect URI_ in your Spotify App Settings.
+3. Grab the _Client Id_ that will be added to `.env` in the root directory of the repository.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Try it out yourself
+1. Clone the repository
+2. Navigate to the root directory of the repository  
+3. `npm install`
+4. `cp .env_EXAMPLE .env` and fill `REACT_APP_SPOTIFY_CLIENT_ID` with your client id and `REACT_APP_REDIRECT_URI` with `http://localhost:3000/`
+5. `npm start`
 
-### `npm run eject`
+Application is based on [create-react-app](https://github.com/facebook/create-react-app)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What I Learned
+This is the first project I have developed using a javascript framework/library. I learned so much about using the React js library and enjoyed the development process. I learned about class/functional components, JSX, props, state, and lifecycle methods. React js allowed me to organize my code so that I could adhere to DRY principles and better programming practices. React js was easier to learn than I had expected and I found it to be tremendously easier than using vanilla js like I had in the past. I look forward to exploring more projects with React hooks in the future. I also learned about making API requests by working with the Spotify API. I utilized concepts such as Async/await, promises, callbacks, etc. The thoughough documentation provided by Spotify was extremely helpful for learning how to make requests to the powerful endpoints and the responses to expect. I learned about the OAuth2 authentication flow, and decided to use an implicit grant flow since I did not want my application to rely on a backend. Once again, the Spotify documentation was extremely helpful in learning how to achieve this with no prior experience. This project has been extremely helpful in my growth as a developer.
