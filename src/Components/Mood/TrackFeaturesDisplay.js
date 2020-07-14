@@ -6,6 +6,8 @@
  */
 
 import React, { Component } from "react";
+import Nouislider from "nouislider-react";
+import "nouislider/distribute/nouislider.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -21,7 +23,11 @@ class TrackFeaturesDisplay extends Component {
     render() {
         const { track } = this.props
         return (
-            <div>{track.name}</div>
+            <div>
+                <div>{track.name}</div>
+                <div>{track.artist}</div>
+                <Nouislider connect start={[20, 80]} range={{ min: 0, max: 100 }} />
+            </div>
         );
     }
 }
