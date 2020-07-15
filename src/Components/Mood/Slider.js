@@ -23,18 +23,18 @@ class Slider extends Component {
   }
 
   render() {
-    const { value, title, valueLabelDisplay } = this.props;
+    const { value, title, valueLabelDisplay, color } = this.props;
     const muiTheme = createMuiTheme({
       overrides: {
         MuiSlider: {
           thumb: {
-            color: "white",
+            color: color,
           },
           track: {
-            color: "white",
+            color: color,
           },
           rail: {
-            color: "black",
+            color: "#b1b1b1",
           },
         },
       },
@@ -42,11 +42,16 @@ class Slider extends Component {
 
     return (
       <div>
-        <span>
-          {title}: {value}
+        <span className="slider-title" style={{ color: color }}>
+          <span className="slider-name">
+            {title}
+          </span>
+          <span className="slider-value">
+            {value}
+          </span>
         </span>
         <ThemeProvider theme={muiTheme}>
-          <MUISlider value={value} valueLabelDisplay={valueLabelDisplay} />
+          <MUISlider value={value} />
         </ThemeProvider>
       </div>
     );

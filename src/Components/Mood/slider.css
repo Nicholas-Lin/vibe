@@ -6,3 +6,18 @@
 .MuiSlider-track {
   transition: width 0.5s ease-in;
 }
+
+.slider-title {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-bottom: -3px;
+}
+
+.slider-name {
+  text-align: left;
+}
+
+.slider-value {
+  text-align: right;
+}
