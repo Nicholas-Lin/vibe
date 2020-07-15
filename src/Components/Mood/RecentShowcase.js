@@ -12,38 +12,42 @@ import Col from "react-bootstrap/Col";
 import TrackFeaturesDisplay from "./TrackFeaturesDisplay";
 import { ImageCarousel } from "./ImageCarousel";
 
-
 class RecentShowcase extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentIndex: 0,
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentIndex: 0,
+      currentTrack: this.props.tracks[0],
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-    handleChange(e) {
-        console.log(e)
-        this.setState({ currentIndex: e })
-    }
+  handleChange(e) {
+    this.setState({ currentIndex: e, currentTrack: this.props.tracks[e] });
+  }
 
-    render() {
-        const trackImages = this.props.tracks.map((track) => { return { key: track.id, url: track.image } })
-        const currentTrack = this.props.tracks[this.state.currentIndex];
-        return (
-            <Row className="d-flex justify-content-center mt-2">
-                <Col
-                    md={{ span: 6, order: 2 }}
-                    className="d-flex flex-column justify-content-center h-100"
-                >
-                    <ImageCarousel images={trackImages} handleChange={this.handleChange} />
-                </Col>
-                <Col md={{ span: 6, order: 1 }}>
-                    <TrackFeaturesDisplay track={currentTrack} />
-                </Col>
-            </Row>
-        );
-    }
+  render() {
+    const trackImages = this.props.tracks.map((track) => {
+      return { key: track.id, url: track.image };
+    });
+
+    return (
+      <Row className="d-flex justify-content-center mt-2">
+        <Col
+          md={{ span: 6, order: 2 }}
+          className="d-flex flex-column justify-content-center h-100"
+        >
+          <ImageCarousel
+            images={trackImages}
+            handleChange={this.handleChange}
+          />
+        </Col>
+        <Col md={{ span: 6, order: 1 }}>
+          <TrackFeaturesDisplay track={this.state.currentTrack} />
+        </Col>
+      </Row>
+    );
+  }
 }
 
 export default RecentShowcase;

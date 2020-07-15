@@ -122,15 +122,15 @@ class Api {
       let result = {};
       features.forEach((feature) => {
         if (feature === "popularity") {
-          const correspondingTrack = tracks.find((item) => item.track.id === trackFeatures.id);
+          const correspondingTrack = tracks.find(
+            (item) => item.track.id === trackFeatures.id
+          );
           result[feature] = correspondingTrack.track.popularity;
-          results.push(result);
         } else if (Object.keys(trackFeatures).includes(feature)) {
           result[feature] = trackFeatures[feature];
-          results.push(result);
         }
-      })
-
+      });
+      results.push(result);
     });
     return results;
   }

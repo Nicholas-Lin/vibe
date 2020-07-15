@@ -25,6 +25,7 @@ class MoodDashboard extends Component {
       percentages: {},
       popularity: 0,
       trackImages: [],
+      uniqueRecentTracks: [],
     };
   }
 
@@ -122,22 +123,38 @@ class MoodDashboard extends Component {
   async componentDidMount() {
     try {
       const API = new Api(this.props.token);
-      let requestFeatures = ["acousticness", "danceability", "energy", "instrumentalness", "liveness", "speechiness", "valence", "popularity"];
+      let requestFeatures = [
+        "acousticness",
+        "danceability",
+        "energy",
+        "instrumentalness",
+        "liveness",
+        "speechiness",
+        "valence",
+        "popularity",
+      ];
       const recentTracks = await API.getRecentTracks();
-      const recentTracksFeatures = await API.getTrackFeatures(recentTracks, requestFeatures);
-      const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
+      const recentTracksFeatures = await API.getTrackFeatures(
+        recentTracks,
+        requestFeatures
+      );
 
-      let formattedRecentTracks = []
+      const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
+      let formattedRecentTracks = [];
       for (let i = 0; i < recentTracks.length; i++) {
-        const track = recentTracks[i].track
-        const { acousticness,
+        let formattedRecentTrack = {};
+        const track = recentTracks[i].track;
+        const {
+          acousticness,
           danceability,
           energy,
           instrumentalness,
           liveness,
           speechiness,
-          popularity } = recentTracksFeatures[i]
-        const formattedRecentTrack = {
+          popularity,
+        } = recentTracksFeatures[i];
+
+        formattedRecentTrack = {
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -151,11 +168,10 @@ class MoodDashboard extends Component {
             liveness,
             speechiness,
             popularity,
-          }
-        }
-        formattedRecentTracks.push(formattedRecentTrack)
+          },
+        };
+        formattedRecentTracks.push(formattedRecentTrack);
       }
-
 
       const uniqueRecentTracks = Array.from(
         new Set(formattedRecentTracks.map((item) => item.id))
@@ -169,8 +185,17 @@ class MoodDashboard extends Component {
       );
       const playlistID = searchResults[0].id;
       const playlist = await API.getPlaylist(playlistID);
-      requestFeatures = ["acousticness", "danceability", "energy", "valence", "popularity"];
-      const playlistFeatures = await API.getTrackFeatures(playlist.tracks, requestFeatures);
+      requestFeatures = [
+        "acousticness",
+        "danceability",
+        "energy",
+        "valence",
+        "popularity",
+      ];
+      const playlistFeatures = await API.getTrackFeatures(
+        playlist.tracks,
+        requestFeatures
+      );
       const averagePlaylistFeatures = this.averageFeatures(playlistFeatures);
       const differences = this.calculatePercentDifferences(
         averagePlaylistFeatures,
@@ -178,16 +203,17 @@ class MoodDashboard extends Component {
       );
       const popularityScore = averageRecentFeatures.popularity;
       this.setState({
+        uniqueRecentTracks,
         percentages: differences,
         popularity: popularityScore,
         genres,
         isLoading: false,
-        uniqueRecentTracks
       });
       this.props.load();
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status === 401) this.props.handleTimeout();
+      if (error.response && error.response.status === 401)
+        this.props.handleTimeout();
     }
   }
 

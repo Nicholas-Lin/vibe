@@ -6,30 +6,37 @@
  */
 
 import React, { Component } from "react";
-import Nouislider from "nouislider-react";
-import "nouislider/distribute/nouislider.css";
+import Slider from "@material-ui/core/Slider";
+
+import "./slider.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import { ImageCarousel } from "./ImageCarousel";
 
-
 class TrackFeaturesDisplay extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        const { track } = this.props
-        return (
-            <div>
-                <div>{track.name}</div>
-                <div>{track.artist}</div>
-                <Nouislider connect start={[20, 80]} range={{ min: 0, max: 100 }} />
-            </div>
-        );
-    }
+  render() {
+    const { track } = this.props;
+
+    return (
+      <div>
+        <div>{track.name}</div>
+        <div>{track.artist}</div>
+        <h5>Acousticness: {Math.round(track.features.acousticness * 100)}</h5>
+        <Slider
+          value={Math.round(track.features.acousticness * 100)}
+          aria-labelledby="discrete-slider-small-steps"
+          valueLabelDisplay="auto"
+          disabled={false}
+        />
+      </div>
+    );
+  }
 }
 
 export default TrackFeaturesDisplay;
