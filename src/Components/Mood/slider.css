@@ -1,14 +1,8 @@
-/* Adds CSS3 animation */
-.MuiSlider-thumb {
-  transition: left 0.5s;
-}
-
-/* This is needed. Without it drag and drop with a mouse looks very weird */
-.MuiSlider-thumb.MuiSlider-active {
-  transition: left 0s;
+.MuiSlider-thumb:not(.MuiSlider-active) {
+  transition: left 0.5s ease-in;
 }
 
 /* Animating track with CSS3 as well */
 .MuiSlider-track {
-  transition: width 0.5s;
+  transition: width 0.5s ease-in;
 }

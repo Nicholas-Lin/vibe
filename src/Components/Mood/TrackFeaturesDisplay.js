@@ -6,9 +6,7 @@
  */
 
 import React, { Component } from "react";
-import Slider from "@material-ui/core/Slider";
-
-import "./slider.css";
+import Slider from "./Slider";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -27,12 +25,10 @@ class TrackFeaturesDisplay extends Component {
       <div>
         <div>{track.name}</div>
         <div>{track.artist}</div>
-        <h5>Acousticness: {Math.round(track.features.acousticness * 100)}</h5>
         <Slider
+          title="Acousticness"
           value={Math.round(track.features.acousticness * 100)}
-          aria-labelledby="discrete-slider-small-steps"
           valueLabelDisplay="auto"
-          disabled={false}
         />
       </div>
     );
