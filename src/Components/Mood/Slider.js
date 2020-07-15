@@ -9,6 +9,8 @@ import React, { Component } from "react";
 import MUISlider from "@material-ui/core/Slider";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 import "./slider.css";
 import Container from "react-bootstrap/Container";
@@ -22,36 +24,38 @@ class Slider extends Component {
     super(props);
   }
 
+
   render() {
-    const { value, title, valueLabelDisplay, color } = this.props;
+    const { value, title, color, tooltip } = this.props;
     const muiTheme = createMuiTheme({
       overrides: {
         MuiSlider: {
-          thumb: {
-            color: color,
-          },
-          track: {
-            color: color,
-          },
           rail: {
             color: "#b1b1b1",
           },
         },
       },
     });
+    const renderTooltip = props => (
+      <Tooltip {...props}>{tooltip}</Tooltip>
+    );
 
     return (
       <div>
-        <span className="slider-title" style={{ color: color }}>
-          <span className="slider-name">
-            {title}
-          </span>
+
+        <span className="slider-title">
+          <OverlayTrigger placement="left" overlay={renderTooltip}>
+            <span className="slider-name">
+              {title}
+            </span>
+          </OverlayTrigger>
           <span className="slider-value">
             {value}
           </span>
         </span>
+
         <ThemeProvider theme={muiTheme}>
-          <MUISlider value={value} />
+          <MUISlider className={`slider--${color}`} value={value} valueLabelDisplay="auto" />
         </ThemeProvider>
       </div>
     );

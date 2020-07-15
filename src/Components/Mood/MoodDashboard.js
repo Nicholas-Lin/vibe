@@ -150,9 +150,9 @@ class MoodDashboard extends Component {
           danceability,
           energy,
           acousticness,
-          instrumentalness,
           liveness,
           speechiness,
+          instrumentalness,
         } = recentTracksFeatures[i];
 
         formattedRecentTrack = {
@@ -167,9 +167,9 @@ class MoodDashboard extends Component {
             danceability,
             energy,
             acousticness,
-            instrumentalness,
             liveness,
             speechiness,
+            instrumentalness,
           },
         };
         formattedRecentTracks.push(formattedRecentTrack);
