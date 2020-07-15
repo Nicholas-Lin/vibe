@@ -145,13 +145,14 @@ class MoodDashboard extends Component {
         let formattedRecentTrack = {};
         const track = recentTracks[i].track;
         const {
-          acousticness,
+          popularity,
+          valence,
           danceability,
           energy,
+          acousticness,
           instrumentalness,
           liveness,
           speechiness,
-          popularity,
         } = recentTracksFeatures[i];
 
         formattedRecentTrack = {
@@ -161,13 +162,14 @@ class MoodDashboard extends Component {
           image: track.album.images[0].url,
           previewURL: track.preview_url,
           features: {
-            acousticness,
+            popularity,
+            valence,
             danceability,
             energy,
+            acousticness,
             instrumentalness,
             liveness,
             speechiness,
-            popularity,
           },
         };
         formattedRecentTracks.push(formattedRecentTrack);
