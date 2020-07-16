@@ -21,12 +21,25 @@ class RecentShowcase extends Component {
     super(props);
     this.state = {
       currentTrack: this.props.tracks[0],
+      currentIndex: 0
     };
     this.handleSlide = this.handleSlide.bind(this);
+    this.nextSlide = this.nextSlide.bind(this);
+    this.previousSlide = this.previousSlide.bind(this);
   }
 
   handleSlide(e) {
-    this.setState({ currentTrack: this.props.tracks[e] });
+    this.setState({ currentIndex: e, currentTrack: this.props.tracks[e] });
+  }
+
+  nextSlide() {
+    const newIndex = (this.state.currentIndex + 1) % this.props.tracks.length
+    this.setState({ currentIndex: newIndex, currentTrack: this.props.tracks[newIndex] });
+  }
+
+  previousSlide() {
+    const newIndex = this.state.index === 0 ? this.props.tracks.length - 1 : --this.state.index
+    this.setState({ currentIndex: newIndex, currentTrack: this.props.tracks[newIndex] });
   }
 
   render() {
@@ -35,21 +48,30 @@ class RecentShowcase extends Component {
     });
 
     return (
-      <Row className="d-flex justify-content-center mt-2">
-        <Col
-          md={{ span: 6, order: 2 }}
-          className="d-flex flex-column justify-content-center h-100"
-        >
-          <CarouselPlayer
-            trackImages={trackImages}
-            handleSlide={this.handleSlide}
-            trackURL={this.state.currentTrack.previewURL}
-          />
-        </Col>
-        <Col md={{ span: 6, order: 1 }}>
-          <TrackFeaturesDisplay track={this.state.currentTrack} />
-        </Col>
-      </Row>
+      <div>
+        <div style={{ minHeight: "5em" }}>
+          <h4>{this.state.currentTrack.name}</h4>
+          <h6>{this.state.currentTrack.artist}</h6>
+        </div>
+        <Row className="d-flex justify-content-center mt-2">
+          <Col
+            md={{ span: 6, order: 2 }}
+            className="d-flex flex-column justify-content-center h-100"
+          >
+            <CarouselPlayer
+              trackImages={trackImages}
+              handleSlide={this.handleSlide}
+              currentTrack={this.state.currentTrack}
+              currentIndex={this.state.currentIndex}
+              nextSlide={this.nextSlide}
+              previousSlide={this.previousSlide}
+            />
+          </Col>
+          <Col md={{ span: 6, order: 1 }}>
+            <TrackFeaturesDisplay track={this.state.currentTrack} />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

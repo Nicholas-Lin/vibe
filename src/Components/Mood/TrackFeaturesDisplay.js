@@ -63,11 +63,9 @@ class TrackFeaturesDisplay extends Component {
     }
 
     return (
-      <div>
-        <h4>{track.name}</h4>
-        <div>{track.artist}</div>
+      <Col className="d-flex flex-column h-100 justify-content-between p-0">
         {sliders}
-      </div>
+      </Col>
     );
   }
 }

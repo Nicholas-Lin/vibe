@@ -227,8 +227,14 @@ class MoodDashboard extends Component {
           <h2>How do your recent songs compare to today's top hits?</h2>
           <PopularityDisplay score={this.state.popularity} />
           <ComparisonsDisplay percentages={this.state.percentages} />
+        </Container>
+        <Container className={"mb-4 mt-2"}>
           <RecentShowcase tracks={this.state.uniqueRecentTracks} />
         </Container>
+
+
+
+
         <hr />
         <Container
           fluid

@@ -32,6 +32,12 @@ class CarouselPlayer extends Component {
       this.setState({ trackIsPlaying: false });
     }
   }
+
+  handleEnded(e) {
+    this.props.nextSlide(e);
+    this.setState({ trackIsPlaying: true });
+  }
+
   render() {
     return (
       <div>
@@ -39,17 +45,23 @@ class CarouselPlayer extends Component {
           images={this.props.trackImages}
           handleSlide={this.props.handleSlide}
           pause={this.state.trackIsPlaying}
+          activeIndex={this.props.currentIndex}
         />
+
         <AudioPlayer
-          autoPlay={false}
-          src={this.props.trackURL}
+          autoPlay={this.state.trackIsPlaying}
+          src={this.props.currentTrack.previewURL}
           onPlay={(e) => this.handlePlayPause(e)}
           onPause={(e) => this.handlePlayPause(e)}
+          onClickPrevious={(e) => this.props.previousSlide(e)}
+          onClickNext={(e) => this.props.nextSlide(e)}
+          onEnded={(e) => this.handleEnded(e)}
           showFilledProgress={false}
           showDownloadProgress={false}
+          showSkipControls={true}
           showJumpControls={false}
           customProgressBarSection={[]}
-          volume={0.1}
+          volume={0.2}
           autoPlayAfterSrcChange={this.state.trackIsPlaying}
         />
       </div>

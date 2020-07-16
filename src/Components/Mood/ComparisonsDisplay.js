@@ -7,7 +7,7 @@ import PercentDisplay from "./PercentDisplay";
 export default function ComparisonsDisplay(props) {
   const { valence, danceability, energy, acousticness } = props.percentages;
   return (
-    <Row className="flex-grow-1">
+    <Row>
       <hr />
       <Col md={3}>
         <PercentDisplay

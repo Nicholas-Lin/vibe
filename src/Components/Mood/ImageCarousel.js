@@ -10,10 +10,11 @@ export function ImageCarousel(props) {
   return (
     <Carousel
       indicators={false}
-      controls={true}
+      controls={false}
       fade={false}
       interval={props.pause ? null : 5000}
       onSelect={(e) => props.handleSlide(e)}
+      activeIndex={props.activeIndex}
     >
       {carouselItems}
     </Carousel>
