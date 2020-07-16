@@ -12,18 +12,21 @@ import Col from "react-bootstrap/Col";
 import TrackFeaturesDisplay from "./TrackFeaturesDisplay";
 import { ImageCarousel } from "./ImageCarousel";
 
+import CarouselPlayer from "./CarouselPlayer";
+import "react-h5-audio-player/lib/styles.css";
+import "./audio-player.css";
+
 class RecentShowcase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0,
       currentTrack: this.props.tracks[0],
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSlide = this.handleSlide.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({ currentIndex: e, currentTrack: this.props.tracks[e] });
+  handleSlide(e) {
+    this.setState({ currentTrack: this.props.tracks[e] });
   }
 
   render() {
@@ -37,9 +40,10 @@ class RecentShowcase extends Component {
           md={{ span: 6, order: 2 }}
           className="d-flex flex-column justify-content-center h-100"
         >
-          <ImageCarousel
-            images={trackImages}
-            handleChange={this.handleChange}
+          <CarouselPlayer
+            trackImages={trackImages}
+            handleSlide={this.handleSlide}
+            trackURL={this.state.currentTrack.previewURL}
           />
         </Col>
         <Col md={{ span: 6, order: 1 }}>

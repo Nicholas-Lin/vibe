@@ -24,7 +24,6 @@ class Slider extends Component {
     super(props);
   }
 
-
   render() {
     const { value, title, color, tooltip } = this.props;
     const muiTheme = createMuiTheme({
@@ -36,26 +35,23 @@ class Slider extends Component {
         },
       },
     });
-    const renderTooltip = props => (
-      <Tooltip {...props}>{tooltip}</Tooltip>
-    );
+    const renderTooltip = (props) => <Tooltip {...props}>{tooltip}</Tooltip>;
 
     return (
       <div>
-
         <span className="slider-title">
-          <OverlayTrigger placement="left" overlay={renderTooltip}>
-            <span className="slider-name">
-              {title}
-            </span>
+          <OverlayTrigger placement="right" overlay={renderTooltip}>
+            <span className="slider-name">{title}</span>
           </OverlayTrigger>
-          <span className="slider-value">
-            {value}
-          </span>
+          <span className="slider-value">{value}</span>
         </span>
 
         <ThemeProvider theme={muiTheme}>
-          <MUISlider className={`slider--${color}`} value={value} valueLabelDisplay="auto" />
+          <MUISlider
+            className={`slider--${color}`}
+            value={value}
+            valueLabelDisplay="auto"
+          />
         </ThemeProvider>
       </div>
     );

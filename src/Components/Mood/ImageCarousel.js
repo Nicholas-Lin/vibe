@@ -8,7 +8,13 @@ export function ImageCarousel(props) {
     </Carousel.Item>
   ));
   return (
-    <Carousel indicators={false} controls={true} fade={false} interval={5000} onSelect={(e) => props.handleChange(e)}>
+    <Carousel
+      indicators={false}
+      controls={true}
+      fade={false}
+      interval={props.pause ? null : 5000}
+      onSelect={(e) => props.handleSlide(e)}
+    >
       {carouselItems}
     </Carousel>
   );
