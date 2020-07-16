@@ -1,0 +1,55 @@
+.MuiSlider-thumb:not(.MuiSlider-active) {
+  transition: left 0.5s ease-in;
+}
+
+/* Animating track with CSS3 as well */
+.MuiSlider-track {
+  transition: width 0.5s ease-in;
+}
+
+.slider-title {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-bottom: -3px;
+}
+
+.slider-name {
+  text-align: left;
+}
+
+.slider-value {
+  text-align: right;
+}
+
+.slider--yellow .MuiSlider-thumb, .slider--yellow .MuiSlider-track{
+  color: #f9b127;
+}
+
+.slider--orange .MuiSlider-thumb, .slider--orange .MuiSlider-track{
+  color: #eb6617;
+}
+
+.slider--red .MuiSlider-thumb, .slider--red .MuiSlider-track{
+  color: #e82c4f;
+}
+
+.slider--purple .MuiSlider-thumb, .slider--purple .MuiSlider-track{
+  color: #62509c;
+}
+
+.slider--blue .MuiSlider-thumb, .slider--blue .MuiSlider-track{
+  color: #4355db;
+}
+
+.slider--light-blue .MuiSlider-thumb, .slider--light-blue .MuiSlider-track{
+  color: #2884c7;
+}
+
+.slider--aqua .MuiSlider-thumb, .slider--aqua .MuiSlider-track{
+  color: #26a69a;
+}
+
+.slider--green .MuiSlider-thumb, .slider--green .MuiSlider-track{
+  color: #66bb6a;
+}

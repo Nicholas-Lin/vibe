@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 
 import PercentDisplay from "./PercentDisplay";
 
-export default function FeaturesDisplay(props) {
+export default function ComparisonsDisplay(props) {
   const { valence, danceability, energy, acousticness } = props.percentages;
   return (
     <Row className="flex-grow-1">
