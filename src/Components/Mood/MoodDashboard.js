@@ -232,9 +232,6 @@ class MoodDashboard extends Component {
           <RecentShowcase tracks={this.state.uniqueRecentTracks} />
         </Container>
 
-
-
-
         <hr />
         <Container
           fluid

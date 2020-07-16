@@ -38,7 +38,8 @@ class RecentShowcase extends Component {
   }
 
   previousSlide() {
-    const newIndex = this.state.index === 0 ? this.props.tracks.length - 1 : --this.state.index
+    const newIndex = this.state.currentIndex === 0 ? this.props.tracks.length - 1 : this.state.currentIndex - 1
+    console.log(newIndex)
     this.setState({ currentIndex: newIndex, currentTrack: this.props.tracks[newIndex] });
   }
 
