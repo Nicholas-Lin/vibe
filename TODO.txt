@@ -1,5 +1,9 @@
-1. Add slider view to mood dashboard
-2. Fix redundant API calls
-2. Document code
+1 Document code
 3. Customize result items CSS
-4. Audio player conflict
+
+
+1. Navigation
+2. Search bar
+3. Check recent spotlight
+4. Toggle top songs vs usual songs
+5. 

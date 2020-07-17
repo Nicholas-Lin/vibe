@@ -13,9 +13,11 @@ function ResultItem(props) {
   } = props;
 
   // Track name does not contain the search term
-  const termNotInTitle = title.toLowerCase().indexOf(searchTerm) === -1;
+  const termNotInTitle =
+    title.toLowerCase().indexOf(searchTerm.toLowerCase()) === -1;
   // Artist name does not contain the search term
-  const termNotInSubtitle = subtitle.toLowerCase().indexOf(searchTerm) === -1;
+  const termNotInSubtitle =
+    subtitle.toLowerCase().indexOf(searchTerm.toLowerCase()) === -1;
 
   // If search term not in track then do not render
   if (termNotInTitle && termNotInSubtitle) {
