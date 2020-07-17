@@ -1,20 +1,39 @@
 import React from "react";
 import ResultItem from "./ResultItem";
+import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
 
 class ResultTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentlyPlaying: "",
+    };
+    this.playTrack = this.playTrack.bind(this);
+  }
   playTrack(previewURL) {
-    let activeTrack = document.querySelector("audio");
+    let activeTrack = document.getElementById("favorite-player");
     if (!activeTrack) {
       activeTrack = new Audio(previewURL);
+      activeTrack.setAttribute("id", "favorite-player");
+      activeTrack.onended = () => this.setState({ currentlyPlaying: "" });
+
       activeTrack.volume = 0.25;
       document.getElementById("result-table").append(activeTrack);
       activeTrack.play();
+      this.setState({ currentlyPlaying: previewURL });
     } else {
-      activeTrack.paused ? activeTrack.play() : activeTrack.pause();
+      if (activeTrack.paused) {
+        activeTrack.play();
+        this.setState({ currentlyPlaying: previewURL });
+      } else {
+        activeTrack.pause();
+        this.setState({ currentlyPlaying: "" });
+      }
       if (activeTrack.src !== previewURL) {
         activeTrack.currentTime = 0;
         activeTrack.src = previewURL;
         activeTrack.play();
+        this.setState({ currentlyPlaying: previewURL });
       }
     }
   }
@@ -33,6 +52,7 @@ class ResultTable extends React.Component {
           previewURL={track.preview_url}
           searchTerm={this.props.searchTerm}
           playTrack={this.playTrack}
+          isPlaying={this.state.currentlyPlaying === track.preview_url}
         />
       ));
     } else {

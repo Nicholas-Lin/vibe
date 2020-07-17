@@ -51,7 +51,6 @@ export default class ComparisonsDisplay extends Component {
   }
 
   render() {
-    console.log("RERENDER", this.props.comparisonTracksFeatures);
     const averageRecentFeatures = this.averageFeatures(
       this.props.recentTracksFeatures
     );

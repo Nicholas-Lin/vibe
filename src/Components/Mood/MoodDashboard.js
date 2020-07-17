@@ -22,6 +22,7 @@ class MoodDashboard extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      comparisonType: "TOP",
       comparisonTracksFeatures: [],
       recentTracksFeatures: [],
       popularity: 0,
@@ -121,6 +122,7 @@ class MoodDashboard extends Component {
       );
       this.setState({
         comparisonTracksFeatures,
+        comparisonType,
       });
       i++;
       console.log(comparisonTypes);
@@ -193,7 +195,9 @@ class MoodDashboard extends Component {
       });
       popularityScore /= recentTracksFeatures.length;
 
-      const comparisonTracksFeatures = await this.getComparisonFeatures("TOP");
+      const comparisonTracksFeatures = await this.getComparisonFeatures(
+        this.state.comparisonType
+      );
       this.setState({
         uniqueRecentTracks,
         recentTracksFeatures: recentTracksFeatures,
@@ -213,12 +217,31 @@ class MoodDashboard extends Component {
   }
 
   render() {
+    let comparisonDescriptor = "";
+    switch (this.state.comparisonType) {
+      case "TOP":
+        comparisonDescriptor = "today's top hits";
+        break;
+      case "short_term":
+        comparisonDescriptor = "your last month";
+        break;
+      case "medium_term":
+        comparisonDescriptor = "your last 6 months";
+        break;
+      case "long_term":
+        comparisonDescriptor = "your all-time favorites";
+        break;
+    }
     return this.state.isLoading ? null : (
       <div>
         <Container fluid className=" d-flex flex-column mood-top-section">
           <header>Your Mood</header>
-          <h2>How do your recent songs compare to today's top hits?</h2>
+
           <PopularityDisplay score={this.state.popularity} />
+          <h2>
+            How do your recent songs compare to{" "}
+            <span style={{ color: "#1DB954" }}>{comparisonDescriptor}</span>?
+          </h2>
           <ComparisonsDisplay
             percentages={this.state.percentages}
             recentTracksFeatures={this.state.recentTracksFeatures}

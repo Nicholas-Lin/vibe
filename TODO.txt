@@ -3,5 +3,4 @@
 
 
 1. Navigation
-2. Toggle top songs vs usual songs
-3. Add song playing indicator on bottom tracks
+2. Animations
