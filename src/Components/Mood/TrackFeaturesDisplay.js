@@ -7,13 +7,7 @@
 
 import React, { Component } from "react";
 import Slider from "./Slider";
-
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-import { ImageCarousel } from "./ImageCarousel";
-
 class TrackFeaturesDisplay extends Component {
   constructor(props) {
     super(props);

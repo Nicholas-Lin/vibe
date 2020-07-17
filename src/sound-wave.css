@@ -1,3 +1,7 @@
+.result-item .sound-wave {
+  max-width: 20vw;
+}
+
 .sound-icon {
   display: flex;
   flex-direction: column;

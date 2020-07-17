@@ -11,13 +11,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
 import "./slider.css";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
-import { ImageCarousel } from "./ImageCarousel";
 
 class Slider extends Component {
   constructor(props) {
@@ -29,12 +23,15 @@ class Slider extends Component {
     const muiTheme = createMuiTheme({
       overrides: {
         MuiSlider: {
+          valueLabel: {
+            paddingLeft: "4px",
+          },
           thumb: {
             width: "15px",
-            height: "15px"
+            height: "15px",
           },
           track: {
-            height: "5px"
+            height: "5px",
           },
           rail: {
             height: "5px",

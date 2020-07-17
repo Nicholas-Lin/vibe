@@ -3,7 +3,4 @@
 
 
 1. Navigation
-2. Search bar
-3. Check recent spotlight
-4. Toggle top songs vs usual songs
-5. 
+2. Animations
