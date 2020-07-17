@@ -51,11 +51,13 @@ export default class ComparisonsDisplay extends Component {
   }
 
   render() {
+    console.log(this.props.comparisonTracksFeatures)
+    console.log(this.props.comparisonType)
     const averageRecentFeatures = this.averageFeatures(
       this.props.recentTracksFeatures
     );
     const averageComparisonFeatures = this.averageFeatures(
-      this.props.comparisonTracksFeatures
+      this.props.comparisonTracksFeatures[this.props.comparisonType]
     );
 
     const differences = this.calculatePercentDifferences(

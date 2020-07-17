@@ -22,8 +22,8 @@ class MoodDashboard extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      comparisonType: "TOP",
-      comparisonTracksFeatures: [],
+      comparisonType: "top",
+      comparisonTracksFeatures: {},
       recentTracksFeatures: [],
       popularity: 0,
       trackImages: [],
@@ -90,7 +90,7 @@ class MoodDashboard extends Component {
       "valence",
       "popularity",
     ];
-    if (type === "TOP") {
+    if (type === "top") {
       const searchResults = await API.searchForPlaylist(
         ["Today's top hits"],
         "Spotify"
@@ -113,19 +113,14 @@ class MoodDashboard extends Component {
   }
 
   async cycleComparisonTypes() {
-    const comparisonTypes = ["TOP", "short_term", "medium_term", "long_term"];
+    const comparisonTypes = ["top", "short_term", "medium_term", "long_term"];
     let i = 0;
     setInterval(async () => {
       const comparisonType = comparisonTypes[i % comparisonTypes.length];
-      const comparisonTracksFeatures = await this.getComparisonFeatures(
-        comparisonType
-      );
       this.setState({
-        comparisonTracksFeatures,
         comparisonType,
       });
       i++;
-      console.log(comparisonTypes);
     }, 7000);
   }
 
@@ -195,9 +190,12 @@ class MoodDashboard extends Component {
       });
       popularityScore /= recentTracksFeatures.length;
 
-      const comparisonTracksFeatures = await this.getComparisonFeatures(
-        this.state.comparisonType
-      );
+      let comparisonTracksFeatures = { top: [], short_term: [], medium_term: [], long_term: [] }
+      for (const key in comparisonTracksFeatures) {
+        comparisonTracksFeatures[key] = await this.getComparisonFeatures(key)
+      }
+      console.log(comparisonTracksFeatures)
+
       this.setState({
         uniqueRecentTracks,
         recentTracksFeatures: recentTracksFeatures,
@@ -219,7 +217,7 @@ class MoodDashboard extends Component {
   render() {
     let comparisonDescriptor = "";
     switch (this.state.comparisonType) {
-      case "TOP":
+      case "top":
         comparisonDescriptor = "today's top hits";
         break;
       case "short_term":
@@ -246,6 +244,7 @@ class MoodDashboard extends Component {
             percentages={this.state.percentages}
             recentTracksFeatures={this.state.recentTracksFeatures}
             comparisonTracksFeatures={this.state.comparisonTracksFeatures}
+            comparisonType={this.state.comparisonType}
           />
         </Container>
         <Container className={"mb-4 mt-2"}>
