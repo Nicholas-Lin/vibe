@@ -22,52 +22,12 @@ class MoodDashboard extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      percentages: {},
+      comparisonTracksFeatures: [],
+      recentTracksFeatures: [],
       popularity: 0,
       trackImages: [],
       uniqueRecentTracks: [],
     };
-  }
-
-  /**
-   * Computes the averages of an array of features of tracks
-   * @param  {Array<Features>} tracks - An array of track features
-   * @return {Array<Objects>} - An array of objects that contain trackID, acousticness, danceability, energy, and valence properties
-   */
-  averageFeatures(tracks) {
-    let averages = {};
-    tracks.forEach((track) => {
-      for (let key in track) {
-        if (key !== "id") {
-          if (!averages[key]) {
-            averages[key] = track[key];
-          } else {
-            averages[key] += track[key];
-          }
-        }
-      }
-    });
-    for (let key in averages) {
-      averages[key] = averages[key] / tracks.length;
-    }
-    return averages;
-  }
-
-  /**
-   * Returns the percent difference between the properties the newObject compared to the properties of the originalObject.
-   * @param  {Object} originalObject- The original object that will be compared against
-   * @param  {Object} newObject- The new object that will be compared to the original object
-   * @return An object containing the same properties with the percent difference as values
-   */
-  calculatePercentDifferences(originalObject, newObject) {
-    let differences = {};
-    for (const key in originalObject) {
-      const percentDifference = Math.round(
-        ((newObject[key] - originalObject[key]) / originalObject[key]) * 100
-      );
-      differences[key] = percentDifference;
-    }
-    return differences;
   }
 
   /**
@@ -120,6 +80,53 @@ class MoodDashboard extends Component {
     return results;
   }
 
+  async getComparisonFeatures(type) {
+    const API = new Api(this.props.token);
+    const requestFeatures = [
+      "acousticness",
+      "danceability",
+      "energy",
+      "valence",
+      "popularity",
+    ];
+    if (type === "TOP") {
+      const searchResults = await API.searchForPlaylist(
+        ["Today's top hits"],
+        "Spotify"
+      );
+      const playlistID = searchResults[0].id;
+      const playlist = await API.getPlaylist(playlistID);
+      const playlistFeatures = await API.getTrackFeatures(
+        playlist.tracks,
+        requestFeatures
+      );
+      return playlistFeatures;
+    } else {
+      const favorites = await API.getUserFavorites("tracks", type, 50);
+      const favoritesFeatures = await API.getTrackFeatures(
+        favorites,
+        requestFeatures
+      );
+      return favoritesFeatures;
+    }
+  }
+
+  async cycleComparisonTypes() {
+    const comparisonTypes = ["TOP", "short_term", "medium_term", "long_term"];
+    let i = 0;
+    setInterval(async () => {
+      const comparisonType = comparisonTypes[i % comparisonTypes.length];
+      const comparisonTracksFeatures = await this.getComparisonFeatures(
+        comparisonType
+      );
+      this.setState({
+        comparisonTracksFeatures,
+      });
+      i++;
+      console.log(comparisonTypes);
+    }, 7000);
+  }
+
   async componentDidMount() {
     try {
       const API = new Api(this.props.token);
@@ -138,8 +145,6 @@ class MoodDashboard extends Component {
         recentTracks,
         requestFeatures
       );
-
-      const averageRecentFeatures = this.averageFeatures(recentTracksFeatures);
       let formattedRecentTracks = [];
       for (let i = 0; i < recentTracks.length; i++) {
         let formattedRecentTrack = {};
@@ -181,37 +186,25 @@ class MoodDashboard extends Component {
         return formattedRecentTracks.find((item) => item.id === id);
       });
       const genres = await this.getGenres(recentTracks);
-      const searchResults = await API.searchForPlaylist(
-        ["Today's top hits"],
-        "Spotify"
-      );
-      const playlistID = searchResults[0].id;
-      const playlist = await API.getPlaylist(playlistID);
-      requestFeatures = [
-        "acousticness",
-        "danceability",
-        "energy",
-        "valence",
-        "popularity",
-      ];
-      const playlistFeatures = await API.getTrackFeatures(
-        playlist.tracks,
-        requestFeatures
-      );
-      const averagePlaylistFeatures = this.averageFeatures(playlistFeatures);
-      const differences = this.calculatePercentDifferences(
-        averagePlaylistFeatures,
-        averageRecentFeatures
-      );
-      const popularityScore = averageRecentFeatures.popularity;
+
+      let popularityScore = 0;
+      recentTracksFeatures.forEach((feature) => {
+        popularityScore += feature.popularity;
+      });
+      popularityScore /= recentTracksFeatures.length;
+
+      const comparisonTracksFeatures = await this.getComparisonFeatures("TOP");
       this.setState({
         uniqueRecentTracks,
-        percentages: differences,
+        recentTracksFeatures: recentTracksFeatures,
+        comparisonTracksFeatures,
         popularity: popularityScore,
         genres,
         isLoading: false,
       });
+
       this.props.load();
+      this.cycleComparisonTypes();
     } catch (error) {
       console.log(error);
       if (error.response && error.response.status === 401)
@@ -226,7 +219,11 @@ class MoodDashboard extends Component {
           <header>Your Mood</header>
           <h2>How do your recent songs compare to today's top hits?</h2>
           <PopularityDisplay score={this.state.popularity} />
-          <ComparisonsDisplay percentages={this.state.percentages} />
+          <ComparisonsDisplay
+            percentages={this.state.percentages}
+            recentTracksFeatures={this.state.recentTracksFeatures}
+            comparisonTracksFeatures={this.state.comparisonTracksFeatures}
+          />
         </Container>
         <Container className={"mb-4 mt-2"}>
           <RecentShowcase tracks={this.state.uniqueRecentTracks} />

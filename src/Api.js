@@ -106,7 +106,11 @@ class Api {
   async getTrackFeatures(tracks, features) {
     let ids = [];
     tracks.forEach((item) => {
-      ids.push(item.track.id);
+      if (item.track) {
+        ids.push(item.track.id);
+      } else {
+        ids.push(item.id);
+      }
     });
     const endpoint = "https://api.spotify.com/v1/audio-features";
     let res = await axios.get(endpoint, {
@@ -123,9 +127,12 @@ class Api {
       features.forEach((feature) => {
         if (feature === "popularity") {
           const correspondingTrack = tracks.find(
-            (item) => item.track.id === trackFeatures.id
+            (item) =>
+              (item.track ? item.track.id : item.id) === trackFeatures.id
           );
-          result[feature] = correspondingTrack.track.popularity;
+          result[feature] = correspondingTrack.track
+            ? correspondingTrack.track.popularity
+            : correspondingTrack.popularity;
         } else if (Object.keys(trackFeatures).includes(feature)) {
           result[feature] = trackFeatures[feature];
         }

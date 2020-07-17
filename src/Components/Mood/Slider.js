@@ -29,12 +29,15 @@ class Slider extends Component {
     const muiTheme = createMuiTheme({
       overrides: {
         MuiSlider: {
+          valueLabel: {
+            paddingLeft: "4px",
+          },
           thumb: {
             width: "15px",
-            height: "15px"
+            height: "15px",
           },
           track: {
-            height: "5px"
+            height: "5px",
           },
           rail: {
             height: "5px",
