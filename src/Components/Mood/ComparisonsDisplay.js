@@ -71,7 +71,7 @@ export default class ComparisonsDisplay extends Component {
     return (
       <Fade bottom>
         <hr />
-        <ButtonGroup className={"mb-4"}>
+        <ButtonGroup className={"mb-2"}>
           <Button
             variant="outline-success"
             className={this.props.comparisonType === "top" && "active"}

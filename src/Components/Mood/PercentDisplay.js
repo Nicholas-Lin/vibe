@@ -47,7 +47,7 @@ class PercentDisplay extends Component {
     }
 
     return (
-      <div className="mb-3">
+      <div>
         <span className="emoji"> {emoji} </span>
         <Row className="d-flex flex-direction-column justify-content-center align-items-center">
           {arrow}

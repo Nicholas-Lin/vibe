@@ -15,7 +15,7 @@
   fill: none;
   stroke-width: 2.8;
   stroke-linecap: round;
-  animation: progress 1s ease-out forwards;
+  animation: progress 3s ease-out forwards;
 }
 
 @keyframes progress {
