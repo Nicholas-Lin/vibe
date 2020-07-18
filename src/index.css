@@ -8,30 +8,24 @@ body {
 }
 
 .example-enter {
-  opacity: 0.01;
+  opacity: 0;
 }
 
 .example-enter.example-enter-active {
-  opacity: 0.5;
+  opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.example-leave {
-  opacity: 0.5;
-}
-
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
-}
-.example-appear {
-  opacity: 0.01;
-}
-
-.example-appear.example-appear-active {
+.example-exit {
   opacity: 1;
-  transition: opacity 0.5s ease-in;
 }
+
+.example-enter.example-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+
 body {
   min-height: 100vh;
   background-color: black;
@@ -129,3 +123,4 @@ a {
 #result-table {
   min-height: 90vh;
 }
+

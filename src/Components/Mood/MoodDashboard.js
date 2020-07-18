@@ -11,7 +11,9 @@ import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Fade from "react-reveal/Fade";
-import { CSSTransitionGroup } from "react-transition-group";
+import BSFade from 'react-bootstrap/Fade'
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import { CSSTransition } from 'react-transition-group'
 // import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import PopularityDisplay from "./PopularityDisplay";
@@ -31,7 +33,9 @@ class MoodDashboard extends Component {
       popularity: 0,
       trackImages: [],
       uniqueRecentTracks: [],
+      showComparison: true
     };
+    this.cycleComparisonTypes.bind(this)
   }
 
   /**
@@ -117,14 +121,18 @@ class MoodDashboard extends Component {
 
   async cycleComparisonTypes() {
     const comparisonTypes = ["top", "short_term", "medium_term", "long_term"];
-    let i = 0;
+    let i = 1;
     setInterval(async () => {
+      this.setState({ showComparison: false })
       const comparisonType = comparisonTypes[i % comparisonTypes.length];
-      this.setState({
-        comparisonType,
-      });
+      setTimeout(() => {
+        this.setState({
+          showComparison: true,
+          comparisonType,
+        });
+      }, 500)
       i++;
-    }, 8000);
+    }, 10000);
   }
 
   async componentDidMount() {
@@ -221,6 +229,9 @@ class MoodDashboard extends Component {
         this.props.handleTimeout();
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
     let comparisonDescriptor = "";
@@ -246,15 +257,17 @@ class MoodDashboard extends Component {
             <PopularityDisplay score={this.state.popularity} />
             <h2>
               How do your recent songs compare to{" "}
-              <CSSTransitionGroup
-                transitionName="example"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-              >
-                <span key="comparisonDescriptor" style={{ color: "#1DB954" }}>
+              {/* <CSSTransition in={this.state.showComparison} timeout={500} classNames="example">
+                <span style={{ color: "#1DB954" }}>
                   {comparisonDescriptor}
                 </span>
-              </CSSTransitionGroup>
+              </CSSTransition> */}
+              <BSFade in={this.state.showComparison} timeout={500}>
+                <span style={{ color: "#1DB954", fontSize: "xx-large" }}>
+                  {comparisonDescriptor}
+                </span>
+              </BSFade>
+
               ?
             </h2>
 
@@ -263,6 +276,7 @@ class MoodDashboard extends Component {
               recentTracksFeatures={this.state.recentTracksFeatures}
               comparisonTracksFeatures={this.state.comparisonTracksFeatures}
               comparisonType={this.state.comparisonType}
+              showComparison={this.state.showComparison}
             />
           </Container>
           <Container className={"mb-4 mt-2"}>

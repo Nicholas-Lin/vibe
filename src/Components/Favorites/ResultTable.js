@@ -1,6 +1,5 @@
 import React from "react";
 import ResultItem from "./ResultItem";
-import Fade from "react-reveal/Fade";
 
 class ResultTable extends React.Component {
   constructor(props) {
@@ -71,15 +70,14 @@ class ResultTable extends React.Component {
 
     return (
       <div id="result-table">
-        <Fade>
-          {results ? (
-            results
-          ) : (
+
+        {results ? (
+          results
+        ) : (
             <h3 className="no-results" style={{ alignSelf: "center" }}>
               No Results
             </h3>
           )}
-        </Fade>
       </div>
     );
   }

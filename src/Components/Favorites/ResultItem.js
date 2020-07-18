@@ -3,6 +3,7 @@ import "../../result.css";
 import SoundWave from "../SoundWave";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import Fade from "react-reveal/Fade";
 
 class ResultItem extends React.Component {
   constructor(props) {
@@ -68,10 +69,10 @@ class ResultItem extends React.Component {
           {isPlaying ? (
             <SoundWave />
           ) : (
-            this.state.isHovering && (
-              <FontAwesomeIcon size="3x" icon={faPlayCircle} />
-            )
-          )}
+              this.state.isHovering && (
+                <FontAwesomeIcon size="3x" icon={faPlayCircle} />
+              )
+            )}
         </div>
       </div>
     );
@@ -82,11 +83,14 @@ class ResultItem extends React.Component {
         onMouseLeave={this.handleMouseHover}
         onClick={() => this.handleClick()}
       >
-        {item}
+        <Fade>
+          {item}
+        </Fade>
+
       </div>
     ) : (
-      <div>{item}</div>
-    );
+        <div><Fade>{item}</Fade></div>
+      );
   }
 }
 
