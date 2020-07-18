@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Fade from 'react-bootstrap/Fade';
+// import Fade from "react-bootstrap/Fade";
+import Fade from "react-reveal/Fade";
 import PercentDisplay from "./PercentDisplay";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 
 export default class ComparisonsDisplay extends Component {
   constructor(props) {
@@ -66,19 +69,63 @@ export default class ComparisonsDisplay extends Component {
     const { valence, danceability, energy, acousticness } = differences;
 
     return (
-      <Row>
+      <Fade bottom>
         <hr />
-        <Fade in={this.props.showComparison} timeout={500}>
+        <ButtonGroup className={"mb-4"}>
+          <Button
+            variant="outline-success"
+            className={this.props.comparisonType === "top" && "active"}
+            type="radio"
+            name="comparisonType"
+            value="top"
+            onClick={(e) => this.props.handleChange(e)}
+            checked={this.props.time_range === "top"}
+            defaultChecked
+          >
+            Today's Top Hits
+          </Button>
+          <Button
+            variant="outline-success"
+            className={this.props.comparisonType === "short_term" && "active"}
+            type="radio"
+            name="comparisonType"
+            value="short_term"
+            onClick={(e) => this.props.handleChange(e)}
+            checked={this.props.comparisonType === "short_term"}
+          >
+            Last Month
+          </Button>
+          <Button
+            variant="outline-success"
+            className={this.props.comparisonType === "medium_term" && "active"}
+            type="radio"
+            name="comparisonType"
+            value="medium_term"
+            onClick={(e) => this.props.handleChange(e)}
+            checked={this.props.comparisonType === "medium_term"}
+          >
+            Last 6 Months
+          </Button>
+          <Button
+            variant="outline-success"
+            className={this.props.comparisonType === "long_term" && "active"}
+            type="radio"
+            name="comparisonType"
+            value="long_term"
+            onClick={(e) => this.props.handleChange(e)}
+            checked={this.props.comparisonType === "long_term"}
+          >
+            All Time
+          </Button>
+        </ButtonGroup>
+        <Row>
           <Col md={3}>
-
             <PercentDisplay
               percent={valence}
               descriptions={["Less happy", "Same hapiness", "Happier"]}
               emojis={["😭", "😢", "😕", "😃", "😁", "😊"]}
             />
           </Col>
-        </Fade>
-        <Fade in={this.props.showComparison} timeout={500}>
           <Col md={3}>
             <PercentDisplay
               percent={danceability}
@@ -90,8 +137,6 @@ export default class ComparisonsDisplay extends Component {
               emojis={["💃"]}
             />
           </Col>
-        </Fade>
-        <Fade in={this.props.showComparison} timeout={500}>
           <Col md={3}>
             <PercentDisplay
               percent={energy}
@@ -99,8 +144,6 @@ export default class ComparisonsDisplay extends Component {
               emojis={["😴", "⚡️", "🔥"]}
             />
           </Col>
-        </Fade>
-        <Fade in={this.props.showComparison} timeout={500}>
           <Col md={3}>
             <PercentDisplay
               percent={acousticness}
@@ -112,9 +155,10 @@ export default class ComparisonsDisplay extends Component {
               emojis={["🎸", "🎻"]}
             />
           </Col>
-        </Fade>
-        <hr />
-      </Row>
+
+          <hr />
+        </Row>
+      </Fade>
     );
   }
 }

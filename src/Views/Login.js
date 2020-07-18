@@ -22,7 +22,7 @@ function Login(props) {
         <Fade duration={2000}>
           <header> Vibe </header>
           <SoundWave />
-          <Fade delay={2000}>
+          <Fade delay={1000}>
             <SubmitButton
               isLoggedIn={props.isLoggedIn}
               handleLogin={() => props.handleLogin()}
@@ -33,12 +33,12 @@ function Login(props) {
           <h6 className="mt-5">Your information will not be stored.</h6>
           <h6>
             {" "}
-          Created by{" "}
-            <a href="https://nicholas-lin.github.io/"> Nicholas Lin. </a> Powered
-          by{" "}
+            Created by{" "}
+            <a href="https://nicholas-lin.github.io/"> Nicholas Lin. </a>{" "}
+            Powered by{" "}
             <a href="https://developer.spotify.com/documentation/web-api/">
               {" "}
-            Spotify's API.{" "}
+              Spotify's API.{" "}
             </a>{" "}
           </h6>
         </Fade>

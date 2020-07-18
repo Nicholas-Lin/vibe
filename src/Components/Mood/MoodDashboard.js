@@ -11,9 +11,9 @@ import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Fade from "react-reveal/Fade";
-import BSFade from 'react-bootstrap/Fade'
-import TransitionGroup from 'react-transition-group/TransitionGroup';
-import { CSSTransition } from 'react-transition-group'
+import BSFade from "react-bootstrap/Fade";
+import TransitionGroup from "react-transition-group/TransitionGroup";
+import { CSSTransition } from "react-transition-group";
 // import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import PopularityDisplay from "./PopularityDisplay";
@@ -33,9 +33,9 @@ class MoodDashboard extends Component {
       popularity: 0,
       trackImages: [],
       uniqueRecentTracks: [],
-      showComparison: true
+      showComparison: true,
     };
-    this.cycleComparisonTypes.bind(this)
+    this.cycleComparisonTypes.bind(this);
   }
 
   /**
@@ -121,17 +121,17 @@ class MoodDashboard extends Component {
 
   async cycleComparisonTypes() {
     const comparisonTypes = ["top", "short_term", "medium_term", "long_term"];
-    let i = 1;
+
     setInterval(async () => {
-      this.setState({ showComparison: false })
-      const comparisonType = comparisonTypes[i % comparisonTypes.length];
+      const index = comparisonTypes.indexOf(this.state.comparisonType) + 1;
+      this.setState({ showComparison: false });
+      const comparisonType = comparisonTypes[index % comparisonTypes.length];
       setTimeout(() => {
         this.setState({
           showComparison: true,
           comparisonType,
         });
-      }, 500)
-      i++;
+      }, 500);
     }, 10000);
   }
 
@@ -233,6 +233,13 @@ class MoodDashboard extends Component {
     clearInterval(this.interval);
   }
 
+  handleChange(event) {
+    const { name, value, type, checked } = event.target;
+    type === "checkbox"
+      ? this.setState({ [name]: checked })
+      : this.setState({ [name]: value });
+  }
+
   render() {
     let comparisonDescriptor = "";
     switch (this.state.comparisonType) {
@@ -252,10 +259,11 @@ class MoodDashboard extends Component {
     return this.state.isLoading ? null : (
       <div>
         <Fade>
-          <Container fluid className=" d-flex flex-column mood-top-section">
+          <Container fluid className="mood-top-section">
             <header>Your Mood</header>
+
             <PopularityDisplay score={this.state.popularity} />
-            <h2>
+            <h3>
               How do your recent songs compare to{" "}
               {/* <CSSTransition in={this.state.showComparison} timeout={500} classNames="example">
                 <span style={{ color: "#1DB954" }}>
@@ -267,9 +275,8 @@ class MoodDashboard extends Component {
                   {comparisonDescriptor}
                 </span>
               </BSFade>
-
               ?
-            </h2>
+            </h3>
 
             <ComparisonsDisplay
               percentages={this.state.percentages}
@@ -277,9 +284,10 @@ class MoodDashboard extends Component {
               comparisonTracksFeatures={this.state.comparisonTracksFeatures}
               comparisonType={this.state.comparisonType}
               showComparison={this.state.showComparison}
+              handleChange={(e) => this.handleChange(e)}
             />
           </Container>
-          <Container className={"mb-4 mt-2"}>
+          <Container fluid className={"mb-4 mt-2"}>
             <RecentShowcase tracks={this.state.uniqueRecentTracks} />
           </Container>
 
