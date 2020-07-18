@@ -1,7 +1,7 @@
 import React from "react";
 import LineChart from "./LineChart";
 import Api from "../../Api";
-
+import Fade from "react-reveal/Fade";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -210,39 +210,41 @@ class VibeDashboard extends React.Component {
       !this.state.isLoading && (
         <div>
           <Container fluid="lg">
-            <header>Your Vibe</header>
-            <Row className="mt-4 mb-4">
-              <Col md={6} className="mt-4 mb-4">
-                <LineChart
-                  title="Valence (Happiness)"
-                  description={chartDescriptions.valence}
-                  data={this.state.formattedData.valence}
-                />
-              </Col>
-              <Col md={6} className="mt-4 mb-4">
-                <LineChart
-                  title="Danceability"
-                  description={chartDescriptions.danceability}
-                  data={this.state.formattedData.danceability}
-                />
-              </Col>
-            </Row>
-            <Row className="mb-4">
-              <Col md={6} className="mt-4 mb-4">
-                <LineChart
-                  title="Energy"
-                  description={chartDescriptions.energy}
-                  data={this.state.formattedData.energy}
-                />
-              </Col>
-              <Col md={6} className="mt-4 mb-4">
-                <LineChart
-                  title="Acousticness"
-                  description={chartDescriptions.acousticness}
-                  data={this.state.formattedData.acousticness}
-                />
-              </Col>
-            </Row>
+            <Fade>
+              <header>Your Vibe</header>
+              <Row className="mt-4 mb-4">
+                <Col md={6} className="mt-4 mb-4">
+                  <LineChart
+                    title="Valence (Happiness)"
+                    description={chartDescriptions.valence}
+                    data={this.state.formattedData.valence}
+                  />
+                </Col>
+                <Col md={6} className="mt-4 mb-4">
+                  <LineChart
+                    title="Danceability"
+                    description={chartDescriptions.danceability}
+                    data={this.state.formattedData.danceability}
+                  />
+                </Col>
+              </Row>
+              <Row className="mb-4">
+                <Col md={6} className="mt-4 mb-4">
+                  <LineChart
+                    title="Energy"
+                    description={chartDescriptions.energy}
+                    data={this.state.formattedData.energy}
+                  />
+                </Col>
+                <Col md={6} className="mt-4 mb-4">
+                  <LineChart
+                    title="Acousticness"
+                    description={chartDescriptions.acousticness}
+                    data={this.state.formattedData.acousticness}
+                  />
+                </Col>
+              </Row>
+            </Fade>
           </Container>
           <hr />
         </div>

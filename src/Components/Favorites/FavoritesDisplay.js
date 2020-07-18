@@ -2,6 +2,7 @@ import React from "react";
 import ResultTable from "./ResultTable";
 import SearchBar from "./SearchBar";
 import Api from "../../Api";
+import Fade from "react-reveal/Fade";
 
 class FavoritesDisplay extends React.Component {
   constructor(props) {
@@ -47,12 +48,14 @@ class FavoritesDisplay extends React.Component {
   render() {
     return this.state.isLoading ? null : (
       <div>
-        <header>Your Favorites</header>
-        <SearchBar
-          handleChange={this.handleChange}
-          timeRange={this.state.timeRange}
-          topType={this.state.topType}
-        />
+        <Fade>
+          <header>Your Favorites</header>
+          <SearchBar
+            handleChange={this.handleChange}
+            timeRange={this.state.timeRange}
+            topType={this.state.topType}
+          />
+        </Fade>
         <ResultTable
           topType={this.state.topType}
           data={this.state.data}

@@ -61,7 +61,7 @@ class CarouselPlayer extends Component {
           showSkipControls={true}
           showJumpControls={false}
           customProgressBarSection={[]}
-          volume={0.2}
+          volume={0.3}
           autoPlayAfterSrcChange={this.state.trackIsPlaying}
         />
       </div>

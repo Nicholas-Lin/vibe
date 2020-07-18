@@ -1,6 +1,6 @@
 import React from "react";
 import ResultItem from "./ResultItem";
-import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
+import Fade from "react-reveal/Fade";
 
 class ResultTable extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class ResultTable extends React.Component {
       activeTrack.setAttribute("id", "favorite-player");
       activeTrack.onended = () => this.setState({ currentlyPlaying: "" });
 
-      activeTrack.volume = 0.25;
+      activeTrack.volume = 0.3;
       document.getElementById("result-table").append(activeTrack);
       activeTrack.play();
       this.setState({ currentlyPlaying: previewURL });
@@ -71,13 +71,15 @@ class ResultTable extends React.Component {
 
     return (
       <div id="result-table">
-        {results ? (
-          results
-        ) : (
-          <h3 className="no-results" style={{ alignSelf: "center" }}>
-            No Results
-          </h3>
-        )}
+        <Fade>
+          {results ? (
+            results
+          ) : (
+            <h3 className="no-results" style={{ alignSelf: "center" }}>
+              No Results
+            </h3>
+          )}
+        </Fade>
       </div>
     );
   }

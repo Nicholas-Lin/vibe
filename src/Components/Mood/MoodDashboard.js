@@ -10,6 +10,9 @@ import Container from "react-bootstrap/Container";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Fade from "react-reveal/Fade";
+import { CSSTransitionGroup } from "react-transition-group";
+// import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import PopularityDisplay from "./PopularityDisplay";
 import DoughnutChart from "./DoughnutChart";
@@ -121,7 +124,7 @@ class MoodDashboard extends Component {
         comparisonType,
       });
       i++;
-    }, 7000);
+    }, 8000);
   }
 
   async componentDidMount() {
@@ -190,11 +193,16 @@ class MoodDashboard extends Component {
       });
       popularityScore /= recentTracksFeatures.length;
 
-      let comparisonTracksFeatures = { top: [], short_term: [], medium_term: [], long_term: [] }
+      let comparisonTracksFeatures = {
+        top: [],
+        short_term: [],
+        medium_term: [],
+        long_term: [],
+      };
       for (const key in comparisonTracksFeatures) {
-        comparisonTracksFeatures[key] = await this.getComparisonFeatures(key)
+        comparisonTracksFeatures[key] = await this.getComparisonFeatures(key);
       }
-      console.log(comparisonTracksFeatures)
+      console.log(comparisonTracksFeatures);
 
       this.setState({
         uniqueRecentTracks,
@@ -232,38 +240,50 @@ class MoodDashboard extends Component {
     }
     return this.state.isLoading ? null : (
       <div>
-        <Container fluid className=" d-flex flex-column mood-top-section">
-          <header>Your Mood</header>
+        <Fade>
+          <Container fluid className=" d-flex flex-column mood-top-section">
+            <header>Your Mood</header>
+            <PopularityDisplay score={this.state.popularity} />
+            <h2>
+              How do your recent songs compare to{" "}
+              <CSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}
+              >
+                <span key="comparisonDescriptor" style={{ color: "#1DB954" }}>
+                  {comparisonDescriptor}
+                </span>
+              </CSSTransitionGroup>
+              ?
+            </h2>
 
-          <PopularityDisplay score={this.state.popularity} />
-          <h2>
-            How do your recent songs compare to{" "}
-            <span style={{ color: "#1DB954" }}>{comparisonDescriptor}</span>?
-          </h2>
-          <ComparisonsDisplay
-            percentages={this.state.percentages}
-            recentTracksFeatures={this.state.recentTracksFeatures}
-            comparisonTracksFeatures={this.state.comparisonTracksFeatures}
-            comparisonType={this.state.comparisonType}
-          />
-        </Container>
-        <Container className={"mb-4 mt-2"}>
-          <RecentShowcase tracks={this.state.uniqueRecentTracks} />
-        </Container>
+            <ComparisonsDisplay
+              percentages={this.state.percentages}
+              recentTracksFeatures={this.state.recentTracksFeatures}
+              comparisonTracksFeatures={this.state.comparisonTracksFeatures}
+              comparisonType={this.state.comparisonType}
+            />
+          </Container>
+          <Container className={"mb-4 mt-2"}>
+            <RecentShowcase tracks={this.state.uniqueRecentTracks} />
+          </Container>
 
-        <hr />
-        <Container
-          fluid
-          className=" d-flex flex-column"
-          style={{ minHeight: "90vh" }}
-        >
-          <Row>
-            <Col className="justify-content-center">
-              <h2>{"Your Recent Genres"}</h2>
-              <DoughnutChart data={this.state.genres} />
-            </Col>
-          </Row>
-        </Container>
+          <hr />
+          <Container
+            fluid
+            className=" d-flex flex-column"
+            style={{ minHeight: "90vh" }}
+          >
+            <Row>
+              <Col className="justify-content-center">
+                <h2>{"Your Recent Genres"}</h2>
+                <DoughnutChart data={this.state.genres} />
+              </Col>
+            </Row>
+          </Container>
+        </Fade>
+
         <hr />
       </div>
     );
