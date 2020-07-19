@@ -9,7 +9,6 @@ import React from "react";
 import "./App.css";
 import hash from "./hash";
 import { loginURL } from "./config";
-
 import Login from "./Views/Login";
 import MainDisplay from "./Views/MainDisplay";
 
