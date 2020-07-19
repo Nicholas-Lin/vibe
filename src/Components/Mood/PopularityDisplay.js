@@ -27,10 +27,7 @@ class PopularityDisplay extends Component {
     }
 
     return (
-      <Col
-        className="d-flex flex-column justify-content-center"
-        style={{ height: "30vh" }}
-      >
+      <Col className="d-flex flex-column justify-content-center popularity-display">
         <h3>{`${description} ${emoji}`}</h3>
         <h4>{"Popularity Score"}</h4>
 

@@ -45,6 +45,9 @@ body {
   .mood-top-section {
     height: 100vh;
   }
+  .popularity-display {
+    height: 30vh;
+  }
 }
 
 .mood-top-section {
