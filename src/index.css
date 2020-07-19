@@ -11,6 +11,12 @@ a {
   color: inherit; /* blue colors for links too */
   text-decoration: none !important;
 }
+.login a {
+  color: #1db954;
+}
+.login a:hover {
+  color: #105829;
+}
 
 .result-item:hover {
   color: #1db954;

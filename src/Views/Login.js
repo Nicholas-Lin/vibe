@@ -18,7 +18,7 @@ function Login(props) {
   }
   return (
     <Container>
-      <Col className="d-flex align-items-center flex-column login justify-content-center">
+      <Col className="d-flex align-items-center flex-column login justify-content-center login">
         <Fade duration={2000}>
           <header> Vibe </header>
           <SoundWave />
