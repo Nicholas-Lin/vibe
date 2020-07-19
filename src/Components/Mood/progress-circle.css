@@ -1,3 +1,9 @@
+.CircularProgressbar {
+  width: auto;
+  vertical-align: middle;
+  height: 100%;
+}
+
 .CircularProgressbar-path {
   stroke: #3bcacf !important;
   stroke-width: 6.5;

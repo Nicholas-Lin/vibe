@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -38,16 +39,17 @@ class PopularityDisplay extends Component {
     }, 500);
 
     return (
-      <Col className="d-flex flex-column justify-content-center popularity-display">
+      <Col className="flex-column justify-content-center popularity-display">
         <h3>{`${description} ${emoji}`}</h3>
         <h4>{"Popularity Score"}</h4>
-
-        <CircularProgressbar
-          value={this.state.score}
-          text={this.state.score}
-          background={true}
-          backgroundPadding={5}
-        />
+        <Row className="justify-content-center" style={{ height: "75%" }}>
+          <CircularProgressbar
+            value={this.state.score}
+            text={this.state.score}
+            background={true}
+            backgroundPadding={5}
+          />
+        </Row>
       </Col>
     );
   }

@@ -48,12 +48,13 @@ body {
 }
 
 @media (min-width: 768px) {
-  .mood-top-section {
-    height: 100vh;
-  }
   .popularity-display {
-    height: 30vh;
+    height: 55vh;
   }
+}
+
+.popularity-display {
+  height: 45vh;
 }
 
 .mood-top-section {
