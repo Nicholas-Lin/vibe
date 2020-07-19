@@ -52,45 +52,65 @@ class ResultItem extends React.Component {
       return null;
     }
 
-    const item = (
-      <div className="result-item">
-        <span className="order-number">{position}</span>
-        <span className="result-info">
-          <span
-            className="result-cover"
-            style={{ backgroundImage: `url(${image})` }}
-          ></span>
-          <span className="result-summary">
-            <span className="result-artist">{subtitle}</span>
-            <span className="result-name">{title}</span>
+    let item = (
+      <Fade>
+        <div className="result-item">
+          <span className="order-number">{position}</span>
+          <span className="result-info">
+            <span
+              className="result-cover"
+              style={{ backgroundImage: `url(${image})` }}
+            ></span>
+            <span className="result-summary">
+              <span className="result-artist">{subtitle}</span>
+              <span className="result-name">{title}</span>
+            </span>
           </span>
-        </span>
-        <div style={{ marginLeft: "auto" }}>
-          {isPlaying ? (
-            <SoundWave />
-          ) : (
+          <div style={{ marginLeft: "auto" }}>
+            {isPlaying ? (
+              <SoundWave />
+            ) : (
               this.state.isHovering && (
                 <FontAwesomeIcon size="3x" icon={faPlayCircle} />
               )
             )}
+          </div>
         </div>
-      </div>
+      </Fade>
     );
 
-    return type === "track" ? (
-      <div
-        onMouseEnter={this.handleMouseHover}
-        onMouseLeave={this.handleMouseHover}
-        onClick={() => this.handleClick()}
-      >
-        <Fade>
+    if (type === "track") {
+      if (this.props.previewURL) {
+        item = (
+          <div
+            onMouseEnter={this.handleMouseHover}
+            onMouseLeave={this.handleMouseHover}
+            onClick={() => this.handleClick()}
+          >
+            {item}
+          </div>
+        );
+      } else {
+        item = (
+          <a
+            onMouseEnter={this.handleMouseHover}
+            onMouseLeave={this.handleMouseHover}
+            href={this.props.uri}
+            target="_blank"
+          >
+            {item}
+          </a>
+        );
+      }
+    } else {
+      item = (
+        <a href={this.props.uri} target="_blank">
           {item}
-        </Fade>
-
-      </div>
-    ) : (
-        <div><Fade>{item}</Fade></div>
+        </a>
       );
+    }
+
+    return item;
   }
 }
 

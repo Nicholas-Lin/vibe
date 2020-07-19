@@ -10,6 +10,7 @@ class ResultTable extends React.Component {
     this.playTrack = this.playTrack.bind(this);
   }
   playTrack(previewURL) {
+    console.log(previewURL);
     let activeTrack = document.getElementById("favorite-player");
     if (!activeTrack) {
       activeTrack = new Audio(previewURL);
@@ -39,6 +40,7 @@ class ResultTable extends React.Component {
 
   render() {
     let results;
+    console.log(this.props.data);
     if (this.props.topType === "tracks") {
       results = this.props.data.map((track, index) => (
         <ResultItem
@@ -49,6 +51,7 @@ class ResultTable extends React.Component {
           subtitle={track.artists[0].name}
           image={track.album.images[0].url}
           previewURL={track.preview_url}
+          uri={track.external_urls.spotify}
           searchTerm={this.props.searchTerm}
           playTrack={this.playTrack}
           isPlaying={this.state.currentlyPlaying === track.preview_url}
@@ -61,6 +64,7 @@ class ResultTable extends React.Component {
           position={index + 1}
           key={artist.id}
           title={artist.name}
+          uri={artist.external_urls.spotify}
           subtitle={artist.genres.join(", ")}
           image={artist.images[0].url}
           searchTerm={this.props.searchTerm}
@@ -70,14 +74,13 @@ class ResultTable extends React.Component {
 
     return (
       <div id="result-table">
-
         {results ? (
           results
         ) : (
-            <h3 className="no-results" style={{ alignSelf: "center" }}>
-              No Results
-            </h3>
-          )}
+          <h3 className="no-results" style={{ alignSelf: "center" }}>
+            No Results
+          </h3>
+        )}
       </div>
     );
   }

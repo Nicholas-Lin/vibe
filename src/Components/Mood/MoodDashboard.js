@@ -259,11 +259,11 @@ class MoodDashboard extends Component {
     return this.state.isLoading ? null : (
       <div>
         <Fade>
-          <Container fluid className="mood-top-section">
+          <Col className="mood-top-section d-flex flex-column">
             <header>Your Mood</header>
 
             <PopularityDisplay score={this.state.popularity} />
-            <h3>
+            <h4>
               How do your recent songs compare to{" "}
               {/* <CSSTransition in={this.state.showComparison} timeout={500} classNames="example">
                 <span style={{ color: "#1DB954" }}>
@@ -276,7 +276,7 @@ class MoodDashboard extends Component {
                 </span>
               </BSFade>
               ?
-            </h3>
+            </h4>
 
             <ComparisonsDisplay
               percentages={this.state.percentages}
@@ -286,7 +286,7 @@ class MoodDashboard extends Component {
               showComparison={this.state.showComparison}
               handleChange={(e) => this.handleChange(e)}
             />
-          </Container>
+          </Col>
           <Container fluid className={"mb-4 mt-2"}>
             <RecentShowcase tracks={this.state.uniqueRecentTracks} />
           </Container>

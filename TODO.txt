@@ -3,4 +3,5 @@
 
 
 1. Navigation
-2. Animations
+2. Landing page justify between
+3. Audio playback multiple problem

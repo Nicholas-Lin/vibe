@@ -198,13 +198,13 @@ class VibeDashboard extends React.Component {
   render() {
     const chartDescriptions = {
       valence:
-        "Describes the musical positiveness conveyed by a track. Tracks with high valence sound more positive, while tracks with low valence sound more negative.",
+        "Valence (positivity) describes how happy, cheerful, and euphoric a track feels, while tracks with low valence tend to sound sad, depressed, or angry.",
       danceability:
-        "Describes how suitable a track is for dancing based on a combination of musical elements.",
+        "Describes how suitable a track is for dancing based on a combination of its tempo, rhythm stability, and beat strength.",
       energy:
-        "Represents a perceptual measure of intensity and activity based on dynamic range, general entropy, etc.",
+        "Describes how fast, loud, and noisy a track feels. For example, death metal has high energy, while a Bach prelude scores low on the scale.",
       acousticness:
-        "A confidence measure from 0 to 100 of whether the track is acoustic. 100 represents high confidence the track is acoustic.",
+        "Describes how many more elements of a song are acoustic, as opposed to electric. Songs with a higher score are more likely to be acoustic..",
     };
     return (
       !this.state.isLoading && (
@@ -244,9 +244,9 @@ class VibeDashboard extends React.Component {
                   />
                 </Col>
               </Row>
+              <hr />
             </Fade>
           </Container>
-          <hr />
         </div>
       )
     );

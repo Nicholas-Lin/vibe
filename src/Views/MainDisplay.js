@@ -11,6 +11,7 @@ import VibeDashboard from "../Components/Vibe/VibeDashboard";
 import MoodDashboard from "../Components/Mood/MoodDashboard";
 import Loading from "../Components/Loading";
 import FavoritesDisplay from "../Components/Favorites/FavoritesDisplay";
+
 class MainDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -77,6 +78,7 @@ class MainDisplay extends React.Component {
             load={() => this.loadMoodDashboard()}
             handleTimeout={() => this.props.handleTimeout()}
           />
+
           <VibeDashboard
             token={this.props.token}
             load={() => this.loadVibeDashboard()}

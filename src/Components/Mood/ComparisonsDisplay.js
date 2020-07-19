@@ -118,6 +118,7 @@ export default class ComparisonsDisplay extends Component {
             All Time
           </Button>
         </ButtonGroup>
+
         <Row>
           <Col md={3}>
             <PercentDisplay
@@ -155,7 +156,6 @@ export default class ComparisonsDisplay extends Component {
               emojis={["🎸", "🎻"]}
             />
           </Col>
-
           <hr />
         </Row>
       </Fade>

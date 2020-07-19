@@ -7,6 +7,14 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: none !important;
+}
+
+.result-item:hover {
+  color: #1db954;
+}
 .example-enter {
   opacity: 0;
 }
@@ -25,13 +33,18 @@ body {
   transition: opacity 500ms ease-in;
 }
 
-
 body {
   min-height: 100vh;
   background-color: black;
   color: white;
   font-size: 16px;
   font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .mood-top-section {
+    height: 100vh;
+  }
 }
 
 .mood-top-section {
@@ -88,10 +101,6 @@ hr {
   padding: 15px 20px;
 }
 
-a {
-  color: rgb(24, 167, 74);
-}
-
 .login {
   height: 100vh;
 }
@@ -123,4 +132,3 @@ a {
 #result-table {
   min-height: 90vh;
 }
-
