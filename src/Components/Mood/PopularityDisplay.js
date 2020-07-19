@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import "../../progress-circle.css";
 import Col from "react-bootstrap/Col";
 
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import "./progress-circle.css";
+
 class PopularityDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      score: 0,
+    };
+  }
   render() {
-    let { score } = this.props;
     const ranges = [0, 30, 50, 70, 90, 100];
     const descriptions = [
       "Hipster",
@@ -19,42 +27,27 @@ class PopularityDisplay extends Component {
     for (let i = 0; i < ranges.length - 1; i++) {
       const lowerBound = ranges[i];
       const upperBound = ranges[i + 1];
-      if (score >= lowerBound && score < upperBound) {
+      if (this.props.score >= lowerBound && this.props.score < upperBound) {
         description = descriptions[i];
         emoji = emojis[i];
         break;
       }
     }
+    setTimeout(() => {
+      this.setState({ score: Math.round(this.props.score) });
+    }, 500);
 
     return (
       <Col className="d-flex flex-column justify-content-center popularity-display">
         <h3>{`${description} ${emoji}`}</h3>
         <h4>{"Popularity Score"}</h4>
 
-        <svg viewBox="0 0 36 36" className="circular-chart green">
-          <path
-            className="circle-bg"
-            d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <path
-            className="circle"
-            strokeDasharray="60, 100"
-            d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <text
-            x="50%"
-            y="50%"
-            textAnchor="middle"
-            dy=".35em"
-            className="percentage"
-          >
-            {Math.round(score)}
-          </text>
-        </svg>
+        <CircularProgressbar
+          value={this.state.score}
+          text={this.state.score}
+          background={true}
+          backgroundPadding={5}
+        />
       </Col>
     );
   }

@@ -97,6 +97,7 @@ class ResultItem extends React.Component {
             onMouseLeave={this.handleMouseHover}
             href={this.props.uri}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {item}
           </a>
@@ -104,7 +105,7 @@ class ResultItem extends React.Component {
       }
     } else {
       item = (
-        <a href={this.props.uri} target="_blank">
+        <a href={this.props.uri} rel="noopener noreferrer" target="_blank">
           {item}
         </a>
       );
