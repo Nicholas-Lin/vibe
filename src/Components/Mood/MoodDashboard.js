@@ -251,6 +251,8 @@ class MoodDashboard extends Component {
       case "long_term":
         comparisonDescriptor = "your all-time favorites";
         break;
+      default:
+        break;
     }
     return this.state.isLoading ? null : (
       <div>

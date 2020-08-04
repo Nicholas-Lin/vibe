@@ -14,10 +14,6 @@ import Tooltip from "react-bootstrap/Tooltip";
 import "./slider.css";
 
 class Slider extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { value, title, color, tooltip } = this.props;
     const muiTheme = createMuiTheme({

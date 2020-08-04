@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "./progress-circle.css";
 

@@ -6,11 +6,9 @@
  */
 
 import React, { Component } from "react";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TrackFeaturesDisplay from "./TrackFeaturesDisplay";
-import { ImageCarousel } from "./ImageCarousel";
 
 import CarouselPlayer from "./CarouselPlayer";
 import "react-h5-audio-player/lib/styles.css";
@@ -21,7 +19,7 @@ class RecentShowcase extends Component {
     super(props);
     this.state = {
       currentTrack: this.props.tracks[0],
-      currentIndex: 0
+      currentIndex: 0,
     };
     this.handleSlide = this.handleSlide.bind(this);
     this.nextSlide = this.nextSlide.bind(this);
@@ -33,13 +31,22 @@ class RecentShowcase extends Component {
   }
 
   nextSlide() {
-    const newIndex = (this.state.currentIndex + 1) % this.props.tracks.length
-    this.setState({ currentIndex: newIndex, currentTrack: this.props.tracks[newIndex] });
+    const newIndex = (this.state.currentIndex + 1) % this.props.tracks.length;
+    this.setState({
+      currentIndex: newIndex,
+      currentTrack: this.props.tracks[newIndex],
+    });
   }
 
   previousSlide() {
-    const newIndex = this.state.currentIndex === 0 ? this.props.tracks.length - 1 : this.state.currentIndex - 1
-    this.setState({ currentIndex: newIndex, currentTrack: this.props.tracks[newIndex] });
+    const newIndex =
+      this.state.currentIndex === 0
+        ? this.props.tracks.length - 1
+        : this.state.currentIndex - 1;
+    this.setState({
+      currentIndex: newIndex,
+      currentTrack: this.props.tracks[newIndex],
+    });
   }
 
   render() {

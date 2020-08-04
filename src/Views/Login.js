@@ -33,7 +33,11 @@ function Login(props) {
           <h6 className="mt-5">
             {" "}
             Created by{" "}
-            <a href="https://nicholas-lin.github.io/" target="_blank">
+            <a
+              href="https://nicholas-lin.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {" "}
               Nicholas Lin.{" "}
             </a>{" "}
@@ -43,7 +47,8 @@ function Login(props) {
               Your information is never stored. Powered by{" "}
               <a
                 href="https://developer.spotify.com/documentation/web-api/"
-                target="_blank"
+                target="_blank "
+                rel="noopener noreferrer"
               >
                 {" "}
                 Spotify's API.{" "}
@@ -51,8 +56,16 @@ function Login(props) {
             </h6>
 
             <h6>
-              Give this project a 🌟 on
-              <a href="https://github.com/Nicholas-Lin/vibe" target="_blank">
+              Give this project a{" "}
+              <span role="img" aria-label="star emoji">
+                🌟
+              </span>{" "}
+              on
+              <a
+                href="https://github.com/Nicholas-Lin/vibe"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {" "}
                 Github.
               </a>
