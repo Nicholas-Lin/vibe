@@ -30,17 +30,34 @@ function Login(props) {
           </Fade>
 
           <h4 className="mt-5">Get insights into your vibe.</h4>
-          <h6 className="mt-5">Your information will not be stored.</h6>
-          <h6>
+          <h6 className="mt-5">
             {" "}
             Created by{" "}
-            <a href="https://nicholas-lin.github.io/"> Nicholas Lin. </a>{" "}
-            Powered by{" "}
-            <a href="https://developer.spotify.com/documentation/web-api/">
+            <a href="https://nicholas-lin.github.io/" target="_blank">
               {" "}
-              Spotify's API.{" "}
+              Nicholas Lin.{" "}
             </a>{" "}
           </h6>
+          <Fade delay={2000}>
+            <h6>
+              Your information is never stored. Powered by{" "}
+              <a
+                href="https://developer.spotify.com/documentation/web-api/"
+                target="_blank"
+              >
+                {" "}
+                Spotify's API.{" "}
+              </a>{" "}
+            </h6>
+
+            <h6>
+              Give this project a 🌟 on
+              <a href="https://github.com/Nicholas-Lin/vibe" target="_blank">
+                {" "}
+                Github.
+              </a>
+            </h6>
+          </Fade>
         </Fade>
       </Col>
     </Container>

@@ -12,9 +12,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Fade from "react-reveal/Fade";
 import BSFade from "react-bootstrap/Fade";
-import TransitionGroup from "react-transition-group/TransitionGroup";
-import { CSSTransition } from "react-transition-group";
-// import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 import PopularityDisplay from "./PopularityDisplay";
 import DoughnutChart from "./DoughnutChart";
@@ -210,7 +207,6 @@ class MoodDashboard extends Component {
       for (const key in comparisonTracksFeatures) {
         comparisonTracksFeatures[key] = await this.getComparisonFeatures(key);
       }
-      console.log(comparisonTracksFeatures);
 
       this.setState({
         uniqueRecentTracks,

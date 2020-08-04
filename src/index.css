@@ -11,10 +11,12 @@ a {
   color: inherit; /* blue colors for links too */
   text-decoration: none !important;
 }
-.login a {
+.login a,
+footer a {
   color: #1db954;
 }
-.login a:hover {
+.login a:hover,
+footer a:hover {
   color: #105829;
 }
 
@@ -115,7 +117,8 @@ hr {
   height: 100vh;
 }
 
-.login h6 {
+.login h6,
+footer h6 {
   color: grey;
   font-weight: lighter;
 }

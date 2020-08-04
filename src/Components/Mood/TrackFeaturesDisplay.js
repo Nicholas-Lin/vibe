@@ -9,10 +9,6 @@ import React, { Component } from "react";
 import Slider from "./Slider";
 import Col from "react-bootstrap/Col";
 class TrackFeaturesDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { track } = this.props;
     const COLORS = [

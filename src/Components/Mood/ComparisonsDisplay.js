@@ -8,10 +8,6 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 
 export default class ComparisonsDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   /**
    * Computes the averages of an array of features of tracks
    * @param  {Array<Features>} tracks - An array of track features

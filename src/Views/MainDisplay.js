@@ -11,6 +11,7 @@ import VibeDashboard from "../Components/Vibe/VibeDashboard";
 import MoodDashboard from "../Components/Mood/MoodDashboard";
 import Loading from "../Components/Loading";
 import FavoritesDisplay from "../Components/Favorites/FavoritesDisplay";
+import Footer from "../Components/Footer";
 
 class MainDisplay extends React.Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class MainDisplay extends React.Component {
             token={this.props.token}
             load={() => this.loadFavorites()}
           />
+          <Footer />
         </Container>
       </React.Fragment>
     );
