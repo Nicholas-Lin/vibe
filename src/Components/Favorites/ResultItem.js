@@ -52,15 +52,16 @@ class ResultItem extends React.Component {
       return null;
     }
 
+    const resultCoverStyle = image
+      ? { backgroundImage: `url(${image})` }
+      : { backgroundColor: "black" };
+
     let item = (
       <Fade>
         <div className="result-item">
           <span className="order-number">{position}</span>
           <span className="result-info">
-            <span
-              className="result-cover"
-              style={{ backgroundImage: `url(${image})` }}
-            ></span>
+            <span className="result-cover" style={resultCoverStyle}></span>
             <span className="result-summary">
               <span className="result-artist">{subtitle}</span>
               <span className="result-name">{title}</span>

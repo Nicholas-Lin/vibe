@@ -22,7 +22,7 @@ export default function Loading() {
           </a>
         </h6>
         <h6>
-          Share it with friends{" "}
+          Share it with your friends{" "}
           <span role="img" aria-label="star emoji">
             😎
           </span>

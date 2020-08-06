@@ -154,6 +154,9 @@ class MoodDashboard extends Component {
       for (let i = 0; i < recentTracks.length; i++) {
         let formattedRecentTrack = {};
         const track = recentTracks[i].track;
+        if (!recentTracksFeatures[i]) {
+          continue;
+        }
         const {
           popularity,
           valence,

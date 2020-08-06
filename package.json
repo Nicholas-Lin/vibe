@@ -26,7 +26,7 @@
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.4.1"
   },
-  "homepage": "https://nicholas-lin.github.io/vibe/",
+  "homepage": "https://spotivibe.netlify.app/",
   "scripts": {
     "start": "react-scripts start --no-cache",
     "build": "react-scripts build",

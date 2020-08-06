@@ -44,6 +44,7 @@ class Api {
         limit: "10",
       },
     });
+    console.log(res.data.playlists.items);
     const result = res.data.playlists.items.filter((item) => {
       let isTermInName = true;
       // Checks if search terms are in the name of the playlist
@@ -122,7 +123,11 @@ class Api {
       },
     });
     let results = [];
+
     res.data.audio_features.forEach((trackFeatures) => {
+      if (!trackFeatures) {
+        return null;
+      }
       let result = {};
       features.forEach((feature) => {
         if (feature === "popularity") {
@@ -133,7 +138,10 @@ class Api {
           result[feature] = correspondingTrack.track
             ? correspondingTrack.track.popularity
             : correspondingTrack.popularity;
-        } else if (Object.keys(trackFeatures).includes(feature)) {
+        } else if (
+          trackFeatures &&
+          Object.keys(trackFeatures).includes(feature)
+        ) {
           result[feature] = trackFeatures[feature];
         }
       });

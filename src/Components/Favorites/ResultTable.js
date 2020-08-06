@@ -47,7 +47,11 @@ class ResultTable extends React.Component {
           key={track.id}
           title={track.name}
           subtitle={track.artists[0].name}
-          image={track.album.images[0].url}
+          image={
+            track.album.images[0] === undefined
+              ? null
+              : track.album.images[0].url
+          }
           previewURL={track.preview_url}
           uri={track.external_urls.spotify}
           searchTerm={this.props.searchTerm}
@@ -64,7 +68,7 @@ class ResultTable extends React.Component {
           title={artist.name}
           uri={artist.external_urls.spotify}
           subtitle={artist.genres.join(", ")}
-          image={artist.images[0].url}
+          image={artist.images[0] === undefined ? null : artist.images[0].url}
           searchTerm={this.props.searchTerm}
         />
       ));
