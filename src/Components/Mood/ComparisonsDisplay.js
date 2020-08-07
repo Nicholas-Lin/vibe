@@ -119,7 +119,7 @@ export default class ComparisonsDisplay extends Component {
           <Col md={3}>
             <PercentDisplay
               percent={valence}
-              descriptions={["Less happy", "Same hapiness", "Happier"]}
+              descriptions={["Less happy", "Same happiness", "Happier"]}
               emojis={["😭", "😢", "😕", "😃", "😁", "😊"]}
             />
           </Col>

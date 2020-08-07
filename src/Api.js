@@ -44,7 +44,6 @@ class Api {
         limit: "10",
       },
     });
-    console.log(res.data.playlists.items);
     const result = res.data.playlists.items.filter((item) => {
       let isTermInName = true;
       // Checks if search terms are in the name of the playlist
