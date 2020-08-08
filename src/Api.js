@@ -5,6 +5,70 @@ class Api {
   }
 
   /**
+   * Gets user's ID
+   * https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+   * @param  {string} playlistID - The type of entity to return. Valid values: artists or tracks.
+   * * @param  {Array<string>} playlistID - The type of entity to return. Valid values: artists or tracks.
+   * @return An array of track or artists objects
+   */
+  async addItemsToPlaylist(playlistID, uris) {
+    const endpoint = `	https://api.spotify.com/v1/playlists/${playlistID}/tracks`;
+    const jsonData = { uris };
+
+    // set the headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+    await axios.post(endpoint, jsonData, config);
+  }
+
+  /**
+   * Gets user's ID
+   * https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+   * @param  {string} userID - The user ID
+   * @param  {string} name - The name of the playlist
+   * @param  {string} description - The description
+   * @param  {boolean} isPublic - Whether or not the playlist will be public (default true)
+   * @return The playlist ID
+   */
+  async createPlaylist(userID, name, description, isPublic = true) {
+    const endpoint = `https://api.spotify.com/v1/users/${userID}/playlists`;
+    const jsonData = {
+      name: name,
+      description: description,
+      public: isPublic,
+    };
+
+    // set the headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+    const response = await axios.post(endpoint, jsonData, config);
+    return response.data.id;
+  }
+
+  /**
+   * Gets user's ID
+   * https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+   * @return The ID of the current user
+   */
+  async getUserID() {
+    const endpoint = `https://api.spotify.com/v1/me`;
+    const response = await axios.get(endpoint, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+    return response.data.id;
+  }
+
+  /**
    * Gets users top tracks/artists in a given time range:
    * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
    * @param  {string} type - The type of entity to return. Valid values: artists or tracks.

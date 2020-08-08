@@ -15,6 +15,8 @@ export const scopes = [
   "playlist-read-private",
   "user-top-read",
   "user-read-recently-played",
+  "playlist-modify-private",
+  "playlist-modify-public",
 ];
 export const loginURL = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   "%20"

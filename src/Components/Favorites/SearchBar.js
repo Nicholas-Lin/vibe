@@ -82,13 +82,27 @@ class SearchBar extends React.Component {
                 value="artists"
                 onClick={(e) => this.props.handleChange(e)}
                 checked={this.props.topType === "artists"}
-                defaultChecked
               >
                 Artists
               </Button>
             </ButtonGroup>
           </Col>
         </Row>
+        {this.props.topType === "tracks" && (
+          <Row className="justify-content-center">
+            <Button
+              variant="success"
+              className="create-button"
+              onClick={(e) => this.props.handleCreatePlaylist()}
+            >
+              Create Playlist
+              <span style={{ fontWeight: "600", fontSize: "25px" }}>
+                {" "}
+                &#43;
+              </span>
+            </Button>
+          </Row>
+        )}
       </div>
     );
   }
