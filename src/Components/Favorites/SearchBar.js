@@ -89,7 +89,7 @@ class SearchBar extends React.Component {
           </Col>
         </Row>
         {this.props.topType === "tracks" && (
-          <Row className="justify-content-center">
+          <Row className="justify-content-center pb-4">
             <Button
               variant="success"
               className="create-button"
